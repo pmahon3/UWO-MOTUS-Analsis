@@ -1,0 +1,41 @@
+model{
+	
+	##population level likelihood
+	for ( j in 1:NBIRDS ){
+	
+	
+  	##individual level likelihood
+  	for ( i in 1:N ){
+  		period[i] <- step( t[i] - delta[1] ) + step( t[i] - delta[2] ) + 1 
+  		y[i] ~ dnorm( m_y[ period[i] ] , tau[ period[i] ] )
+  	}
+  
+  	##priors
+  	for(k in 1:3){
+  		m_y[k] ~ dnorm( mu[k], 1 / (sigma_mu[k]^2) ) 
+  		
+  		mu[k] ~ dnorm( mu_mu[k], 1 / (sigma_mu_mu[k]^2) )
+  		sigma_mu[k] ~ dnorm( mu_sigma_mu[k], 1 / sigma__mu_mu_sigma[k] )
+  	}
+  
+  	for(k in 1:3){
+  		tau[k] ~ dscaled.gamma(10, 2)
+  		sigma[k] <- sqrt(tau[k])
+  	}
+  	
+  	delta[1] ~ dnorm( delta1Mu, 1 / (sigmaDelta1^2) ) 
+  	delta[2] ~ dnorm( delta2Mu, 1 / (sigmaDelta2^2) ) 
+  	
+  	#muSigma1 <- 2 
+  	#muSigma2 <- 2 
+  	#muSigma3 <- 2 
+  	#sigmaSigmaMu1 <- 2 
+  	#sigmaSigmaMu2 <- 2 
+  	#sigmaSigmaMu3 <- 2 
+  
+  	delta1Mu <- 6 * 3600
+  	delta2Mu <- 18 * 3600
+  	sigmaDelta1 <- 3600
+  	sigmaDelta2 <- 3600
+  }
+}
