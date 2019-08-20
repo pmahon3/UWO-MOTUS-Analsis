@@ -1,41 +1,51 @@
 model{
+
+	##individual level likelihood
 	
-	##population level likelihood
-	for ( j in 1:NBIRDS ){
+	for ( i in 1:nBirds){
 	
+	  n <- nObs[ i ]
+	  
+	  for ( j in 1:n ){
+	  
+		  period[ i, j ] <- step( t[ i, j ] - delta[ i, 1 ] ) + step( t[ i, j ] - delta[ i, 2] ) + 1 
+		  y[ i, j ] ~ dnorm( m_y[ period[ i, j ] ] , tau[ period[ i, j ] ] )
+		  
+	  }
+	}
+
+	##priors
+  for ( i in 1:nBirds ){
+    for ( j in 1:3 ){
+    
+	    m_y[ i, j ] ~ dnorm( mu[ i, j ], 1 / (sigma_mu[ i, j ]^2) ) 
+	    
+	  }
+	  for ( j in 1: 3 ){
+	  
+		  tau[ i, j ] ~ dscaled.gamma(10, 2)
+		  sigma[ i, j ] <- sqrt(tau[ i, j])
+		  
+	  }
+	}
+
+  
 	
-  	##individual level likelihood
-  	for ( i in 1:N ){
-  		period[i] <- step( t[i] - delta[1] ) + step( t[i] - delta[2] ) + 1 
-  		y[i] ~ dnorm( m_y[ period[i] ] , tau[ period[i] ] )
-  	}
-  
-  	##priors
-  	for(k in 1:3){
-  		m_y[k] ~ dnorm( mu[k], 1 / (sigma_mu[k]^2) ) 
-  		
-  		mu[k] ~ dnorm( mu_mu[k], 1 / (sigma_mu_mu[k]^2) )
-  		sigma_mu[k] ~ dnorm( mu_sigma_mu[k], 1 / sigma__mu_mu_sigma[k] )
-  	}
-  
-  	for(k in 1:3){
-  		tau[k] ~ dscaled.gamma(10, 2)
-  		sigma[k] <- sqrt(tau[k])
-  	}
-  	
-  	delta[1] ~ dnorm( delta1Mu, 1 / (sigmaDelta1^2) ) 
-  	delta[2] ~ dnorm( delta2Mu, 1 / (sigmaDelta2^2) ) 
-  	
-  	#muSigma1 <- 2 
-  	#muSigma2 <- 2 
-  	#muSigma3 <- 2 
-  	#sigmaSigmaMu1 <- 2 
-  	#sigmaSigmaMu2 <- 2 
-  	#sigmaSigmaMu3 <- 2 
-  
-  	delta1Mu <- 6 * 3600
-  	delta2Mu <- 18 * 3600
-  	sigmaDelta1 <- 3600
-  	sigmaDelta2 <- 3600
-  }
+	for ( i in 1:nBirds ){
+	  for ( j in 1:2 )
+	  
+		delta[ i, j ] ~ dnorm( mu_delta[ i, j ], 1 / (sigma_delta[ i, j ]^2) ) 
+		
+	  mu_delta[ i , j ] ~ dnorm( mu_mu_delta[j] , sigma_mu_delta[j] 
+	 
+	 #SIGMA_DELTA DISTRO
+
+	}
+
+
+	mu_mu_delta[1]  <- 6 * 3600
+	mu_mu_delta[2]  <- 18 * 3600
+	sigma_mu_delta[1] <- 60 * 3
+	sigma_mu_delta[2] <- 60 * 3
+
 }
