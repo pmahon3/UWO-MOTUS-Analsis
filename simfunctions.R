@@ -54,19 +54,19 @@ simBirdData <- function(  tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_mu3, d
 #' @param mu_mu1 mean of first mode mean signal strength
 #' @param mu_mu2 mean of second mode mean signal strength
 #' @param mu_mu3 mean of third mode mean signal strength
-#' @param sd_mu_mu1 sd of mean of first mode mean signal strength
-#' @param sd_mu_mu2 sd of mean of second mode mean signal strength
-#' @param sd_mu_mu3 sd of mean of third mode mean signal strength
+#' @param sd.mu_mu1 sd about the mean of first mode mean signal strength
+#' @param sd.mu_mu2 sd about the mean of second mode mean signal strength
+#' @param sd.mu_mu3 sd about the mean of third mode mean signal strength
 #' @param mu_sd1 mean of first mode sd
 #' @param mu_sd2 mean of second mode sd
 #' @param mu_sd3 mean of third mode sd
-#' @param sd_mu_sd1 sd of first mode sd
-#' @param sd_mu_sd2 sd of second mode sd
-#' @param sd_mu_sd3 sd of third mode sd
+#' @param sd.mu_sd1 sd about first mode sd
+#' @param sd.mu_sd2 sd about second mode sd
+#' @param sd.mu_sd3 sd abobut third mode sd
 #' @param mu_delta1 mean of first change point
 #' @param mu_delta2 mean of second change point
-#' @param sd__mu_delta1 sd of first change point
-#' @param sd_mu_delta2 sd of second change point
+#' @param sd.mu_delta1 sd about the mean of first change point
+#' @param sd.mu_delta2 sd about the mean of second change point
 #'
 #' @return
 #' @export
@@ -74,19 +74,19 @@ simBirdData <- function(  tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_mu3, d
 #' @examples
 
 
-simPopulationParams <- function( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_mu2, sd_mu_mu3, mu_sd1, mu_sd2, mu_sd3, sd_mu_sd1, sd_mu_sd2, sd_mu_sd3, mu_delta1, mu_delta2, sd__mu_delta1, sd_mu_delta2 ){
+simPopulationParams <- function( nBirds, mu_mu1, mu_mu2, mu_mu3, sd.mu_mu1, sd.mu_mu2, sd.mu_mu3, mu_sd1, mu_sd2, mu_sd3, sd.mu_sd1, sd.mu_sd2, sd.mu_sd3, mu_delta1, mu_delta2, sd.mu_delta1, sd.mu_delta2 ){
 
     #List of params for nBirds
-    mu1 <- rnorm( nBirds, mu_mu1, sd_mu_mu1)
-    mu2 <- rnorm( nBirds, mu_mu2, sd_mu_mu2)
-    mu3 <- rnorm( nBirds, mu_mu3, sd_mu_mu3)
+    mu1 <- rnorm( nBirds, mu_mu1, sd.mu_mu1)
+    mu2 <- rnorm( nBirds, mu_mu2, sd.mu_mu2)
+    mu3 <- rnorm( nBirds, mu_mu3, sd.mu_mu3)
 
-    sd_mu1 <- rnorm( nBirds, mu_sd1, sd_mu_sd1)
-    sd_mu2 <- rnorm( nBirds, mu_sd2, sd_mu_sd2)
-    sd_mu3 <- rnorm( nBirds, mu_sd3, sd_mu_sd3)
+    sd_mu1 <- rnorm( nBirds, mu_sd1, sd.mu_sd1)
+    sd_mu2 <- rnorm( nBirds, mu_sd2, sd.mu_sd2)
+    sd_mu3 <- rnorm( nBirds, mu_sd3, sd.mu_sd3)
 
-    delta1 <- rnorm( nBirds, mu_delta1, sd__mu_delta1 )
-    delta2 <- rnorm( nBirds, mu_delta2, sd_mu_delta2 )
+    delta1 <- rnorm( nBirds, mu_delta1, sd.mu_delta1 )
+    delta2 <- rnorm( nBirds, mu_delta2, sd.mu_delta2 )
 
     birds = data.frame(mu1, mu2, mu3, sd_mu1, sd_mu2, sd_mu3, delta1, delta2)
 
