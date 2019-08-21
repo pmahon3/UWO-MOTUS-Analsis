@@ -3,9 +3,6 @@ model{
 	##individual level likelihood
 	
 	for ( i in 1:nBirds){
-	
-	  n <- nObs[ i ]
-	  
 	  for ( j in 1:n ){
 	  
 		  period[ i, j ] <- step( t[ i, j ] - delta[ i, 1 ] ) + step( t[ i, j ] - delta[ i, 2] ) + 1 
@@ -20,18 +17,25 @@ model{
     
 	    m_y[ i, j ] ~ dnorm( mu[ i, j ], 1 / (sigma.mu[ i, j ]^2) ) 
 	    mu[ i, j ] ~ dnorm( mu_mu[ j ], sd.mu_mu[ j ])
-	    tau[ i, j ] ~ dscaled.gamma(10, 2)
-		  sigma[ i, j ] <- sqrt(tau[ i, j])
 	    
-	    sigma.mu[ i, j ] <- 10 
-	    sd.mu_mu[j] <- 7
 	  }
 	  
 	  for ( j in 1:2 ){
 	  
-		  delta[ i, j ] ~ dnorm( mu_delta[ i, j ], 1 / (sigma.mu_delta[ i, j ]^2) ) 
+		  delta[ i, j ] ~ dnorm( mu_delta[ j ], 1 / (sigma.mu_delta[ j ]^2) ) 
 		  
 	  }
+	}
+	
+	for ( j in 1:3 ){
+	  for ( i in 1:nBirds ){
+	    tau[ i, j ] ~ dscaled.gamma(10, 2)
+		  sigma[ i, j ] <- sqrt(tau[ i, j])
+	    
+	    sigma.mu[ i, j ] <- 10 
+	    
+	  }
+	  sd.mu_mu[j] <- 7
 	}
 
   mu_mu[1] <- -60

@@ -1,4 +1,4 @@
-library(dbplyr)
+library(dplyr)
 library(tibble)
 ## NEED TO INCLUDE TIBBLE PACKAGE IN SIFUNCTIONS
 ## CHANGE ARGS FOR simPopulationParams IN SIMFUNCTIONS
@@ -11,6 +11,7 @@ library(rjags)
 NBIRDS <- 100
 TSTEP <- 12
 TSPAN <- 86400
+N <- TSPAN/TSTEP
 
 MU_MU1 <- -59
 MU_MU2 <- -20
@@ -57,4 +58,39 @@ MU_DELTA2_INIT <- 0.7 * 86400
 SD_MU_DELTA1_INIT <- 60
 SD_MU_DELTA2_INIT <- 60
 
-N <- NBIRDS
+# Formatting data for model 
+
+y <- array( dim = c( NBIRDS, N))
+t <- array( dim = c( NBIRDS, N))
+
+for ( i in 1:NBIRDS ){
+  y[i, ] <- birdDat[[i]]$msrmnts
+  t[i, ] <- birdDat[[i]]$times      
+}
+
+# data trimming for speed 
+DATTRIM <- TRUE
+NSUB <- 100
+PLOT <- TRUE
+
+if ( DATTRIM ){
+
+  sub <- ceiling( seq( from = 1, to = N, by = NSUB ))
+  N <- N/NSUB
+  ysub <- array( dim = c(NBIRDS, N))
+  tsub <- array( dim = c(NBIRDS, N))
+  
+  for ( i in 1:NBIRDS ){
+    ysub[i, ] <- y[i, sub]
+    tsub[i, ] <- t[i, sub]
+  }
+  
+  dat <- list( "y" = ysub, "t" = tsub, "n" = N, "nBirds" = NBIRDS)
+  
+} 
+
+#inits
+
+
+model <- jags.model( "populationModel", data = dat, n.chains = 3, n.adapt = 1000 )
+deltaMonitor <- coda.samples( model, variable.names = c("mu_delta1", "mu_delta2"), n.iter = 2000 )
