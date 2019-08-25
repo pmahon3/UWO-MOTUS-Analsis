@@ -77,13 +77,32 @@ simBirdData <- function(  tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_mu3, d
 simPopulationParams <- function( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_mu2, sd_mu_mu3, mu_sd1, mu_sd2, mu_sd3, sd_mu_sd1, sd_mu_sd2, sd_mu_sd3, mu_delta1, mu_delta2, sd_delta1, sd_delta2 ){
 
     #List of params for nBirds
+
     mu1 <- rnorm( nBirds, mu_mu1, sd_mu_mu1)
     mu2 <- rnorm( nBirds, mu_mu2, sd_mu_mu2)
     mu3 <- rnorm( nBirds, mu_mu3, sd_mu_mu3)
 
-    sd_mu1 <- rnorm( nBirds, mu_sd1, sd_mu_sd1)
-    sd_mu2 <- rnorm( nBirds, mu_sd2, sd_mu_sd2)
-    sd_mu3 <- rnorm( nBirds, mu_sd3, sd_mu_sd3)
+    sd_mu1 = vector( mode = "double", length = nBirds )
+    sd_mu2 = vector( mode = "double", length = nBirds )
+    sd_mu3 = vector( mode = "double", length = nBirds )
+
+    for ( i in 1:nBirds ){
+
+      sd_mu1[i] <- rnorm(1,  mu_sd1, sd_mu_sd1)
+      sd_mu2[i] <- rnorm(1, mu_sd2, sd_mu_sd2)
+      sd_mu3[i] <- rnorm(1,  mu_sd3, sd_mu_sd3)
+
+      while ( sd_mu1[i] <= 0 ) {
+        sd_mu1[i] <- rnorm(1,  mu_sd1, sd_mu_sd1)
+      }
+      while ( sd_mu2[i] <= 0 ) {
+        sd_mu2[i] <- rnorm(1, mu_sd2, sd_mu_sd2)
+      }
+      while ( sd_mu3[i] <= 0 ) {
+        sd_mu3[i] <- rnorm(1, mu_sd3, sd_mu_sd3)
+      }
+    }
+
 
     delta1 <- rnorm( nBirds, mu_delta1, sd_delta1 )
     delta2 <- rnorm( nBirds, mu_delta2, sd_delta2 )

@@ -5,6 +5,7 @@ library(tibble)
 library(simfunctions)
 library(modelfunctions)
 library(rjags)
+library(modelfunctions)
 
 ## SIMMING A POPULATION OF BIRDS
 
@@ -13,9 +14,9 @@ TSTEP <- 12
 TSPAN <- 86400
 N <- TSPAN/TSTEP
 
-MU_MU1 <- -59
-MU_MU2 <- -20
-MU_MU3 <- -59
+MU_MU1 <- -80
+MU_MU2 <- -40
+MU_MU3 <- -80
 SD_MU_MU1 <- 5
 SD_MU_MU2 <- 5
 SD_MU_MU3 <- 5
@@ -23,9 +24,9 @@ SD_MU_MU3 <- 5
 MU_SD1 <- 5
 MU_SD2 <- 5
 MU_SD3 <- 5
-SD_MU_SD1 <- .1
-SD_MU_SD2 <- .1
-SD_MU_SD3 <- .1
+SD_MU_SD1 <- .001
+SD_MU_SD2 <- .001
+SD_MU_SD3 <- .001
 
 MU_DELTA1 <- 0.2 * 86400
 MU_DELTA2 <- 0.7 * 86400
@@ -49,9 +50,9 @@ SD_MU_MU3_INIT <- 5
 MU_SD1_INIT <- 5
 MU_SD2_INIT <- 5
 MU_SD3_INIT <- 5
-SD_MU_SD1_INIT <- .1
-SD_MU_SD2_INIT <- .1
-SD_MU_SD3_INIT <- .1
+SD_MU_SD1_INIT <- .001
+SD_MU_SD2_INIT <- .001
+SD_MU_SD3_INIT <- .001
 
 MU_DELTA1_INIT <- 0.2 * 86400
 MU_DELTA2_INIT <- 0.7 * 86400
@@ -87,10 +88,16 @@ if ( DATTRIM ){
   
   dat <- list( "y" = ysub, "t" = tsub, "n" = N, "nBirds" = NBIRDS)
   
-} 
+} else{
+  dat <- list( "y" = y, "t" = t, "n" = N, "nBirds" = NBIRDS)
+}
 
 #inits
 
-
 model <- jags.model( "populationModel", data = dat, n.chains = 3, n.adapt = 1000 )
-deltaMonitor <- coda.samples( model, variable.names = c("mu_delta1", "mu_delta2"), n.iter = 2000 )
+monitor <- coda.samples( model, variable.names = c("mu_mu[1]", "mu_mu[2]" ), n.iter = 2000 )
+HDIofMCMC( monitor[1], credMass = 0.95 )
+
+if( PLOT ) {
+  plot( monitor )
+}
