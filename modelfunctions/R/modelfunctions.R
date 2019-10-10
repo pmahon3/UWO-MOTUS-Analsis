@@ -5,7 +5,7 @@ HDIofMCMC <- function( sampleVec, credMass ){
   cilIdxInc <- floor( credMass * length( sortedPts ))
   nCIs = length( sortedPts ) - cilIdxInc
   for ( i in 1:nCIs ){
-    ciWidth[ i ] <- sortedPts[ i + cilIdxInc ] - sortedPts[ i ]
+    ciWidth[ i ] <- sortedPts[ i + cilIdxInc[i] ] - sortedPts[ i ]
   }
 
   HDImin <- sortedPts[ which.min( ciWidth )]

@@ -1,11 +1,9 @@
 library(dplyr)
-library(tibble)
 ## NEED TO INCLUDE TIBBLE PACKAGE IN SIFUNCTIONS
 ## CHANGE ARGS FOR simPopulationParams IN SIMFUNCTIONS
 library(simfunctions)
 library(modelfunctions)
 library(rjags)
-library(modelfunctions)
 
 ## SIMMING A POPULATION OF BIRDS
 
@@ -29,7 +27,7 @@ SD_MU_SD2 <- .001
 SD_MU_SD3 <- .001
 
 MU_DELTA1 <- 0.2 * 86400
-MU_DELTA2 <- 0.7 * 86400
+MU_DELTA2 <- 0.75 * 86400
 SD_MU_DELTA1 <- 60
 SD_MU_DELTA2 <- 60
 
@@ -58,6 +56,10 @@ MU_DELTA1_INIT <- 0.2 * 86400
 MU_DELTA2_INIT <- 0.7 * 86400
 SD_MU_DELTA1_INIT <- 60
 SD_MU_DELTA2_INIT <- 60
+NCHAINS <- 3
+NADAPT <- 1000
+NITER <- 2000
+
 
 # Formatting data for model 
 
@@ -94,10 +96,22 @@ if ( DATTRIM ){
 
 #inits
 
-model <- jags.model( "populationModel", data = dat, n.chains = 3, n.adapt = 1000 )
-monitor <- coda.samples( model, variable.names = c("mu_mu[1]", "mu_mu[2]" ), n.iter = 2000 )
-HDIofMCMC( monitor[1], credMass = 0.95 )
+model <- jags.model( "populationModel", data = dat, n.chains = NCHAINS, n.adapt = NADAPT )
+monitor <- coda.samples( model, variable.names = c("delta[1]", "delta[2]" ), n.iter = NITER )
+HPD <- HPDinterval( monitor )
 
 if( PLOT ) {
-  plot( monitor )
-}
+  
+  # average lower and upper bounds for different chains
+  deltaHPDbounds = matrix(data = 0, nrow = 2, ncol = 2, dimnames = list( c("delta1", "delta2"), c("lower", "upper")))
+  for ( i in 1:length(HPD) ){
+ 
+    deltaHPDbounds["delta1", "lower"] = deltaHPDbounds["delta1", "lower"] + HPD[[i]][1,1]
+    deltaHPDbounds["delta1", "upper"] = deltaHPDbounds["delta1", "upper"] + HPD[[i]][1,2]
+    deltaHPDbounds["delta2", "lower"] = deltaHPDbounds["delta2", "lower"] + HPD[[i]][2,1]
+    deltaHPDbounds["delta2", "upper"] = deltaHPDbounds["delta2", "upper"] + HPD[[i]][2,2]
+    
+  }
+  deltaHPDbounds = deltaHPDbounds/length(HPD)
+  
+}  
