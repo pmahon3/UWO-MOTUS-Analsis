@@ -36,25 +36,23 @@ birdDat <- simPopulationData( birdPop, tStep = TSTEP, tSpan = TSPAN )
 ## FITTING A POPULATION OF BIRDS 
 load.module("glm")
 # Initial values and data args
+mu_mu <- vector(mode = "integer", length = 3)
+sd_mu <- vector(mode = "integer", length = 3)
 
-MU_MU1_INIT <- -59
-MU_MU2_INIT <- -20
-MU_MU3_INIT <- -59
-SD_MU1_INIT <- 5
-SD_MU_MU2_INIT <- 5
-SD_MU_MU3_INIT <- 5
+mu_delta <- vector(mode = "integer", length = 2)
+sd_delta <- vector(mode = "integer", length = 2)
 
-MU_SD1_INIT <- 5
-MU_SD2_INIT <- 5
-MU_SD3_INIT <- 5
-SD_MU_SD1_INIT <- .001
-SD_MU_SD2_INIT <- .001
-SD_MU_SD3_INIT <- .001
+mu_mu[1] <- -59
+mu_mu[2] <- -20
+mu_mu[3] <- -59
+sd_mu[1] <- 5
+sd_mu[2] <- 5
+sd_mu[3] <- 5
 
-MU_DELTA1_INIT <- 0.2 * 86400
-MU_DELTA2_INIT <- 0.7 * 86400
-SD_MU_DELTA1_INIT <- 60
-SD_MU_DELTA2_INIT <- 60
+mu_delta[1] <- 0.2 * 86400
+mu_delta[2] <- 0.7 * 86400
+sd_delta[1] <- 60
+sd_delta[2] <- 60
 NCHAINS <- 3
 NADAPT <- 1000
 NITER <- 2000
@@ -73,7 +71,7 @@ for ( i in 1:NBIRDS ){
 # data trimming for speed 
 DATTRIM <- TRUE
 NSUB <- 100
-PLOT <- TRUE
+PLOT <- FALSE
 
 if ( DATTRIM ){
 
@@ -87,28 +85,29 @@ if ( DATTRIM ){
     tsub[i, ] <- t[i, sub]
   }
   
-  dat <- list( "y" = ysub, "t" = tsub, "n" = N, "nBirds" = NBIRDS)
+  dat <- list( "y" = ysub, "t" = tsub, "n" = N, "nBirds" = NBIRDS, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta" = mu_delta, "sd_delta" = sd_delta)
   
 } else{
-  dat <- list( "y" = y, "t" = t, "n" = N, "nBirds" = NBIRDS)
+  dat <- list( "y" = ysub, "t" = t, "n" = N, "nBirds" = NBIRDS, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta" = mu_delta, "sd_delta" = sd_delta)
 }
 
 #inits
 
-model <- jags.model( "populationModel", data = dat, n.chains = NCHAINS, n.adapt = NADAPT )
-monitor <- coda.samples( model, variable.names = c("delta[1]", "delta[2]" ), n.iter = NITER )
+model <- jags.model( "populationModel.txt", data = dat, n.chains = NCHAINS, n.adapt = NADAPT )
+monitor <- coda.samples( model, variable.names = c("mean_delta1", "mean_delta2" ), n.iter = NITER )
+
 HPD <- HPDinterval( monitor )
 
 if( PLOT ) {
   
   # average lower and upper bounds for different chains
-  deltaHPDbounds = matrix(data = 0, nrow = 2, ncol = 2, dimnames = list( c("delta1", "delta2"), c("lower", "upper")))
+  deltaHPDbounds = matrix(data = 0, nrow = 2, ncol = 2, dimnames = list( c("mu_delta1", "mu_delta2"), c("lower", "upper")))
   for ( i in 1:length(HPD) ){
  
-    deltaHPDbounds["delta1", "lower"] = deltaHPDbounds["delta1", "lower"] + HPD[[i]][1,1]
-    deltaHPDbounds["delta1", "upper"] = deltaHPDbounds["delta1", "upper"] + HPD[[i]][1,2]
-    deltaHPDbounds["delta2", "lower"] = deltaHPDbounds["delta2", "lower"] + HPD[[i]][2,1]
-    deltaHPDbounds["delta2", "upper"] = deltaHPDbounds["delta2", "upper"] + HPD[[i]][2,2]
+    deltaHPDbounds["mu_delta1", "lower"] = deltaHPDbounds["mu_delta1", "lower"] + HPD[[i]][1,1]
+    deltaHPDbounds["mu_delta1", "upper"] = deltaHPDbounds["mu_delta1", "upper"] + HPD[[i]][1,2]
+    deltaHPDbounds["mu_delta2", "lower"] = deltaHPDbounds["mu_delta2", "lower"] + HPD[[i]][2,1]
+    deltaHPDbounds["mu_delta2", "upper"] = deltaHPDbounds["mu_delta2", "upper"] + HPD[[i]][2,2]
     
   }
   deltaHPDbounds = deltaHPDbounds/length(HPD)
