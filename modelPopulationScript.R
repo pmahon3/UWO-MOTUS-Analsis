@@ -2,7 +2,6 @@ library(dplyr)
 ## NEED TO INCLUDE TIBBLE PACKAGE IN SIFUNCTIONS
 ## CHANGE ARGS FOR simPopulationParams IN SIMFUNCTIONS
 library(simfunctions)
-library(modelfunctions)
 library(rjags)
 
 ## SIMMING A POPULATION OF BIRDS
@@ -113,5 +112,5 @@ if( PLOT ) {
     
   }
   deltaHPDbounds = deltaHPDbounds/length(HPD)
-  
+  plot(monitor)
 }  
