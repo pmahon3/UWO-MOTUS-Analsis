@@ -7,7 +7,7 @@ model{
 	  	for ( j in 1:n ){
 	    
 	      period[ i, j ] <- step( t[i, j ] - delta[i, 1] ) + step( t[ i, j ] - delta[i, 2] ) + 1 
-		  	y[ i, j ] ~ dnorm( m_y[ i, period[i, j ]] , 1/sigma_y[ i, j]^2 )
+		  	y[ i, j ] ~ dnorm( m_y[ i, period[i, j ]] , 1/sigma_y[ i, period[i, j]]^2 )
 		  
 	  	}
 	}
@@ -23,10 +23,11 @@ model{
     		
       	
     
- 		delta[i, 1] ~ dnorm( mu_delta[1] , 1 / sd_delta[2]^2 ) 
+ 		delta[i, 1] ~ dnorm( mu_delta[1], 1 / sd_delta[2]^2 ) 
 		delta[i, 2] ~ dnorm( mu_delta[2], 1 /  sd_delta[2]^2 )
 	}
-  
+
+## Derived variables
 	mean_delta1 <- mean(delta[,1])
 	mean_delta2 <- mean(delta[,2])
 	
