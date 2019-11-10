@@ -12,8 +12,8 @@ function period(delt1, delt2, t)
 	return heaviside(delt1, t) + heaviside(delt2, t) + 1
 end
 
-include("USRA2019Params.jl")
-include("USRA2019Funcs.jl")
+include("Params.jl")
+include("Funcs.jl")
 
 birdPop = simPopulationParams( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_mu2, sd_mu_mu3, mu_sd1, mu_sd2, mu_sd3, sd_mu_sd1, sd_mu_sd2, sd_mu_sd3, mu_delta1, mu_delta2, sd_mu_delta1, sd_mu_delta2, 1)
 birdDat = simPopulationData( birdPop, nBirds, tStep, tSpan, 1 )
