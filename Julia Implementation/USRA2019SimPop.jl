@@ -180,6 +180,9 @@ scheme = [NUTS([:mu_delta1, :mu_delta2])]
 
 setsamplers!(model, scheme)
 sim = mcmc( model, inputs, inits, 10000, burnin = 2000, thin = 2, chains = 3)
-p = plot(sim)
-draw(p, filename="summaryplot.svg")
+p = plot(sim);
+draw(p, filename="summaryplot.svg");
+draw(model, filename="DAG.dot");
+run(`dot -Tps DAG.dot -o DAG.pdf`);
+run(`xdg-open DAG.pdf summaryplot.svg`);
 describe(sim)
