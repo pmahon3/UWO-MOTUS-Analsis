@@ -109,3 +109,15 @@ function simPopulationParams( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_m
     	)
       )
   end
+
+	function step(t0, t)
+		if t0 < t
+			return 1
+		else
+			return 0
+		end
+ 	end
+
+	function period(delt1, delt2, t)
+		return step(delt1, t) + step(delt2, t) + 1
+	end
