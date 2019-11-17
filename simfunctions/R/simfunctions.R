@@ -19,7 +19,7 @@ library(dplyr)
 #' @examples
 simBirdData <- function(  tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_mu3, delta1, delta2 ){
 
-  times = seq( from = 1, to = tSpan, by = tStep)
+  times = seq( from = tStep, to = tSpan, by = tStep)
   msrmnts = vector( mode = "double", length = tSpan/tStep )
 
   for ( i in 1:length(times) ){

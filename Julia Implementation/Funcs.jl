@@ -68,8 +68,8 @@ function simPopulationParams( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_m
   end
 
   function  simPopulationData( birds, nBirds, tStep, tSpan, debug )
-	  nObs = div(tSpan, tStep)
-      times = [1:tStep:tSpan;]
+      nObs = convert(Int, tSpan / tStep)
+      times = [tStep:tStep:tSpan;]
       msrmnts = Array{Float64}(undef, nBirds, nObs)
 
 	  if debug == 0

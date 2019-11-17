@@ -7,8 +7,8 @@ library(rjags)
 ## SIMMING A POPULATION OF BIRDS
 
 NBIRDS <- 100
-TSTEP <- 12
-TSPAN <- 86400
+TSTEP <- 0.005
+TSPAN <- 24
 N <- TSPAN/TSTEP
 
 MU_MU1 <- -80
@@ -25,10 +25,10 @@ SD_MU_SD1 <- .001
 SD_MU_SD2 <- .001
 SD_MU_SD3 <- .001
 
-MU_MU_DELTA1 <- 0.25 * 86400
-MU_MU_DELTA2 <- 0.75 * 86400
-SD_MU_DELTA1 <- 60
-SD_MU_DELTA2 <- 60
+MU_DELTA1 <- 6
+MU_DELTA2 <- 20
+SD_MU_DELTA1 <- 1
+SD_MU_DELTA2 <- 1
 
 
 birdPop <- simPopulationParams( nBirds = NBIRDS, mu_mu1 = MU_MU1, mu_mu2 = MU_MU2, mu_mu3 = MU_MU3, sd_mu_mu1 = SD_MU_MU1, sd_mu_mu2 = SD_MU_MU2, sd_mu_mu3 = SD_MU_MU3, mu_sd1 = MU_SD1, mu_sd2 = MU_SD2, mu_sd3 = MU_SD3, sd_mu_sd1 = SD_MU_MU1, sd_mu_sd2 = SD_MU_MU2, sd_mu_sd3 = SD_MU_MU3, mu_delta1 = MU_DELTA1, mu_delta2 = MU_DELTA2, sd_delta1 = SD_MU_DELTA1, sd_delta2 = SD_MU_DELTA2)
@@ -39,6 +39,8 @@ load.module("glm")
 # Initial values and data args
 mu_mu_delta <- vector(mode = "integer", length = 3)
 sd_mu_delta <- vector(mode = "integer", length = 3)
+mu_mu <- vector(mode = "integer", length = 3)
+sd_mu <- vector(mode = "integer", length = 3)
 
 mu_sd_delta <- vector(mode = "integer", length = 2)
 sd_sd_delta <- vector(mode = "integer", length = 2)
@@ -50,13 +52,13 @@ sd_mu[1] <- 5
 sd_mu[2] <- 5
 sd_mu[3] <- 5
 
-mu_mu_delta[1] <- 0.2 * 86400
-mu_mu_delta[2] <- 0.7 * 86400
-sd_mu_delta[1] <- 0.01
-sd_mu_delta[2] <- 0.01
+mu_mu_delta[1] <- 5.5
+mu_mu_delta[2] <- 19.5
+sd_mu_delta[1] <- 1
+sd_mu_delta[2] <- 1
 
-mu_sd_delta[1] <- 5000
-mu_sd_delta[2] <- 5000
+mu_sd_delta[1] <- 1
+mu_sd_delta[2] <- 1
 sd_sd_delta[1] <- 0.01
 sd_sd_delta[2] <- 0.01
 
@@ -102,3 +104,6 @@ if ( DATTRIM ){
 
 model <- jags.model( "populationModel.txt", data = dat, n.chains = NCHAINS, n.adapt = NADAPT )
 monitor <- coda.samples( model, variable.names = c("mu_delta" ), n.iter = NITER )
+
+summary(monitor)
+plot(monitor)

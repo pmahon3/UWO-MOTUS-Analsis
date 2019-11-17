@@ -9,7 +9,7 @@ include("Funcs.jl")			# Builds functions for simulation
 ## POPULATION SIMULATION 
 
 
-birdPop = simPopulationParams( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_mu2, sd_mu_mu3, mu_sd1, mu_sd2, mu_sd3, sd_mu_sd1, sd_mu_sd2, sd_mu_sd3, mu_delta1, mu_delta2, sd_mu_delta1, sd_mu_delta2, 1)
+birdPop = simPopulationParams( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu1, sd_mu2, sd_mu3, mu_sd1, mu_sd2, mu_sd3, sd_sd1, sd_sd2, sd_sd3, mu_mu_delta1, mu_mu_delta2, sd_mu_delta1, sd_mu_delta2, 1)
 birdDat = simPopulationData( birdPop, nBirds, tStep, tSpan, 1 )
 
 ## DATA FORMATTING FOR MCMC CALLS
@@ -34,8 +34,8 @@ per = Array{Float64}(undef, nBirds, nObs)
 
 ## Populating vectors with initial values
 
-for i in 1:nBirds delta1[i] = 0.25 * 86400 end
-for i in 1:nBirds delta2[i] = 0.75 * 86400 end
+for i in 1:nBirds delta1[i] = 6 end
+for i in 1:nBirds delta2[i] = 18 end
 
 for i in 1:nBirds
 	m_y[i, 1] = -80
@@ -49,10 +49,10 @@ end
 
 times = Array{Float64}(undef, nBirds, nObs)
 for i in 1:nBirds
-	t = 0;
+	t = tStep;
 	for j in 1nObs
 		times[i, j] = t
-		t = t + 12
+		t = t + tStep  
 	end
 end
 
@@ -63,24 +63,24 @@ for i in 1:nBirds
 	end
 end
 
-mu_delta1 = 0.25 * 86400
-mu_delta2 = 0.25 * 86400
-sd_delta1 = 600
-sd_delta2 = 600
+mu_delta1 = 5.5
+mu_delta2 = 19.5
+sd_delta1 = 1
+sd_delta2 = 1
 mu_mu[1] = -80
 mu_mu[2] = -40
 mu_mu[3] = -80
 sd_mu[1] = 5
 sd_mu[2] = 5
 sd_mu[3] = 5
-mu_mu_delta[1] = 0.25 * 86400
-mu_mu_delta[2] = 0.75 * 86400
-sd_mu_delta[1] = 600
-sd_mu_delta[2] = 600
-mu_sd_delta[1] = 600
-mu_sd_delta[2] = 600
-sd_sd_delta[1] = 120
-sd_sd_delta[2] = 120
+mu_mu_delta[1] = 5.5
+mu_mu_delta[2] = 19.5
+sd_mu_delta[1] = 1
+sd_mu_delta[2] = 1
+mu_sd_delta[1] = 1
+mu_sd_delta[2] = 1
+sd_sd_delta[1] = 0.01
+sd_sd_delta[2] = 0.01
 
 # CALL TO INCLUDE MODEL 
 
@@ -125,12 +125,14 @@ inputs = Dict{Symbol, Any}(
 ## SAMPLING METHOD & MONITROS
 # No U-Turn Sampler with monitors on mu_deltas 
 
-scheme = [NUTS([:mu_delta1, :mu_delta2])] 
+scheme = [HMC(:mu_delta1, 0.002, 5),
+	  HMC(:mu_delta2, 0.002, 5)
+	 ] 
 setsamplers!(model, scheme)
 
 ## RUN CHAINS
 
-sim = mcmc( model, inputs, inits, 10000, burnin = 2000, thin = 2, chains = 3)
+sim = mcmc( model, inputs, inits, 100000, burnin = 2000, thin = 2, chains = 3)
 
 ## OUTPUT
 
