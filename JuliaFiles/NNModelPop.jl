@@ -6,7 +6,7 @@ include("Params.jl")			# Sets parameters for simulation
 include("Funcs.jl")			# Builds functions for simulation
 
 
-## POPULATION SIMULATION 
+## POPULATION SIMULATION
 
 
 birdPop = simPopulationParams( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu1, sd_mu2, sd_mu3, mu_sd1, mu_sd2, mu_sd3, sd_sd1, sd_sd2, sd_sd3, mu_mu_delta1, mu_mu_delta2, sd_mu_delta1, sd_mu_delta2, 1)
@@ -22,8 +22,8 @@ nObs = size(birdDat[:y], 2)
 
 mu_mu_delta = Vector{Float64}(undef, 2)
 sd_mu_delta = Vector{Float64}(undef, 2)
-mu_sd_delta = Vector{Float64}(undef, 2)
-sd_sd_delta = Vector{Float64}(undef, 2)
+shp_sd_delta = Vector{Float64}(undef, 2)
+scl_sd_delta = Vector{Float64}(undef, 2)
 mu_mu = Vector{Float64}(undef, 3)
 sd_mu = Vector{Float64}(undef, 3)
 delta1 = Vector{Float64}(undef, nBirds)
@@ -31,6 +31,7 @@ delta2 = Vector{Float64}(undef, nBirds)
 m_y = Array{Float64}(undef, nBirds, 3)
 sigma_y = Array{Float64}(undef, nBirds, 3)
 per = Array{Float64}(undef, nBirds, nObs)
+
 
 ## Populating vectors with initial values
 
@@ -52,7 +53,7 @@ for i in 1:nBirds
 	t = tStep;
 	for j in 1nObs
 		times[i, j] = t
-		t = t + tStep  
+		t = t + tStep
 	end
 end
 
@@ -75,30 +76,33 @@ sd_mu[2] = 5
 sd_mu[3] = 5
 mu_mu_delta[1] = 5.5
 mu_mu_delta[2] = 19.5
-sd_mu_delta[1] = 1
-sd_mu_delta[2] = 1
-mu_sd_delta[1] = 1
-mu_sd_delta[2] = 1
-sd_sd_delta[1] = 0.01
-sd_sd_delta[2] = 0.01
 
-# CALL TO INCLUDE MODEL 
+for i in 1:2
+	scl_sd_delta[i] = 1
+	shp_sd_delta[i] = 1
+	sd_mu_delta[i] = 1
+end
 
-include("Model.jl")
+mu_delta1 = 5.5
+mu_delta2 = 19.5
+
+# CALL TO INCLUDE MODEL
+
+include("NNModel.jl")
 
 
 # CONSTRUCT INITIAL VALUE OBJECTS
-# Stored in a dictionary with (symbol)-(vector/scalar) pairs. 
+# Stored in a dictionary with (symbol)-(vector/scalar) pairs.
 
 # Inits array is for stochastic node initial values
-inits = [						
-			
+inits = [
+
 Dict{Symbol, Any}(
 	:y => birdDat[:y],
-	:sd_delta1 => sd_delta1,
-	:sd_delta2 => sd_delta2,
 	:mu_delta1 => mu_delta1,
 	:mu_delta2 => mu_delta2,
+	:sd_delta1 => sd_delta1,
+	:sd_delta2 => sd_delta2,
 	:delta1 => delta1,
 	:delta2 => delta2,
 	:m_y => m_y,
@@ -110,29 +114,29 @@ for i in 1:3				# Iterate 3 times for 3 chains
 
 # Inputs array is for deterministic node values
 
-inputs = Dict{Symbol, Any}(					
+inputs = Dict{Symbol, Any}(
 	:times => times,
 	:nObs => nObs,
 	:nBirds => nBirds,
 	:mu_mu => mu_mu,
 	:sd_mu => sd_mu,
 	:mu_mu_delta => mu_mu_delta,
-	:sd_mu_delta => sd_mu_delta,
-	:mu_sd_delta => mu_sd_delta,
-	:sd_sd_delta => sd_sd_delta,
+	:shp_sd_delta => shp_sd_delta,
+	:scl_sd_delta => scl_sd_delta,
+	:sd_mu_delta => sd_mu_delta
 )
 
 ## SAMPLING METHOD & MONITROS
-# No U-Turn Sampler with monitors on mu_deltas 
+# Hamiltonian Monte Carlo with monitors on mu_deltas
 
 scheme = [HMC(:mu_delta1, 0.002, 5),
 	  HMC(:mu_delta2, 0.002, 5)
-	 ] 
+	 ]
 setsamplers!(model, scheme)
 
 ## RUN CHAINS
 
-sim = mcmc( model, inputs, inits, 100000, burnin = 2000, thin = 2, chains = 3)
+sim = mcmc( model, inputs, inits, 5000, burnin = 2000, chains = 3)
 
 ## OUTPUT
 

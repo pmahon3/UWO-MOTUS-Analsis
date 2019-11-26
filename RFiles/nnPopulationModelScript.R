@@ -37,34 +37,35 @@ birdDat <- simPopulationData( birdPop, tStep = TSTEP, tSpan = TSPAN )
 ## FITTING A POPULATION OF BIRDS 
 load.module("glm")
 # Initial values and data args
-mu_mu_delta <- vector(mode = "integer", length = 3)
-sd_mu_delta <- vector(mode = "integer", length = 3)
+
 mu_mu <- vector(mode = "integer", length = 3)
 sd_mu <- vector(mode = "integer", length = 3)
+a_a_delta <- vector(mode = "integer", length = 2)
+b_a_delta <- vector(mode = "integer", length = 2)
+a_b_delta <- vector(mode = "integer", length = 2)
+b_b_delta <- vector(mode = "integer", length = 2)
 
-mu_sd_delta <- vector(mode = "integer", length = 2)
-sd_sd_delta <- vector(mode = "integer", length = 2)
 
 mu_mu[1] <- -59
 mu_mu[2] <- -20
 mu_mu[3] <- -59
-sd_mu[1] <- 5
-sd_mu[2] <- 5
-sd_mu[3] <- 5
+sd_mu[1] <- 10
+sd_mu[2] <- 10
+sd_mu[3] <- 10
 
-mu_mu_delta[1] <- 5.5
-mu_mu_delta[2] <- 19.5
-sd_mu_delta[1] <- 1
-sd_mu_delta[2] <- 1
+a_a_delta[1] <- 5.5
+a_a_delta[2] <- 19.5
 
-mu_sd_delta[1] <- 1
-mu_sd_delta[2] <- 1
-sd_sd_delta[1] <- 0.01
-sd_sd_delta[2] <- 0.01
+for ( i in 1:2){
+  b_a_delta[i] <- 1
+  a_b_delta[i] <- 1 
+  b_b_delta[i] <- 1
+
+}
 
 NCHAINS <- 3
 NADAPT <- 1000
-NITER <- 2000
+NITER <- 5000
 
 
 # Formatting data for model 
@@ -83,7 +84,7 @@ NSUB <- 100
 PLOT <- FALSE
 
 if ( DATTRIM ){
-
+  
   sub <- ceiling( seq( from = 1, to = N, by = NSUB ))
   N <- N/NSUB
   ysub <- array( dim = c(NBIRDS, N))
@@ -94,16 +95,16 @@ if ( DATTRIM ){
     tsub[i, ] <- t[i, sub]
   }
   
-  dat <- list( "y" = ysub, "t" = tsub, "n" = N, "nBirds" = NBIRDS, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_sd_delta" = mu_sd_delta, "sd_sd_delta" = sd_sd_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu)
+  dat <- list( "y" = ysub, "t" = tsub, "n" = N, "nBirds" = NBIRDS, "a_a_delta" = a_a_delta, "a_b_delta" = b_a_delta, "b_a_delta" = b_a_delta, "b_b_delta" = b_b_delta , "mu_mu" = mu_mu, "sd_mu" = sd_mu)
   
 } else{
-  dat <- list( "y" = ysub, "t" = t, "n" = N, "nBirds" = NBIRDS, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_sd_delta" = mu_sd_delta, "sd_sd_delta" = sd_sd_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu )
+  dat <- list( "y" = ysub, "t" = t, "n" = N, "nBirds" = NBIRDS, "a_a_delta" = a_a_delta, "a_b_delta" = b_a_delta, "b_a_delta" = b_a_delta, "b_b_delta" = b_b_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu )
 }
 
 #inits
 
-model <- jags.model( "populationModel.txt", data = dat, n.chains = NCHAINS, n.adapt = NADAPT )
-monitor <- coda.samples( model, variable.names = c("mu_delta" ), n.iter = NITER )
+model <- jags.model( "nnPopulationModel.txt", data = dat, n.chains = NCHAINS, n.adapt = NADAPT )
+monitor <- coda.samples( model, variable.names = c("mu_delta[1]", "mu_delta[2]" ), n.iter = NITER )
 
 summary(monitor)
 plot(monitor)
