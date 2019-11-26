@@ -70,12 +70,12 @@ model = Model(
 	),
 
 	sd_delta1 = Stochastic(
-		( mu_sd_delta, sd_sd_delta ) -> Normal( mu_sd_delta[1], sd_sd_delta[1]^2 ),
+		() -> InverseGamma(1,1),
 		false
 	),
 
 	sd_delta2 = Stochastic(
-		( mu_sd_delta, sd_sd_delta ) -> Normal( mu_sd_delta[2], sd_sd_delta[2]^2 ),
+		() -> InverseGamma(1,1),
 		false
 	)
 )

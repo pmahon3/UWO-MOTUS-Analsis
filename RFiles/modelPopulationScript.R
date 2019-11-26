@@ -57,11 +57,6 @@ mu_mu_delta[2] <- 19.5
 sd_mu_delta[1] <- 1
 sd_mu_delta[2] <- 1
 
-mu_sd_delta[1] <- 1
-mu_sd_delta[2] <- 1
-sd_sd_delta[1] <- 0.01
-sd_sd_delta[2] <- 0.01
-
 NCHAINS <- 3
 NADAPT <- 1000
 NITER <- 2000
@@ -94,7 +89,7 @@ if ( DATTRIM ){
     tsub[i, ] <- t[i, sub]
   }
   
-  dat <- list( "y" = ysub, "t" = tsub, "n" = N, "nBirds" = NBIRDS, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_sd_delta" = mu_sd_delta, "sd_sd_delta" = sd_sd_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu)
+  dat <- list( "y" = ysub, "t" = tsub, "n" = N, "nBirds" = NBIRDS, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu)
   
 } else{
   dat <- list( "y" = ysub, "t" = t, "n" = N, "nBirds" = NBIRDS, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_sd_delta" = mu_sd_delta, "sd_sd_delta" = sd_sd_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu )
