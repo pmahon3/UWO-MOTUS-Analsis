@@ -125,8 +125,8 @@ inputs = Dict{Symbol, Any}(
 ## SAMPLING METHOD & MONITROS
 # Hamiltonian Monte Carlo with monitors on mu_deltas
 
-scheme = [NUTS([:mu_delta1, :mu_delta2])
-	 ]
+scheme = [NUTS(:mu_delta1), NUTS(:mu_delta2)]
+
 setsamplers!(model, scheme)
 
 ## RUN CHAINS
