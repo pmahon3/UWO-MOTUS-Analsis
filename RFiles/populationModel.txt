@@ -21,18 +21,17 @@ model{
           		sigma_y[ i, j] ~ dscaled.gamma( 10, 2 )
     		}
     		
- 		delta[i, 1] ~ dnorm( mu_delta[1], 1 /  sd_delta[1]^2 ) 
-		delta[i, 2] ~ dnorm( mu_delta[2], 1 /  sd_delta[2]^2 )
+ 		delta[i, 1] ~ dnorm( mu_delta[1], tau_delta1 ) 
+		delta[i, 2] ~ dnorm( mu_delta[2], tau_delta2 )
+		
 	}
 	
-	mu_delta[1] ~ dnorm( mu_mu_delta[1], 1 / sd_mu_delta[1]^2 )
-	mu_delta[2] ~ dnorm( mu_mu_delta[2], 1 / sd_mu_delta[2]^2 )
-		
-	sd_delta[1] ~ dgamma(1, 1)
-	sd_delta[2] ~ dgamma(1 ,1)
+	mu_delta[1] ~ dnorm( mu_mu_delta[1], tau_mu_delta1 )
+	mu_delta[2] ~ dnorm( mu_mu_delta[2], tau_mu_delta2 )
 	
-	## Derived Variables
-	##mean_delta1 = mean(delta[,1])
-	##mean_delta2 = mean(delta[,2])
-	
+	tau_mu_delta1 <- 1 / sd_mu_delta[1]^2
+	tau_mu_delta2 <- 1 / sd_mu_delta[2]^2
+
+	tau_delta1 ~ dscaled.gamma(1, 2)
+	tau_delta2 ~ dscaled.gamma(1, 2)
 }

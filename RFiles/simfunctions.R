@@ -139,11 +139,32 @@ simPopulationData <- function( birds, tStep, tSpan ){
 #' @export
 #'
 #' @examples
-sim_function <- function( i, pars_mat, tStep, tSpan){
+sim_function <- function( i, pars_mat){
 
 	params <- pars_mat[i,]
 	birdPop <- simPopulationParams( nBirds = params[1], mu_mu1 = params[2], mu_mu2 = params[3], mu_mu3 = params[4], sd_mu_mu1 = params[5], sd_mu_mu2 = params[6], sd_mu_mu3 = params[7], mu_sd1 = params[8], mu_sd2 = params[9], mu_sd3 = params[10], sd_mu_sd1 = params[11], sd_mu_sd2 = params[12], sd_mu_sd3 = params[13], mu_delta1 = params[14], mu_delta2 = params[15], sd_delta1 = params[16], sd_delta2 = params[17])
-	birdDat <- simPopulationData( birdPop, tStep = tStep, tSpan = tSpan )
+	birdDat <- simPopulationData( birdPop, tStep = params[18], tSpan = params[19] )
 
+	saveRDS(birdDat, file = paste("Data", toString(i), sep = ""))
+	
+	load.module("glm")
 
+	sim_init_params(i)
+}
+
+sim_init_params <- function(){
+
+	init_params <- matrix( nrow = i, ncol = ? )
+	for j in 1:i{
+		mu_mu1 <- -50 +  rbeta(1, 2, 2, ncp = 0 ) * -50 
+		mu_mu2 <- rbeta(1, 2, 2, ncp = 0 ) * -50
+		mu_mu3 <- -50 + rbeta(1, 2, 2, ncp = 0 ) * -50
+
+		sd_mu1 <- rbeta(1, 2, 2, ncp = 0 ) * 10
+		sd_mu2 <- rbeta(1, 2, 2, ncp = 0 ) * 10 
+		sd_mu3 <- rbeta(1, 2, 2, ncp = 0 ) * 10 
+
+		mu_mu_delta1 <- rbeta(1, 2, 2, ncp = 0) * 12
+		mu_mu_delta2 <- 12 + rbeta(1, 2, 2, ncp = 0) * 12
+	}
 }
