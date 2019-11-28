@@ -130,3 +130,20 @@ simPopulationData <- function( birds, tStep, tSpan ){
     return( dat )
 }
 
+#' sim_function conducts simulations for parallel processing
+#'
+#' @param i is the number of simulations to run (i.e. nrows of pars_mat)
+#' @param pars_mat is the matrix of parameters for the various simulations
+#'
+#' @return NONE SPECIFIED YET
+#' @export
+#'
+#' @examples
+sim_function <- function( i, pars_mat, tStep, tSpan){
+
+	params <- pars_mat[i,]
+	birdPop <- simPopulationParams( nBirds = params[1], mu_mu1 = params[2], mu_mu2 = params[3], mu_mu3 = params[4], sd_mu_mu1 = params[5], sd_mu_mu2 = params[6], sd_mu_mu3 = params[7], mu_sd1 = params[8], mu_sd2 = params[9], mu_sd3 = params[10], sd_mu_sd1 = params[11], sd_mu_sd2 = params[12], sd_mu_sd3 = params[13], mu_delta1 = params[14], mu_delta2 = params[15], sd_delta1 = params[16], sd_delta2 = params[17])
+	birdDat <- simPopulationData( birdPop, tStep = tStep, tSpan = tSpan )
+
+
+}
