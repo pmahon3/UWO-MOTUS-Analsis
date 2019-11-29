@@ -149,12 +149,12 @@ sim_function <- function( i, pars_mat){
 	
 	load.module("glm")
 
-	sim_init_params(i)
+	init_params <- sim_init_params(i)
 }
 
-sim_init_params <- function(){
+sim_init_params <- function(i){
 
-	init_params <- matrix( nrow = i, ncol = ? )
+	init_params <- matrix( nrow = i, ncol = 10 )
 	for j in 1:i{
 		mu_mu1 <- -50 +  rbeta(1, 2, 2, ncp = 0 ) * -50 
 		mu_mu2 <- rbeta(1, 2, 2, ncp = 0 ) * -50
@@ -166,5 +166,10 @@ sim_init_params <- function(){
 
 		mu_mu_delta1 <- rbeta(1, 2, 2, ncp = 0) * 12
 		mu_mu_delta2 <- 12 + rbeta(1, 2, 2, ncp = 0) * 12
+
+		sd_mu_delta1 <- 0.5 + rbeta(1, 2, 2, ncp = 0)
+		sd_mu_delta2 <- 0.5 + rbeta(1, 2, 2, ncp = 0) 
+		
+		init_params[i,] = c(mu_mu1, mu_mu2, mu_mu3, sd_mu1, sd_mu2, sd_mu3, mu_mu_delta1, mu_mu_delta2, sd_mu_delta1, sd_mu_delta2)
 	}
 }
