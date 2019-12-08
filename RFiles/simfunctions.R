@@ -142,19 +142,79 @@ simPopulationData <- function( birds, tStep, tSpan ){
 sim_function <- function( i, pars_mat){
 
 	params <- pars_mat[i,]
-	birdPop <- simPopulationParams( nBirds = params[1], mu_mu1 = params[2], mu_mu2 = params[3], mu_mu3 = params[4], sd_mu_mu1 = params[5], sd_mu_mu2 = params[6], sd_mu_mu3 = params[7], mu_sd1 = params[8], mu_sd2 = params[9], mu_sd3 = params[10], sd_mu_sd1 = params[11], sd_mu_sd2 = params[12], sd_mu_sd3 = params[13], mu_delta1 = params[14], mu_delta2 = params[15], sd_delta1 = params[16], sd_delta2 = params[17])
-	birdDat <- simPopulationData( birdPop, tStep = params[18], tSpan = params[19] )
+	
+	mu_mu_delta <- vector(mode = "integer", length = 3)
+	sd_mu_delta <- vector(mode = "integer", length = 3)
+	mu_mu <- vector(mode = "integer", length = 3)
+	sd_mu <- vector(mode = "integer", length = 3)
+	
+	mu_sd_delta <- vector(mode = "integer", length = 2)
+	sd_sd_delta <- vector(mode = "integer", length = 2)
+	
+	nBirds = params[1] 
+	mu_mu[1] = params[2] 
+	mu_mu[2] = params[3]
+	mu_mu[3] = params[4]
+	sd_mu[1] = params[5]
+	sd_mu[2] = params[6]
+	sd_mu[3] = params[7]
+	mu_sd[1] = params[8]
+	mu_sd[2] = params[9]
+	mu_sd[3] = params[10]
+	sd_mu_sd[1] = params[11]
+  sd_mu_sd[2] = params[12]
+	sd_mu_sd[3] = params[13]
+	mu_delta[1] = params[14]
+  mu_delta[2] = params[15]
+	sd_delta[1] = params[16]
+	sd_delta[2] = params[17]
+	tStep = params[18]
+	tSpan = params[19]
+	
+	n = TSPAN / TSTEP
+	
+	
+  birdDat <- simPopulationData( birdPop, tStep = params[18], tSpan = params[19])
+	
+	birdPop <- simPopulationParams( nBirds = nBirds, mu_mu1 = mu_mu[1], mu_mu2 = mu_mu[2], mu_mu3 = mu_mu[3], sd_mu_mu1 = sd_mu_mu[1], sd_mu_mu2 = sd_mu_mu[2], sd_mu_mu3 = sd_mu_mu[3], mu_sd1 = mu_sd[1], mu_sd2 = mu_sd[2], mu_sd3 = mu_sd[3], sd_mu_sd1 = sd_mu_sd[1], sd_mu_sd2 = sd_mu_sd[2], sd_mu_sd3 = sd_mu_sd[3], mu_delta1 = mu_delta[1], mu_delta2 = mu_delta[2], sd_delta1 = sd_delta[1], sd_delta2 = sd_delta[2])
+	birdDat <- simPopulationData( birdPop, tStep = tStep, tSpan = tSpan )
 
 	saveRDS(birdDat, file = paste("Data", toString(i), sep = ""))
 	
 	load.module("glm")
 
-	init_params <- sim_init_params(i)
+	init_vals <- sim_init_vals(i)
+	
+	y <- array( dim = c( nBirds, n))
+	t <- array( dim = c( nBirds, n))
+	
+	for ( j in 1:nBirds ){
+	  y[j, ] <- birdDat[[i]]$msrmnts
+	  t[j, ] <- birdDat[[i]]$times      
+	}
+	
+	## USE PARAMS AS INIT DATA FOR NOW
+	dat <- list( "y" = y, "t" = t, "n" = N, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu)
+	
+	model <- jags.model("populationModel.txt", data = dat, n.chains = 3, n.adapt = 1000)
+	monitor <- coda.samples(model, variable.names = c("mu_delta"), n.iter = 5000)
+	
+	summary <- summary(monitor)
+	
+	saveRDS(summary, file = paste("Summary", toString(i), sep = ""))
 }
 
-sim_init_params <- function(i){
+#' sim_init_vals generates initial values for the parallel processed chains
+#' 
+#' @param i is the number of chains being run
+#' 
+#' @return init_vals is a matrix of initial values, rows coressponding to sets of initial values
+#' @export
+#'
+#' @examples
+sim_init_vals <- function(i){
 
-	init_params <- matrix( nrow = i, ncol = 10 )
+	init_vals <- matrix( nrow = i, ncol = 10 )
 	for j in 1:i{
 		mu_mu1 <- -50 +  rbeta(1, 2, 2, ncp = 0 ) * -50 
 		mu_mu2 <- rbeta(1, 2, 2, ncp = 0 ) * -50
@@ -170,6 +230,7 @@ sim_init_params <- function(i){
 		sd_mu_delta1 <- 0.5 + rbeta(1, 2, 2, ncp = 0)
 		sd_mu_delta2 <- 0.5 + rbeta(1, 2, 2, ncp = 0) 
 		
-		init_params[i,] = c(mu_mu1, mu_mu2, mu_mu3, sd_mu1, sd_mu2, sd_mu3, mu_mu_delta1, mu_mu_delta2, sd_mu_delta1, sd_mu_delta2)
+		init_vals[i,] = c(mu_mu1, mu_mu2, mu_mu3, sd_mu1, sd_mu2, sd_mu3, mu_mu_delta1, mu_mu_delta2, sd_mu_delta1, sd_mu_delta2)
 	}
+	return(init_vals)
 }
