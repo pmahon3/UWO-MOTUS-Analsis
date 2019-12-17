@@ -210,17 +210,16 @@ simPopulationData <- function( birds, tStep, tSpan ){
 #'
 #' @examples
 sim_function <- function( i, pars_mat){
-
+library
   pm <- pars_mat
-
 
   nBirds = pm[i, "nBirds"]
   mu_mu1 = pm[i, "mu_mu1"]
   mu_mu2 = pm[i, "mu_mu2"]
   mu_mu3 = pm[i, "mu_mu3"]
-  sd_mu1 = pm[i, "sd_mu1"]
-  sd_mu2 = pm[i, "sd_mu2"]
-  sd_mu3 = pm[i, "sd_mu3"]
+  sd_mu1 = pm[i, "sd_mu_mu1"]
+  sd_mu2 = pm[i, "sd_mu_mu2"]
+  sd_mu3 = pm[i, "sd_mu_mu3"]
   mu_sd1 = pm[i, "mu_sd1"]
   mu_sd2 = pm[i, "mu_sd2"]
   mu_sd3 = pm[i, "mu_sd3"]
@@ -241,10 +240,10 @@ sim_function <- function( i, pars_mat){
 
   n = tSpan / tStep
 
+  birdPop <- simBirdParams( nBirds = nBirds, mu_mu1 = mu_mu1, mu_mu2 = mu_mu2, mu_mu3 = mu_mu3, sd_mu_mu1 = sd_mu1, sd_mu_mu2 = sd_mu2, sd_mu_mu3 = sd_mu3, mu_sd1 = mu_sd1, mu_sd2 = mu_sd2, mu_sd3 = mu_sd3, sd_mu_sd1 = sd_mu_sd1, sd_mu_sd2 = sd_mu_sd2, sd_mu_sd3 = sd_mu_sd3, mu_delta1 = mu_delta1, mu_delta2 = mu_delta2, sd_delta1 = sd_delta1, sd_delta2 = sd_delta2)
 
   birdDat <- simPopulationData( birdPop, tStep = tStep, tSpan = tSpan)
 
-  birdPop <- simBirdParams( nBirds = nBirds, mu_mu1 = mu_mu1, mu_mu2 = mu_mu2, mu_mu3 = mu_mu3, sd_mu_mu1 = sd_mu_mu1, sd_mu_mu2 = sd_mu_mu2, sd_mu_mu3 = sd_mu_mu3, mu_sd1 = mu_sd1, mu_sd2 = mu_sd2, mu_sd3 = mu_sd3, sd_mu_sd1 = sd_mu_sd1, sd_mu_sd2 = sd_mu_sd2, sd_mu_sd3 = sd_mu_sd3, mu_delta1 = mu_delta1, mu_delta2 = mu_delta2, sd_delta1 = sd_delta1, sd_delta2 = sd_delta2)
   birdDat <- simPopulationData( birdPop, tStep = tStep, tSpan = tSpan )
 
   saveRDS(birdDat, file = paste("Data", toString(i), sep = ""))
@@ -262,7 +261,7 @@ sim_function <- function( i, pars_mat){
   }
 
   ## USE PARAMS AS INIT DATA FOR NOW
-  dat <- list( "y" = y, "t" = t, "n" = N, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu)
+  dat <- list( "y" = y, "t" = t, "n" = n, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu)
 
   model <- jags.model("populationModel.txt", data = dat, n.chains = 3, n.adapt = 1000)
   monitor <- coda.samples(model, variable.names = c("mu_delta"), n.iter = 5000)

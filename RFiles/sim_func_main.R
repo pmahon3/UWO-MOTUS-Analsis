@@ -1,20 +1,17 @@
 library(parallel)
 library(simfunctions)
 
+# generate a parameter matrix
 
-#generate a matrix of population par
-
-## SIMMING A POPULATION OF BIRDS
-
+NPOPS <- 6
+NBIRDS <- 100
 TSTEP <- 0.005
 TSPAN <- 24
 N <- TSPAN/TSTEP
-NPOPS = 6
-NBIRDS = 100
 
-MU_MU1 <- -50
-MU_MU2 <- -25
-MU_MU3 <- -50
+MU_MU1 <- -80
+MU_MU2 <- -40
+MU_MU3 <- -80
 SD_MU_MU1 <- 5
 SD_MU_MU2 <- 5
 SD_MU_MU3 <- 5
@@ -31,10 +28,9 @@ MU_DELTA2 <- 20
 SD_DELTA1 <- 1
 SD_DELTA2 <- 1
 
-pars_mat <- sim_pars_mat(nPops = NPOPS, nBirds = NBIRDS, tStep = TSTEP, tSpan = TSPAN, mu_mu1 = MU_MU1, mu_mu2 = MU_MU2, mu_mu3 = MU_MU3, sd_mu_mu1 = SD_MU_MU1, sd_mu_mu2 = SD_MU_MU2, sd_mu_mu3 = SD_MU_MU3, mu_sd1 = MU_SD1, mu_sd2 = MU_SD2, mu_sd3 = MU_SD3, sd_mu_sd1 = SD_MU_SD1, sd_mu_sd2 = SD_MU_SD2,  sd_mu_sd3 = SD_MU_SD3, mu_delta1 = MU_DELTA1, mu_delta2 = MU_DELTA2, sd_delta1 = SD_DELTA1, sd_delta2 = SD_DELTA2)
-
+pars_mat <- sim_pars_mat(nPops = NPOPS, nBirds = NBIRDS, tStep = TSTEP, tSpan = TSPAN, mu_mu1 = MU_MU1, mu_mu2 = MU_MU2 , mu_mu3 = MU_MU3, sd_mu_mu1 = SD_MU_MU1, sd_mu_mu2 = SD_MU_MU2, sd_mu_mu3 = SD_MU_MU3, mu_sd1 = MU_SD1, mu_sd2 = MU_SD2, mu_sd3 = MU_SD3 , sd_mu_sd1 = SD_MU_SD1 , sd_mu_sd2 = SD_MU_SD2, sd_mu_sd3 = SD_MU_SD3, mu_delta1 = MU_DELTA1, mu_delta2 = MU_DELTA2, sd_delta1 = SD_DELTA1, sd_delta2 = SD_DELTA2)
 
 cl <- makeCluster(getOption("cl.cores", 6))
-invisible(clusterEvalQ(cl, library(rjags)))
+clusterEvalQ(cl, c(library(rjags), library(dplyr)))
 clusterExport(cl, c("pars_mat", "sim_function"))
-out <- clusterApply(cl, 1:NPOPS , fun = sim_function, pars_mat = pars_mat)
+out <- clusterApply(cl, 1:nrow(pars_mat), c(fun = "sim_function"), pars_mat = pars_mat)
