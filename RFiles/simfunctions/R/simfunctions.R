@@ -246,7 +246,7 @@ library
 
   birdDat <- simPopulationData( birdPop, tStep = tStep, tSpan = tSpan )
 
-  saveRDS(birdDat, file = paste("Data", toString(i), sep = ""))
+  saveRDS(birdDat, file = paste("Data", toString(i), ".RDS", sep = ""))
 
   load.module("glm")
 
