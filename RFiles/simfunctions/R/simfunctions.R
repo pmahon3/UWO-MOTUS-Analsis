@@ -268,7 +268,7 @@ library
 
   summary <- summary(monitor)
 
-  saveRDS(summary, file = paste("Summary", toString(i), sep = ""))
+  saveRDS(summary, file = paste("Summary.RDS", toString(i), sep = ""))
 }
 
 #' sim_init_vals generates initial values for the parallel processed chains

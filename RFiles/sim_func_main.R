@@ -5,7 +5,7 @@ library(simfunctions)
 
 NPOPS <- 6
 NBIRDS <- 100
-TSTEP <- 0.005
+TSTEP <- 0.05
 TSPAN <- 24
 N <- TSPAN/TSTEP
 
