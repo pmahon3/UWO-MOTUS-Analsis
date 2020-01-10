@@ -22,8 +22,8 @@ model{
 	delta[2] ~ dnorm( delta2Mu, 1 / (sigmaDelta2^2) ) 
 	
 
-	delta1Mu <- 6 * 3600
-	delta2Mu <- 18 * 3600
-	sigmaDelta1 <- 3600
-	sigmaDelta2 <- 36
+	delta1Mu <- 6 
+	delta2Mu <- 18
+	sigmaDelta1 <- 1
+	sigmaDelta2 <- 1
 }

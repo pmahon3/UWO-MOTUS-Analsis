@@ -210,7 +210,8 @@ simPopulationData <- function( birds, tStep, tSpan ){
 #'
 #' @examples
 sim_function <- function( i, pars_mat){
-library
+
+  print(paste("Simulation", i, "...", sep = " "))	     
   pm <- pars_mat
 
   nBirds = pm[i, "nBirds"]
@@ -246,6 +247,7 @@ library
 
   birdDat <- simPopulationData( birdPop, tStep = tStep, tSpan = tSpan )
 
+  print(paste("Saving simulation", i, "data", sep = " "))
   saveRDS(birdDat, file = paste("Data", toString(i), ".RDS", sep = ""))
 
   load.module("glm")
@@ -263,10 +265,14 @@ library
   ## USE PARAMS AS INIT DATA FOR NOW
   dat <- list( "y" = y, "t" = t, "n" = n, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu)
 
+  print(paste("Building", "model", i, "...", sep = " "))
   model <- jags.model("populationModel.txt", data = dat, n.chains = 3, n.adapt = 1000)
+
+  print(paste("Running chains for model", i, "...", sep = " " ))
   monitor <- coda.samples(model, variable.names = c("mu_delta"), n.iter = 5000)
 
   summary <- summary(monitor)
+  print(summary)
 
   saveRDS(summary, file = paste("Summary.RDS", toString(i), sep = ""))
 }

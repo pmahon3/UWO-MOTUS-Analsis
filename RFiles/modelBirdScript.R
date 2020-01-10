@@ -1,22 +1,20 @@
-library(dbplyr)
+library(dplyr)
 library(tibble)
-## NEED TO INCLUDE TIBBLE PACKAGE IN SIFUNCTIONS
 library(simfunctions)
-library(modelfunctions)
 library(rjags)
 
 ## SIMMING 1 BIRD
 
-TSTEP <- 12
-TSPAN <- 86400
+TSTEP <- 24/7200
+TSPAN <- 24
 MU1 <- -58
 MU2 <- -34
 MU3 <- -58
 SD_MU1 <- 5
 SD_MU2 <- 5
 SD_MU3 <- 5
-DELTA1 <- 6.5 * 3600
-DELTA2 <- 20.5 * 3600
+DELTA1 <- 6.5 
+DELTA2 <- 20.5
 
 bird <- simBirdData(tStep = TSTEP, tSpan = TSPAN, mu1 = MU1, mu2 = MU2 , mu3 = MU3 , sd_mu1 = SD_MU1, sd_mu2 = SD_MU2, sd_mu3 = SD_MU3, delta1 = DELTA1, delta2 = DELTA2)
 ## FITTING 1 BIRD
@@ -29,8 +27,8 @@ MU3_INIT <- -50
 SD_MU1_INIT <- 5
 SD_MU2_INIT <- 5
 SD_MU3_INIT <- 5
-DELTA1_INIT <- TSPAN * .33
-DELTA2_INIT <- TSPAN * .66
+DELTA1_INIT <- TSPAN * .3
+DELTA2_INIT <- TSPAN * .6
 N <- nrow( bird ) 
 YDAT <- bird$msrmnts
 TDAT <- bird$times
@@ -62,8 +60,8 @@ if ( PLOT ){
 
 init = list( tau = 1/sds^2, m_y = mu_y, delta = deltas ) 
 model <- jags.model( "singleBirdModel", data = dat, inits = init, n.chains = 3, n.adapt = 1000)
-deltaMonitor <- coda.samples( model, variable.names = c("delta"), n.iter = 2000  )
-
+deltaMonitor <- coda.samples( model, variable.names = c("delta"), n.iter = 5000  )
+summary(deltaMonitor)
 if( PLOT ) {
   plot( deltaMonitor )
 }

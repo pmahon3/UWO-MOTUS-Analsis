@@ -6,7 +6,7 @@ model{
 		##Individual level likelihood
 	  	for ( j in 1:n ){
 	    
-	      period[ i, j ] <- step( t[i, j ] - delta[i, 1] ) + step( t[ i, j ] - delta[i, 2] ) + 1 
+			period[ i, j ] <- step( t[i, j ] - delta[i, 1] ) + step( t[ i, j ] - delta[i, 2] ) + 1 
 		  	y[ i, j ] ~ dnorm( m_y[ i, period[i, j ]] , 1/sigma_y[ i, period[i, j]]^2 )
 		  
 	  	}
@@ -15,7 +15,7 @@ model{
 	##Population level priors
   	for( i in 1:nBirds){
   
-        ##Individual level priors
+		##Individual level priors
     		for( j in 1:3 ){
           		m_y[i, j ] ~ dnorm( mu_mu[j], 1 / ( sd_mu[j]^2) ) 
           		sigma_y[ i, j] ~ dscaled.gamma( 10, 2 )

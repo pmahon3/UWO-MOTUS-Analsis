@@ -7,9 +7,9 @@ library(rjags)
 ## SIMMING A POPULATION OF BIRDS
 
 NBIRDS <- 100
-TSTEP <- 0.005
+N <- 7200
 TSPAN <- 24
-N <- TSPAN/TSTEP
+TSTEP <- TSPAN/N
 
 MU_MU1 <- -80
 MU_MU2 <- -40
@@ -100,5 +100,5 @@ if ( DATTRIM ){
 model <- jags.model( "populationModel.txt", data = dat, n.chains = NCHAINS, n.adapt = NADAPT )
 monitor <- coda.samples( model, variable.names = c("mu_delta" ), n.iter = NITER )
 
-summary(monitor)
+print(summary(monitor))
 plot(monitor)
