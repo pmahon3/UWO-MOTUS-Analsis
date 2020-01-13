@@ -253,15 +253,10 @@ sim_function <- function( i, pars_mat){
   load.module("glm")
 
   init_vals <- sim_init_vals(i)
-
-  y <- array( dim = c( nBirds, n))
-  t <- array( dim = c( nBirds, n))
-
-  for ( j in 1:nBirds ){
-    y[j, ] <- birdDat[[i]]$msrmnts
-    t[j, ] <- birdDat[[i]]$times
-  }
-
+  
+  y <- t(sapply(birdDat,"[[","msrmnts"))
+  t <- t(sapply(birdDat,"[[","times"))
+  
   ## USE PARAMS AS INIT DATA FOR NOW
   dat <- list( "y" = y, "t" = t, "n" = n, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu)
 
