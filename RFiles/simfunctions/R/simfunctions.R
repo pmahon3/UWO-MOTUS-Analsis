@@ -239,8 +239,6 @@ sim_function <- function( i, pars_mat){
   sd_mu_delta <- c( sd_delta1, sd_delta2)
   sd_mu <- c(sd_mu1, sd_mu2, sd_mu3)
 
-  n = tSpan / tStep
-
   birdPop <- simBirdParams( nBirds = nBirds, mu_mu1 = mu_mu1, mu_mu2 = mu_mu2, mu_mu3 = mu_mu3, sd_mu_mu1 = sd_mu1, sd_mu_mu2 = sd_mu2, sd_mu_mu3 = sd_mu3, mu_sd1 = mu_sd1, mu_sd2 = mu_sd2, mu_sd3 = mu_sd3, sd_mu_sd1 = sd_mu_sd1, sd_mu_sd2 = sd_mu_sd2, sd_mu_sd3 = sd_mu_sd3, mu_delta1 = mu_delta1, mu_delta2 = mu_delta2, sd_delta1 = sd_delta1, sd_delta2 = sd_delta2)
 
   birdDat <- simPopulationData( birdPop, tStep = tStep, tSpan = tSpan)
@@ -256,7 +254,11 @@ sim_function <- function( i, pars_mat){
   
   y <- t(sapply(birdDat,"[[","msrmnts"))
   t <- t(sapply(birdDat,"[[","times"))
+
+  n <- ncol(y)
   
+  ##:ess-bp-start::browser@nil:##
+browser(expr=is.null(.ESSBP.[["@5@"]]));##:ess-bp-end:##
   ## USE PARAMS AS INIT DATA FOR NOW
   dat <- list( "y" = y, "t" = t, "n" = n, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu)
 
