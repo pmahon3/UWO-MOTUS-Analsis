@@ -257,9 +257,6 @@ sim_function <- function( i, pars_mat){
 
   n <- ncol(y)
   
-  ##:ess-bp-start::browser@nil:##
-browser(expr=is.null(.ESSBP.[["@5@"]]));##:ess-bp-end:##
-  ## USE PARAMS AS INIT DATA FOR NOW
   dat <- list( "y" = y, "t" = t, "n" = n, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu)
 
   print(paste("Building", "model", i, "...", sep = " "))
