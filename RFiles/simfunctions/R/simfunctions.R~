@@ -265,9 +265,10 @@ sim_function <- function( i, pars_mat){
   print(paste("Running chains for model", i, "...", sep = " " ))
   monitor <- coda.samples(model, variable.names = c("mu_delta"), n.iter = 5000)
 
-  HPD <- HPDinterval(monitor, prob = 0.95)
+  summary <- summary(monitor)
+  print(summary)
 
-  saveRDS(monitor, file = paste("HPD", toString(i), ".RDS", sep = ""))
+  saveRDS(summary, file = paste("Summary", toString(i), ".RDS", sep = ""))
 }
 
 #' sim_init_vals generates initial values for the parallel processed chains

@@ -4,9 +4,9 @@ library(rjags)
 
 NPOPS <- 6
 NBIRDS <- 100
-TSTEP <- 0.005
+N <- 24
 TSPAN <- 24
-N <- TSPAN/TSTEP
+TSTEP <- TSPAN/N
 
 MU_MU1 <- -80
 MU_MU2 <- -40
