@@ -211,6 +211,7 @@ simPopulationData <- function( birds, tStep, tSpan ){
 #' @examples
 sim_function <- function( i, pars_mat){
 
+  path = Out
   print(paste("Simulation", i, "...", sep = " "))	     
   pm <- pars_mat
 
@@ -246,7 +247,7 @@ sim_function <- function( i, pars_mat){
   birdDat <- simPopulationData( birdPop, tStep = tStep, tSpan = tSpan )
 
   print(paste("Saving simulation", i, "data", sep = " "))
-  saveRDS(birdDat, file = paste("Data", toString(i), ".RDS", sep = ""))
+  saveRDS(birdDat, file = paste( path, "/Data/", "Data", toString(i), ".RDS", sep = ""))
 
   load.module("glm")
 
@@ -265,10 +266,7 @@ sim_function <- function( i, pars_mat){
   print(paste("Running chains for model", i, "...", sep = " " ))
   monitor <- coda.samples(model, variable.names = c("mu_delta"), n.iter = 5000)
 
-  summary <- summary(monitor)
-  print(summary)
-
-  saveRDS(summary, file = paste("Summary", toString(i), ".RDS", sep = ""))
+  saveRDS(monitor, file = paste( path, "/HPD/", "HPD", toString(i), ".RDS", sep = ""))
 }
 
 #' sim_init_vals generates initial values for the parallel processed chains

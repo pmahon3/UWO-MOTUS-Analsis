@@ -1,0 +1,17 @@
+100 Populations
+100 Birds
+96 Data points per day
+3 Chains
+
+Run 1  
+
+0.98
+0.99
+
+Run 2
+
+0.95
+0.91
+
+Run 3
+

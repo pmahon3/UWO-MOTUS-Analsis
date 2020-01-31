@@ -8,21 +8,27 @@ PATH = "Out/HPD/"
 mu_delta1_results <- matrix( nrow = NPOPS, ncol = NCHAINS )
 mu_delta2_results <- matrix( nrow = NPOPS, ncol = NCHAINS ) 
 
-# For each simulation calculate the HPD for each chain and fill in the results matrices
+# For each simulation calculate the HPD for each chain, take the average of the bounds and consider the coverage, and fill in the results matrices
 for ( i in 1:NPOPS){
 
     dat <- HPDinterval(readRDS(paste(PATH, "HPD", i, ".RDS", sep = "")), prob = 0.95 )
 
+    mu_delta1_lower_avg <- (dat[[1]][1,1] + dat[[2]][1,1] + dat[[3]][1,1])/3
+    mu_delta1_upper_avg <- (dat[[1]][1,2] + dat[[2]][1,2] + dat[[3]][1,2])/3
+
+    mu_delta2_lower_avg <- (dat[[1]][2,1] + dat[[2]][2,1] + dat[[3]][2,1])/3
+    mu_delta2_upper_avg <- (dat[[1]][2,2] + dat[[2]][2,2] + dat[[2]][2,2])/3
+
     for ( j in 1:NCHAINS ){
 
-    	if ( dat[[j]][1,1] <= MU_DELTA1 && MU_DELTA1 <= dat[[j]][1,2] ){
+    	if ( mu_delta1_lower_avg <= MU_DELTA1 && MU_DELTA1 <= mu_delta1_upper_avg ){
 	     mu_delta1_results[i, j] <- 1
 	   }
 	else{
 	     mu_delta1_results[i, j] <- 0
 	}
 
-	if ( dat[[j]][2,1] <= MU_DELTA2 && MU_DELTA2 <= dat[[j]][2,2] ){
+	if ( mu_delta2_lower_avg <= MU_DELTA2 && MU_DELTA2 <= mu_delta2_upper_avg ){
 	     mu_delta2_results[i, j] <- 1
 	}
 	else{
