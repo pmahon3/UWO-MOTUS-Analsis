@@ -216,23 +216,24 @@ sim_function <- function( i, pars_mat){
 
   init_vals <- sim_init_vals(i, mu_mu1, mu_mu2, mu_mu3, sd_mu1, sd_mu2, sd_mu3, mu_delta1, mu_delta2, sd_delta1, sd_delta2, delta_prime, sigma_delta_prime)
   
-  birdList <- vector( mode = "list", length = nBirds )
-  for ( i in 1:nBirds ){
-    dayList <- vector( mode = "list", length = nDays )
+  tMat <- array( dim = c(nBirds, nDays, tSpan/tStep))
+  yMat <- array( dim = c(nBirds, nDays, tSpan/tStep))
+  
+  for ( l in 1:nBirds ){
     for ( j in 1:nDays ){
-      dayList[[j]] <- birdDat[[i]][[j]]
+      tMat[l,j,] <- birdDat[[l]][[j]][,1]
+      yMat[l,j,] <- birdDat[[l]][[j]][,2]
     }
-    birdList[[i]] <- dayList
   }
 
-  dat <- list( "birdList" = birdList, "n" = nObs, "nDays" = nDays, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta_prime" = delta_prime, "sigma_delta_prime" = sigma_delta_prime)
-
+  dat <- list( "yMat" = yMat, "tMat" = tMat, "n" = nObs, "nDays" = nDays, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta_prime" = delta_prime, "sigma_delta_prime" = sigma_delta_prime)
+ 
   print(paste("Building", "model", i, "...", sep = " "))
   model <- jags.model("populationModel.txt", data = dat, n.chains = 3, n.adapt = 1000)
 
   print(paste("Running chains for model", i, "...", sep = " " ))
-  monitor <- coda.samples(model, variable.names = c("mu_delta"), n.iter = 5000)
-
+  monitor <- coda.samples(model, variable.names = c("delta_prime"), n.iter = 5000)
+  summary(monitor)
   saveRDS(monitor, file = paste( path, "/HPD/", "HPD", toString(i), ".RDS", sep = ""))
 }
 

@@ -5,9 +5,9 @@ library(simfunctions)
 
 PATH <- "Out"
 # generate a parameter matrix
-NPOPS <- 100
+NPOPS <- 10
 NCHAINS <- 3
-NBIRDS <- 100
+NBIRDS <- 10
 N <- 96
 TSPAN <- 24
 TSTEP <- TSPAN / N
@@ -47,6 +47,6 @@ clusterEvalQ(cl, c(library(rjags), library(dplyr), library(simfunctions)))
 print("Exporting cluster...")
 clusterExport(cl, c("pars_mat", "sim_function"))
 print("Computing cluster...")
-out <- clusterApply(cl, 1:NPOPS, fun = sim_function, pars_mat)
+out <- clusterApply(cl, fun = sim_function, 1:NPOPS, pars_mat)
 
-source("HPDAnalysis.R")
+source("DP_HPDAnalysis.R")

@@ -9,6 +9,7 @@ N <- 24
 TSPAN <- 24
 TSTEP <- TSPAN/N
 NDAYS <- 15
+NCHAINS <- 3
 
 MU_MU1 <- -80
 MU_MU2 <- -40
@@ -37,3 +38,5 @@ pars_mat <- sim_pars_mat( nPops = NPOPS, nDays = NDAYS, nBirds = NBIRDS, tStep =
 for ( i in 1:NPOPS ){
 	sim_function(i, pars_mat)
 }
+
+source("DP_HPDAnalysis.R")
