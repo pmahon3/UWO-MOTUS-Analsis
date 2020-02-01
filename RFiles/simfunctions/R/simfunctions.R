@@ -20,15 +20,13 @@ library(dplyr)
 #' @examples
 simBirdData <- function( nDays, tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_mu3, delta1, delta2, delta ){
 
-  data <- vector( mode = "list", length = nDays)
-  times <- vector( mode = "list", length = as.integer( tSpan / tStep ))
-
+  data <- list(length = nDays)
+  
   for ( j in 1:nDays){
-    
+    times <- seq( from = tStep, to = tSpan, by = tStep )
+    msrmnts <- vector( mode = "double", length = tSpan / tStep )
     if ( j == nDays ){
-      
       for ( i in 1:length(times) ){
-
       	  if ( times[i] < delta1 ){
              mean = mu1
              sd = sd_mu1
@@ -41,48 +39,28 @@ simBirdData <- function( nDays, tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_
              mean = mu3
              sd = sd_mu3
           }
-        
           msrmnts[i] <- rnorm(1, mean, sd)
-        
-          while( times[i] <= 0 ){
-             msrmnts[i] <- rnorm(1, mean, sd)
-          }
       }
-
-      data[j] <- tibble(times, msrmnts)
-      
+      data[[j]] <- cbind(times, msrmnts)
     }
-    
     else{
-
-    	 times = seq( from = tStep, to = tSpan, by = tStep)
-      	 msrmnts = vector( mode = "double", length = tSpan/tStep )
-
-	 for ( i in 1:length(times) ){
-
-	     if ( times[i] < delta1 ){
-             	mean = mu1
-             	sd = sd_mu1
-  	     }
-
-	     else if ( times[i] >= delta1 && times[i] < delta2 ){
-             	mean = mu2
-              	sd = sd_mu2
-       	     }
-
-	     else{
-		mean = mu3
-              	sd = sd_mu3
-             }
-      
-             msrmnts[i] <- rnorm(1, mean, sd)
-      
-             while( times[i] <= 0 ){
-             	msrmnts[i] <- rnorm(1, mean, sd)
-             }
+      for ( i in 1:length(times) ){
+        if ( times[i] < delta1 ){
+          mean = mu1
+          sd = sd_mu1
+  	    }
+        else if ( times[i] >= delta1 && times[i] < delta2 ){
+          mean = mu2
+          sd = sd_mu2
         }
-        data[j] <- tibble(times, msrmnts)
+        else{
+		      mean = mu3
+          sd = sd_mu3
+        }
+        msrmnts[i] <- rnorm(1, mean, sd)
+      }
     }
+    data[[j]] <- cbind(times, msrmnts)
   }
   return(data)
 }
@@ -170,8 +148,6 @@ simBirdParams <- function( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_mu2,
 #'
 #' @examples
 simPopulationData <- function( birds, nDays, tStep, tSpan ){
-  print(tSpan)
-  print(tStep)
   n <- nrow( birds )
   dat <- vector( mode = "list", length = n)
 
@@ -219,6 +195,7 @@ sim_function <- function( i, pars_mat){
   sd_delta2 = pm[i, "sd_delta2"]
   tStep = pm[i, "tStep"]
   tSpan = pm[i, "tSpan"]
+  nObs = tSpan / tStep 
   delta_prime = pm[i, "delta_prime"]
   sigma_delta_prime = pm[i, "sigma_delta_prime"]
   sigma_epsilon = pm[i, "sigma_epsilon"]
@@ -239,12 +216,16 @@ sim_function <- function( i, pars_mat){
 
   init_vals <- sim_init_vals(i, mu_mu1, mu_mu2, mu_mu3, sd_mu1, sd_mu2, sd_mu3, mu_delta1, mu_delta2, sd_delta1, sd_delta2, delta_prime, sigma_delta_prime)
   
-  y <- t(sapply(birdDat,"[[","msrmnts"))
-  t <- t(sapply(birdDat,"[[","times"))
+  birdList <- vector( mode = "list", length = nBirds )
+  for ( i in 1:nBirds ){
+    dayList <- vector( mode = "list", length = nDays )
+    for ( j in 1:nDays ){
+      dayList[[j]] <- birdDat[[i]][[j]]
+    }
+    birdList[[i]] <- dayList
+  }
 
-  n <- ncol(y)
-  
-  dat <- list( "y" = y, "t" = t, "n" = n, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta_prime" = delta_prime, "sigma_delta_prime" = sigma_delta_prime)
+  dat <- list( "birdList" = birdList, "n" = nObs, "nDays" = nDays, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta_prime" = delta_prime, "sigma_delta_prime" = sigma_delta_prime)
 
   print(paste("Building", "model", i, "...", sep = " "))
   model <- jags.model("populationModel.txt", data = dat, n.chains = 3, n.adapt = 1000)
