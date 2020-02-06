@@ -5,13 +5,13 @@ library(simfunctions)
 
 PATH <- "Out"
 # generate a parameter matrix
-NPOPS <- 10
+NPOPS <- 100
 NCHAINS <- 3
-NBIRDS <- 10
+NBIRDS <- 100
 N <- 96
 TSPAN <- 24
 TSTEP <- TSPAN / N
-NDAYS <- 15
+NDAYS <- 5
 
 MU_MU1 <- -80
 MU_MU2 <- -40
@@ -33,7 +33,7 @@ SD_DELTA2 <- 1
 
 DELTA_PRIME <- 0.25
 SIGMA_EPSILON <- 1/30
-SIGMA_DELTA_PRIME <- 1/30
+SIGMA_DELTA_PRIME <- 0.5
 
 dir.create(file.path( PATH, "Data" ), recursive = TRUE )
 dir.create(file.path( PATH, "HPD" ), recursive = TRUE )

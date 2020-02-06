@@ -205,6 +205,9 @@ sim_function <- function( i, pars_mat){
   sd_mu_delta <- c( sd_delta1, sd_delta2)
   sd_mu <- c(sd_mu1, sd_mu2, sd_mu3)
 
+  # SLIGHT BUMP ( +4 MINUTES )  TO MU_DELTA_PRIME HYPER PARAMETER FOR TESTING
+  mu_delta_prime = delta_prime + 1/15
+
   birdPop <- simBirdParams( nBirds = nBirds, mu_mu1 = mu_mu1, mu_mu2 = mu_mu2, mu_mu3 = mu_mu3, sd_mu_mu1 = sd_mu1, sd_mu_mu2 = sd_mu2, sd_mu_mu3 = sd_mu3, mu_sd1 = mu_sd1, mu_sd2 = mu_sd2, mu_sd3 = mu_sd3, sd_mu_sd1 = sd_mu_sd1, sd_mu_sd2 = sd_mu_sd2, sd_mu_sd3 = sd_mu_sd3, mu_delta1 = mu_delta1, mu_delta2 = mu_delta2, sd_delta1 = sd_delta1, sd_delta2 = sd_delta2, delta_prime = delta_prime, sigma_epsilon = sigma_epsilon)
 
   birdDat <- simPopulationData( birdPop, nDays = nDays, tStep = tStep, tSpan = tSpan)
@@ -213,6 +216,8 @@ sim_function <- function( i, pars_mat){
   saveRDS(birdDat, file = paste( path, "/Data/", "Data", toString(i), ".RDS", sep = ""))
 
   load.module("glm")
+
+  
 
   init_vals <- sim_init_vals(i, mu_mu1, mu_mu2, mu_mu3, sd_mu1, sd_mu2, sd_mu3, mu_delta1, mu_delta2, sd_delta1, sd_delta2, delta_prime, sigma_delta_prime)
   
@@ -226,7 +231,7 @@ sim_function <- function( i, pars_mat){
     }
   }
 
-  dat <- list( "yMat" = yMat, "tMat" = tMat, "n" = nObs, "nDays" = nDays, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta_prime" = delta_prime, "sigma_delta_prime" = sigma_delta_prime)
+  dat <- list( "yMat" = yMat, "tMat" = tMat, "n" = nObs, "nDays" = nDays, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta_prime" = mu_delta_prime, "sigma_delta_prime" = sigma_delta_prime)
  
   print(paste("Building", "model", i, "...", sep = " "))
   model <- jags.model("populationModel.txt", data = dat, n.chains = 3, n.adapt = 1000)

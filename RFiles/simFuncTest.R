@@ -3,10 +3,10 @@ library(dplyr)
 library(rjags)
 
 PATH <- "Out2/"
-NPOPS <- 6
-NBIRDS <- 6
+NPOPS <- 20
+NBIRDS <- 20
 N <- 24
-TSPAN <- 24
+TSPAN <- 1
 TSTEP <- TSPAN/N
 NDAYS <- 15
 NCHAINS <- 3
