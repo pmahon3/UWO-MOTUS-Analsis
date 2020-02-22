@@ -18,7 +18,7 @@ library(dplyr)
 #' @export
 #'
 #' @examples
-simBirdData <- function( nDays, tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_mu3, delta1, delta2, delta ){
+simBirdData <- function( nDays, tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_mu3, mu_delta1, mu_delta2, delta ){
 
   data <- list(length = nDays)
   
@@ -193,6 +193,10 @@ sim_function <- function( i, pars_mat){
   mu_delta2 = pm[i, "mu_delta2"]
   sd_delta1 = pm[i, "sd_delta1"]
   sd_delta2 = pm[i, "sd_delta2"]
+  mu_mu_mu_delta1 =  pm[i, "mu_mu_mu_delta1"]
+  mu_mu_mu_delta2 =  pm[i, "mu_mu_mu_delta2"]
+  sd_mu_delta1 = pm[i, "sd_mu_delta1"]
+  sd_mu_delta2 = pm[i, "sd_mu_delta2"]
   tStep = pm[i, "tStep"]
   tSpan = pm[i, "tSpan"]
   nObs = tSpan / tStep 
@@ -202,13 +206,14 @@ sim_function <- function( i, pars_mat){
 
   mu_mu <- c(mu_mu1, mu_mu2, mu_mu3)
   mu_mu_delta <- c( mu_delta1, mu_delta2)
-  sd_mu_delta <- c( sd_delta1, sd_delta2)
+  sd_mu_delta <- c( sd_mu_delta1, sd_mu_delta2)
   sd_mu <- c(sd_mu1, sd_mu2, sd_mu3)
+  mu_mu_mu_delta <- c(mu_mu_mu_delta1, mu_mu_mu_delta2)
 
   # SLIGHT BUMP ( +4 MINUTES )  TO MU_DELTA_PRIME HYPER PARAMETER FOR TESTING
   mu_delta_prime = delta_prime + 1/15
 
-  birdPop <- simBirdParams( nBirds = nBirds, mu_mu1 = mu_mu1, mu_mu2 = mu_mu2, mu_mu3 = mu_mu3, sd_mu_mu1 = sd_mu1, sd_mu_mu2 = sd_mu2, sd_mu_mu3 = sd_mu3, mu_sd1 = mu_sd1, mu_sd2 = mu_sd2, mu_sd3 = mu_sd3, sd_mu_sd1 = sd_mu_sd1, sd_mu_sd2 = sd_mu_sd2, sd_mu_sd3 = sd_mu_sd3, mu_delta1 = mu_delta1, mu_delta2 = mu_delta2, sd_delta1 = sd_delta1, sd_delta2 = sd_delta2, delta_prime = delta_prime, sigma_epsilon = sigma_epsilon)
+  birdPop <- simBirdParams( nBirds = nBirds, mu_mu1 = mu_mu1, mu_mu2 = mu_mu2, mu_mu3 = mu_mu3, sd_mu_mu1 = sd_mu1, sd_mu_mu2 = sd_mu2, sd_mu_mu3 = sd_mu3, mu_sd1 = mu_sd1, mu_sd2 = mu_sd2, mu_sd3 = mu_sd3, sd_mu_sd1 = sd_mu_sd1, sd_mu_sd2 = sd_mu_sd2, sd_mu_sd3 = sd_mu_sd3, mu_delta1 = mu_delta1, mu_delta2 = mu_delta2, sd_delta1 = sd_mu_delta1, sd_delta2 = sd_mu_delta2, delta_prime = delta_prime, sigma_epsilon = sigma_epsilon)
 
   birdDat <- simPopulationData( birdPop, nDays = nDays, tStep = tStep, tSpan = tSpan)
 
@@ -231,7 +236,7 @@ sim_function <- function( i, pars_mat){
     }
   }
 
-  dat <- list( "yMat" = yMat, "tMat" = tMat, "n" = nObs, "nDays" = nDays, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta_prime" = mu_delta_prime, "sigma_delta_prime" = sigma_delta_prime)
+  dat <- list( "yMat" = yMat, "tMat" = tMat, "n" = nObs, "nDays" = nDays, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "sd_mu_delta" = sd_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta_prime" = mu_delta_prime, "sigma_delta_prime" = sigma_delta_prime, "mu_mu_mu_delta" = mu_mu_mu_delta, "sd_mu_mu_delta" = sd_mu_mu_delta)
  
   print(paste("Building", "model", i, "...", sep = " "))
   model <- jags.model("populationModel.txt", data = dat, n.chains = 3, n.adapt = 1000)
@@ -307,8 +312,8 @@ sim_init_vals <- function(i, mu_mu1, mu_mu2, mu_mu3, sd_mu1, sd_mu2, sd_mu3, mu_
 #' @export
 #'
 #' @examples
-sim_pars_mat <- function( nDays, nPops, nBirds, tStep, tSpan, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_mu2, sd_mu_mu3, mu_sd1, mu_sd2, mu_sd3, sd_mu_sd1, sd_mu_sd2, sd_mu_sd3, mu_delta1, mu_delta2, sd_delta1, sd_delta2, delta_prime, sigma_delta_prime, sigma_epsilon ){
-  pm = matrix( nrow = nPops, ncol = 23, dimnames = list(c(1:nPops), c("nBirds" , "mu_mu1", "mu_mu2", "mu_mu3", "sd_mu_mu1", "sd_mu_mu2", "sd_mu_mu3", "mu_sd1", "mu_sd2", "mu_sd3", "sd_mu_sd1", "sd_mu_sd2", "sd_mu_sd3", "mu_delta1", "mu_delta2", "sd_delta1", "sd_delta2", "tStep", "tSpan", "delta_prime", "sigma_delta_prime", "sigma_epsilon", "nDays")))
+sim_pars_mat <- function( nDays, nPops, nBirds, tStep, tSpan, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_mu2, sd_mu_mu3, mu_sd1, mu_sd2, mu_sd3, sd_mu_sd1, sd_mu_sd2, sd_mu_sd3, mu_delta1, mu_delta2, mu_mu_mu_delta1, mu_mu_mu_delta2, sd_mu_delta1, sd_mu_delta2, delta_prime, sigma_delta_prime, sigma_epsilon ){
+  pm = matrix( nrow = nPops, ncol = 27, dimnames = list(c(1:nPops), c("nBirds" , "mu_mu1", "mu_mu2", "mu_mu3", "sd_mu_mu1", "sd_mu_mu2", "sd_mu_mu3", "mu_sd1", "mu_sd2", "mu_sd3", "sd_mu_sd1", "sd_mu_sd2", "sd_mu_sd3", "mu_delta1", "mu_delta2", "mu_mu_mu_delta1", "mu_mu_mu_delta2", "sd_mu_delta1", "sd_mu_delta2", "sd_delta1", "sd_delta2", "tStep", "tSpan", "delta_prime", "sigma_delta_prime", "sigma_epsilon", "nDays")))
   for ( j in 1:nPops ){
     pm[j, "nBirds"] = nBirds
     pm[j, "mu_mu1"] = mu_mu1
@@ -323,10 +328,14 @@ sim_pars_mat <- function( nDays, nPops, nBirds, tStep, tSpan, mu_mu1, mu_mu2, mu
     pm[j, "sd_mu_sd1"] = sd_mu_sd1
     pm[j, "sd_mu_sd2"] = sd_mu_sd2
     pm[j, "sd_mu_sd3"] = sd_mu_sd3
-    pm[j, "mu_delta1"] = mu_delta1
-    pm[j, "mu_delta2"] = mu_delta2
     pm[j, "sd_delta1"] = sd_delta1
     pm[j, "sd_delta2"] = sd_delta2
+    pm[j, "mu_delta1"] = mu_delta1
+    pm[j, "mu_delta2"] = mu_delta2
+    pm[j, "mu_mu_mu_delta1"] = mu_mu_mu_delta1
+    pm[j, "mu_mu_mu_delta2"] = mu_mu_mu_delta2
+    pm[j, "sd_mu_delta1"] = sd_mu_delta1
+    pm[j, "sd_mu_delta2"] = sd_mu_delta2
     pm[j, "tStep"] = tStep
     pm[j, "tSpan"] = tSpan
     pm[j, "delta_prime"] = delta_prime
