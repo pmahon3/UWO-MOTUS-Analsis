@@ -17,7 +17,7 @@ model{
 	 
 		for ( k in 1:n ){
 
-		    period[ i,nDays,k ] <- step( tMat[i,nDays,k] - delta[i,1] ) + step( tMat[i,nDays,k] - delta[i, 2] - delta_prime ) + 1 
+		    period[ i,nDays,k ] <- step( tMat[i,nDays,k] - delta[i,nDays,1] ) + step( tMat[i,nDays,k] - delta[i,nDays, 2] - delta_prime ) + 1 
 		    yMat[i,nDays,k] ~ dnorm( m_y[ i, period[ i,nDays,k ]] , 1/sigma_y[ i, period[ i,nDays,k ]]^2 )
 	  	}
     	}
@@ -31,7 +31,7 @@ model{
       		     sigma_y[ i, j] ~ dscaled.gamma( 10, 2 )
   	        }
   	
-    		for( j in 1:nDays-1 ){
+    		for( j in 1:(nDays-1) ){
  		     delta[i,j, 1] ~ dnorm( mu_delta[i,1], tau_delta1 ) 
 		     delta[i,j, 2] ~ dnorm( mu_delta[i,2], tau_delta2 )
 		}
@@ -49,11 +49,11 @@ model{
 	mu_mu_delta[1] ~ dnorm(mu_mu_mu_delta[1], tau_mu_mu_delta1)
 	mu_mu_delta[2] ~ dnorm(mu_mu_mu_delta[2], tau_mu_mu_delta2)
 
-	tau_mu_mu_delta1 <- dscaled.gamma(1,2)
-	tau_mu_mu_delta2 <- dscaled.gamma(1,2)
+	tau_mu_mu_delta1 ~ dscaled.gamma(1,2)
+	tau_mu_mu_delta2 ~ dscaled.gamma(1,2)
 	
-	tau_mu_delta1 <- dscaled.gamma(1,2)
-	tau_mu_delta2 <- dscaled.gamma(1,2)
+	tau_mu_delta1 ~ dscaled.gamma(1,2)
+	tau_mu_delta2 ~ dscaled.gamma(1,2)
 
 	tau_delta1 ~ dscaled.gamma(1, 2)
 	tau_delta2 ~ dscaled.gamma(1, 2)
