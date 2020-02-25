@@ -5,9 +5,9 @@ library(rjags)
 PATH <- "Out2/"
 NPOPS <- 20
 NBIRDS <- 20
-N <- 24
-TSPAN <- 1
-TSTEP <- TSPAN/N
+TSPAN <- 24
+TSTEP <- 1
+N <- TSPAN / TSTEP
 NDAYS <- 15
 NCHAINS <- 3
 
