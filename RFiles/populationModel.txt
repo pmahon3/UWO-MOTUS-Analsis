@@ -36,7 +36,7 @@ model{
 		     delta[i,j, 2] ~ dnorm( mu_delta[i,2], tau_delta2 )
 		}
 
-		delta[i,nDays, 1] ~ dnorm( mu_delta[i, 1] + delta_prime, tau_delta1 )
+		delta[i,nDays, 2] ~ dnorm( mu_delta[i, 2] + delta_prime , tau_delta1 )
 
 		mu_delta[i,1] ~ dnorm(mu_mu_delta[1], tau_mu_delta1)
 		mu_delta[i,2] ~ dnorm(mu_mu_delta[2], tau_mu_delta2)
@@ -49,12 +49,12 @@ model{
 	mu_mu_delta[1] ~ dnorm(mu_mu_mu_delta[1], tau_mu_mu_delta1)
 	mu_mu_delta[2] ~ dnorm(mu_mu_mu_delta[2], tau_mu_mu_delta2)
 
-	tau_mu_mu_delta1 ~ dscaled.gamma(1,2)
-	tau_mu_mu_delta2 ~ dscaled.gamma(1,2)
+	tau_mu_mu_delta1 ~ dscaled.gamma(1,100)
+	tau_mu_mu_delta2 ~ dscaled.gamma(1,100)
 	
-	tau_mu_delta1 ~ dscaled.gamma(1,2)
-	tau_mu_delta2 ~ dscaled.gamma(1,2)
+	tau_mu_delta1 ~ dscaled.gamma(1,100)
+	tau_mu_delta2 ~ dscaled.gamma(1,100)
 
-	tau_delta1 ~ dscaled.gamma(1, 2)
-	tau_delta2 ~ dscaled.gamma(1, 2)
+	tau_delta1 ~ dscaled.gamma(1, 100)
+	tau_delta2 ~ dscaled.gamma(1, 100)
 }
