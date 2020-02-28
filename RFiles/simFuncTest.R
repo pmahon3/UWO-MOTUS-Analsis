@@ -6,9 +6,9 @@ library(simfunctions)
 
 PATH <- "Out"
 # generate a parameter matrix
-NPOPS <- 1
+NPOPS <- 5
 NCHAINS <- 3
-NBIRDS <- 50
+NBIRDS <- 10
 N <- 48
 TSPAN <- 24
 TSTEP <- TSPAN / N

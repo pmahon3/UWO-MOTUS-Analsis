@@ -12,9 +12,13 @@ delta_prime_results <- matrix( nrow = NPOPS, ncol = NCHAINS )
 for ( i in 1:NPOPS){
   
   dat <- HPDinterval(readRDS(paste(PATH, "HPD", i, ".RDS", sep = "")), prob = 0.95 )
+  print(i)
+  print(summary(dat[[1]]))
+  print(summary(dat[[2]]))
+  print(summary(dat[[3]]))
   delta_prime_lower_avg <- (dat[[1]][1] + dat[[2]][1] + dat[[3]][1])/3
   delta_prime_upper_avg <- (dat[[1]][2] + dat[[2]][2] + dat[[3]][2])/3
-  
+  Sys.sleep(2)
   for ( j in 1:NCHAINS ){
     
     if ( delta_prime_lower_avg <= DELTA_PRIME && delta_prime_upper_avg >= DELTA_PRIME ){
