@@ -23,8 +23,10 @@ simBirdData <- function( nDays, tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_
 
   data <- list(length = nDays)
 
+  nObs <- tSpan/tStep
+  
   for ( j in 1:nDays){
-    times <- seq( from = tStep, to = tSpan, by = tStep )
+    times <- sort(runif(nObs,0.001, 24))
     msrmnts <- vector( mode = "double", length = tSpan / tStep )
     delta1 <- rnorm(1, mu_delta1, sd_delta1)
     delta2 <- rnorm(1, mu_delta2, sd_delta2)

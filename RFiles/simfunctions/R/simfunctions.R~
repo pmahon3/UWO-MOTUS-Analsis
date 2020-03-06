@@ -117,8 +117,7 @@ simBirdParams <- function( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_mu2,
       sd_mu1[i] <- rnorm(1,  mu_sd1, sd_mu_sd1)
       sd_mu2[i] <- rnorm(1, mu_sd2, sd_mu_sd2)
       sd_mu3[i] <- rnorm(1,  mu_sd3, sd_mu_sd3)
-
-      delta[i] <- delta_prime + rnorm(1, 0, sigma_epsilon )
+      delta[i] <- rnorm(1, delta_prime, sigma_epsilon)		 
 
       while ( sd_mu1[i] <= 0 ) {
         sd_mu1[i] <- rnorm(1,  mu_sd1, sd_mu_sd1)

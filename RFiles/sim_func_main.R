@@ -5,13 +5,13 @@ library(simfunctions)
 
 PATH <- "Out"
 # generate a parameter matrix
-NPOPS <- 10
+NPOPS <- 1
 NCHAINS <- 3
-NBIRDS <- 50
-N <- 96
+NBIRDS <- 10
+N <- 128
 TSPAN <- 24
 TSTEP <- TSPAN / N
-NDAYS <- 15
+NDAYS <- 5
 
 MU_MU1 <- -80
 MU_MU2 <- -40
@@ -41,7 +41,7 @@ SD_SD_DELTA2 <- .001
 MU_MU_MU_DELTA1 <- 6
 MU_MU_MU_DELTA2 <- 20
 
-DELTA_PRIME <- 0.5
+DELTA_PRIME <- 0.25
 ## Actual sd of delta_prime
 SIGMA_EPSILON <- 1/30
 
