@@ -22,7 +22,7 @@ library(dplyr)
 simBirdData <- function( nDays, tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_mu3, mu_delta1, mu_delta2, sd_delta1, sd_delta2, delta){
 
   data <- list(length = nDays)
-  
+
   for ( j in 1:nDays){
     times <- seq( from = tStep, to = tSpan, by = tStep )
     msrmnts <- vector( mode = "double", length = tSpan / tStep )
@@ -109,7 +109,7 @@ simBirdParams <- function( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_mu2,
     sd_mu1 = vector( mode = "double", length = nBirds )
     sd_mu2 = vector( mode = "double", length = nBirds )
     sd_mu3 = vector( mode = "double", length = nBirds )
-    
+
     delta = vector( mode = "double", length = nBirds )
 
     for ( i in 1:nBirds ){
@@ -117,7 +117,7 @@ simBirdParams <- function( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_mu2,
       sd_mu1[i] <- rnorm(1,  mu_sd1, sd_mu_sd1)
       sd_mu2[i] <- rnorm(1, mu_sd2, sd_mu_sd2)
       sd_mu3[i] <- rnorm(1,  mu_sd3, sd_mu_sd3)
-      
+
       delta[i] <- delta_prime + rnorm(1, 0, sigma_epsilon )
 
       while ( sd_mu1[i] <= 0 ) {
@@ -176,7 +176,7 @@ simPopulationData <- function( birds, nDays, tStep, tSpan ){
 sim_function <- function( i, pars_mat){
 
   path = "Out"
-  print(paste("Simulation", i, "...", sep = " "))	     
+  print(paste("Simulation", i, "...", sep = " "))
   pm <- pars_mat
 
   nDays = pm[i, "nDays"]
@@ -205,7 +205,7 @@ sim_function <- function( i, pars_mat){
   mu_mu_mu_delta2 =  pm[i, "mu_mu_mu_delta2"]
   tStep = pm[i, "tStep"]
   tSpan = pm[i, "tSpan"]
-  nObs = tSpan / tStep 
+  nObs = tSpan / tStep
   delta_prime = pm[i, "delta_prime"]
   sigma_delta_prime = pm[i, "sigma_delta_prime"]
   sigma_epsilon = pm[i, "sigma_epsilon"]
@@ -228,13 +228,13 @@ sim_function <- function( i, pars_mat){
 
   load.module("glm")
 
-  
+
 
   init_vals <- sim_init_vals(i, mu_mu1, mu_mu2, mu_mu3, sd_mu1, sd_mu2, sd_mu3, delta_prime, sigma_delta_prime)
-  
+
   tMat <- array( dim = c(nBirds, nDays, tSpan/tStep))
   yMat <- array( dim = c(nBirds, nDays, tSpan/tStep))
-  
+
   for ( l in 1:nBirds ){
     for ( j in 1:nDays ){
       tMat[l,j,] <- birdDat[[l]][[j]][,1]
@@ -243,15 +243,15 @@ sim_function <- function( i, pars_mat){
   }
 
   delta <- array( dim = c(nBirds, nDays, 2))
-  for( i in 1:nBirds ){
+  for( l in 1:nBirds ){
        for ( j in 1:nDays ){
-       	   delta[i,j,1] = mu_mu_delta1
-	   delta[i,j,2] = mu_mu_delta2
+       	   delta[l,j,1] = mu_mu_delta1
+	         delta[l,j,2] = mu_mu_delta2
        }
   }
 
-  dat <- list( "yMat" = yMat, "tMat" = tMat, "n" = nObs, "nDays" = nDays, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta_prime" = mu_delta_prime, "sigma_delta_prime" = sigma_delta_prime, "mu_mu_mu_delta" = mu_mu_mu_delta, "delta" = delta, "delta_prime" = mu_delta_prime)
- 
+  dat <- list( "yMat" = yMat, "tMat" = tMat, "n" = nObs, "nDays" = nDays, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta_prime" = mu_delta_prime, "sigma_delta_prime" = sigma_delta_prime, "mu_mu_mu_delta" = mu_mu_mu_delta, "delta" = delta)
+
   print(paste("Building", "model", i, "...", sep = " "))
   model <- jags.model("populationModel.txt", data = dat, n.chains = 3, n.adapt = 1000)
 

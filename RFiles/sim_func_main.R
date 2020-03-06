@@ -7,7 +7,7 @@ PATH <- "Out"
 # generate a parameter matrix
 NPOPS <- 10
 NCHAINS <- 3
-NBIRDS <- 100
+NBIRDS <- 50
 N <- 96
 TSPAN <- 24
 TSTEP <- TSPAN / N
@@ -41,8 +41,11 @@ SD_SD_DELTA2 <- .001
 MU_MU_MU_DELTA1 <- 6
 MU_MU_MU_DELTA2 <- 20
 
-DELTA_PRIME <- 0.25
+DELTA_PRIME <- 0.5
+## Actual sd of delta_prime
 SIGMA_EPSILON <- 1/30
+
+## Prior for sd of delta_prime
 SIGMA_DELTA_PRIME <- 0.5
 
 dir.create(file.path( PATH, "Data" ), recursive = TRUE )
