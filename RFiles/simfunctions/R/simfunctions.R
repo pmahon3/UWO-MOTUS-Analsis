@@ -24,10 +24,10 @@ simBirdData <- function( nDays, tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_
   data <- list(length = nDays)
 
   nObs <- tSpan/tStep
-  
+
   for ( j in 1:nDays){
     times <- sort(runif(nObs,0.001, 24))
-    msrmnts <- vector( mode = "double", length = tSpan / tStep )
+    msrmnts <- vector( mode = "double", length = nObs )
     delta1 <- rnorm(1, mu_delta1, sd_delta1)
     delta2 <- rnorm(1, mu_delta2, sd_delta2)
     if ( j == nDays ){
@@ -64,8 +64,9 @@ simBirdData <- function( nDays, tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_
         }
         msrmnts[i] <- rnorm(1, mean, sd)
       }
+      data[[j]] <- cbind(times, msrmnts)
     }
-    data[[j]] <- cbind(times, msrmnts)
+
   }
   return(data)
 }
@@ -119,7 +120,7 @@ simBirdParams <- function( nBirds, mu_mu1, mu_mu2, mu_mu3, sd_mu_mu1, sd_mu_mu2,
       sd_mu1[i] <- rnorm(1,  mu_sd1, sd_mu_sd1)
       sd_mu2[i] <- rnorm(1, mu_sd2, sd_mu_sd2)
       sd_mu3[i] <- rnorm(1,  mu_sd3, sd_mu_sd3)
-      delta[i] <- rnorm(1, delta_prime, sigma_epsilon)		 
+      delta[i] <- rnorm(1, delta_prime, sigma_epsilon)
 
       while ( sd_mu1[i] <= 0 ) {
         sd_mu1[i] <- rnorm(1,  mu_sd1, sd_mu_sd1)
