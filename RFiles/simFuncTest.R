@@ -6,13 +6,13 @@ library(simfunctions)
 
 PATH <- "Out"
 # generate a parameter matrix
-NPOPS <- 5
+NPOPS <- 10
 NCHAINS <- 3
 NBIRDS <- 10
-N <- 48
+N <- 128
 TSPAN <- 24
 TSTEP <- TSPAN / N
-NDAYS <- 5
+NDAYS <- 10
 
 MU_MU1 <- -80
 MU_MU2 <- -40
