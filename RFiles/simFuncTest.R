@@ -13,7 +13,6 @@ NBIRDS <- 50
 
 TSPAN <- 24
 TSTEP <- 0.0078125
-
 NDAYS <- 10
 
 MU_MU1 <- -80
