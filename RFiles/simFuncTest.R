@@ -1,18 +1,20 @@
 library(rjags)
 library(parallel)
 library(simfunctions)
+library(nimble, warn.conflicts = FALSE)
 
 #!/usr/bin/Rscript
 
 PATH <- "Out"
 # generate a parameter matrix
-NPOPS <- 5
-NCHAINS <- 3
-NBIRDS <- 10
-N <- 48
+NPOPS <- 1
+NCHAINS <- 1
+NBIRDS <- 50
+
 TSPAN <- 24
-TSTEP <- TSPAN / N
-NDAYS <- 5
+TSTEP <- 0.0078125
+
+NDAYS <- 10
 
 MU_MU1 <- -80
 MU_MU2 <- -40
@@ -43,7 +45,7 @@ MU_MU_MU_DELTA1 <- 6
 MU_MU_MU_DELTA2 <- 20
 
 DELTA_PRIME <- 0.25
-SIGMA_EPSILON <- 1/30
+SIGMA_EPSILON <- 0.0001
 SIGMA_DELTA_PRIME <- 0.5
 
 dir.create(file.path( PATH, "Data" ), recursive = TRUE )
@@ -56,5 +58,3 @@ pars_mat <- sim_pars_mat( nDays = NDAYS, nPops = NPOPS, nBirds = NBIRDS, tStep =
 for ( i in 1:NPOPS ){
 	sim_function(i, pars_mat)
 }
-
-source("DP_HPDAnalysis.R")

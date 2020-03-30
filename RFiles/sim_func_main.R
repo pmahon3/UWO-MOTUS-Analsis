@@ -5,13 +5,13 @@ library(simfunctions)
 
 PATH <- "Out"
 # generate a parameter matrix
-NPOPS <- 1
+NPOPS <- 50
 NCHAINS <- 3
-NBIRDS <- 10
-N <- 128
+NBIRDS <- 50
+N <- 1200
 TSPAN <- 24
 TSTEP <- TSPAN / N
-NDAYS <- 5
+NDAYS <- 10
 
 MU_MU1 <- -80
 MU_MU2 <- -40
@@ -46,7 +46,7 @@ DELTA_PRIME <- 0.25
 SIGMA_EPSILON <- 1/30
 
 ## Prior for sd of delta_prime
-SIGMA_DELTA_PRIME <- 0.5
+SIGMA_DELTA_PRIME <- 1
 
 dir.create(file.path( PATH, "Data" ), recursive = TRUE )
 dir.create(file.path( PATH, "HPD" ), recursive = TRUE )
@@ -56,7 +56,7 @@ pars_mat <- sim_pars_mat( nDays = NDAYS, nPops = NPOPS, nBirds = NBIRDS, tStep =
 print("Making cluster...")
 cl <- makeCluster(getOption("cl.cores", 6))
 print("Loading cluster dependencies...")
-clusterEvalQ(cl, c(library(rjags), library(dplyr), library(simfunctions)))
+clusterEvalQ(cl, c(library(rjags), library(dplyr), library(simfunctions), library(nimble)))
 print("Exporting cluster...")
 clusterExport(cl, c("pars_mat", "sim_function"))
 print("Computing cluster...")

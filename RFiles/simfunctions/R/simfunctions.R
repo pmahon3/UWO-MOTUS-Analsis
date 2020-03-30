@@ -1,5 +1,6 @@
 
 library(dplyr)
+library(nimble)
 
 #' simBird simulates the data for one bird
 #'
@@ -26,11 +27,21 @@ simBirdData <- function( nDays, tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_
   nObs <- tSpan/tStep
 
   for ( j in 1:nDays){
-    times <- sort(runif(nObs,0.001, 24))
-    msrmnts <- vector( mode = "double", length = nObs )
+  
+
+    initTime <- runif(1)*tStep;
+    
     delta1 <- rnorm(1, mu_delta1, sd_delta1)
     delta2 <- rnorm(1, mu_delta2, sd_delta2)
+
     if ( j == nDays ){
+
+       times1 <- seq( from = delta1 - 1 + initTime, to = delta1 + 1, by = tStep )
+       times2 <- seq( from = delta2 + delta - 1 + initTime, to = delta2 + delta + 1, by = tStep )
+       times <- c(times1, times2)
+       msrmnts <- double( length = length(times) )
+
+
        for ( i in 1:length(times) ){
       	  if ( times[i] < delta1 ){
              mean = mu1
@@ -49,17 +60,23 @@ simBirdData <- function( nDays, tStep, tSpan, mu1, mu2, mu3, sd_mu1, sd_mu2, sd_
       data[[j]] <- cbind(times, msrmnts)
     }
     else{
+
+      times1 <- seq( from = delta1 - 1 + initTime, to = delta1 + 1, by = tStep )
+      times2 <- seq( from = delta2 - 1 + initTime, to = delta2 + 1, by = tStep )
+      times <- c(times1, times2)
+      msrmnts <- double( length = length(times) )
+
       for ( i in 1:length(times) ){
         if ( times[i] < delta1 ){
           mean = mu1
           sd = sd_mu1
-  	    }
+  	}
         else if ( times[i] >= delta1 && times[i] < delta2 ){
           mean = mu2
           sd = sd_mu2
         }
         else{
-		      mean = mu3
+	  mean = mu3
           sd = sd_mu3
         }
         msrmnts[i] <- rnorm(1, mean, sd)
@@ -177,6 +194,70 @@ simPopulationData <- function( birds, nDays, tStep, tSpan ){
 #' @examples
 sim_function <- function( i, pars_mat){
 
+modelCode <- nimbleCode({
+
+        ##Population level likelihood
+        for ( i in 1:nBirds){
+
+                ##Individual level likelihood
+                for ( j in 1:(nDays-1) ){
+
+                        for ( k in 1:n ){
+
+                                period[ i,j,k ] <- step( tMat[i,j,k] - delta[i,j,1] ) + step( tMat[i,j,k] - delta[i,j, 2] ) + 1
+                                yMat[i,j,k] ~ dnorm( m_y[ i, period[ i,j,k ]] , 1/sigma_y[ i, period[ i,j,k ]]^2 )
+                        }
+                }
+
+
+
+                for ( k in 1:n ){
+
+                    period[ i,nDays,k ] <- step( tMat[i,nDays,k] - delta[i,nDays,1] ) + step( tMat[i,nDays,k] - delta[i,nDays, 2] - delta_prime ) + 1
+                    yMat[i,nDays,k] ~ dnorm( m_y[ i, period[ i,nDays,k ]] , 1/sigma_y[ i, period[ i,nDays,k ]]^2 )
+                }
+        }
+
+        ##Population level priors
+        for( i in 1:nBirds){
+
+                ##Individual level priors
+                for( j in 1:3 ){
+                     m_y[i, j ] ~ dnorm( mu_mu[j], 1 / ( sd_mu[j]^2 ) )
+                     sigma_y[ i, j] ~ dgamma( 10, 1/2 )
+                }
+
+                for( j in 1:(nDays) ){
+                     delta[i,j, 1] ~ dnorm( mu_delta[i,1], tau_delta1 )
+                     delta[i,j, 2] ~ dnorm( mu_delta[i,2],  tau_delta2 )
+                }
+
+                #delta[i,nDays, 1] ~ dnorm( mu_delta[i, 1], tau_delta1)
+                #delta[i,nDays, 2] ~ dnorm( mu_delta[i, 2] + delta_prime , tau_delta2 )
+
+                mu_delta[i,1] ~ dnorm(mu_mu_delta[1], tau_mu_delta1)
+                mu_delta[i,2] ~ dnorm(mu_mu_delta[2], tau_mu_delta2)
+        }
+
+
+
+        delta_prime ~ dnorm( mu_delta_prime, 1 / (sigma_delta_prime^2) )
+
+        mu_mu_delta[1] ~ dnorm(mu_mu_mu_delta[1], tau_mu_mu_delta1)
+        mu_mu_delta[2] ~ dnorm(mu_mu_mu_delta[2], tau_mu_mu_delta2)
+
+        tau_mu_mu_delta1 ~ dgamma(1,1/2)
+        tau_mu_mu_delta2 ~ dgamma(1,1/2)
+
+        tau_mu_delta1 ~ dgamma(1,1/2)
+        tau_mu_delta2 ~ dgamma(1,1/2)
+
+        tau_delta1 ~ dgamma(1, 1/2)
+        tau_delta2 ~ dgamma(1, 1/2)
+})
+
+
+
   path = "Out"
   print(paste("Simulation", i, "...", sep = " "))
   pm <- pars_mat
@@ -207,11 +288,10 @@ sim_function <- function( i, pars_mat){
   mu_mu_mu_delta2 =  pm[i, "mu_mu_mu_delta2"]
   tStep = pm[i, "tStep"]
   tSpan = pm[i, "tSpan"]
-  nObs = tSpan / tStep
+  nObs = 4 / tStep
   delta_prime = pm[i, "delta_prime"]
   sigma_delta_prime = pm[i, "sigma_delta_prime"]
   sigma_epsilon = pm[i, "sigma_epsilon"]
-
   mu_mu <- c(mu_mu1, mu_mu2, mu_mu3)
   mu_mu_delta <- c( mu_mu_delta1, mu_mu_delta2)
   sd_mu_delta <- c( sd_mu_delta1, sd_mu_delta2)
@@ -226,16 +306,14 @@ sim_function <- function( i, pars_mat){
   birdDat <- simPopulationData( birdPop, nDays = nDays, tStep = tStep, tSpan = tSpan)
 
   print(paste("Saving simulation", i, "data", sep = " "))
-  saveRDS(birdDat, file = paste( path, "/Data/", "Data", toString(i), ".RDS", sep = ""))
+  # saveRDS(birdDat, file = paste( path, "/Data/", "Data", toString(i), ".RDS", sep = ""))
 
   load.module("glm")
 
-
-
   init_vals <- sim_init_vals(i, mu_mu1, mu_mu2, mu_mu3, sd_mu1, sd_mu2, sd_mu3, delta_prime, sigma_delta_prime)
 
-  tMat <- array( dim = c(nBirds, nDays, tSpan/tStep))
-  yMat <- array( dim = c(nBirds, nDays, tSpan/tStep))
+  tMat <- array( dim = c(nBirds, nDays, 4/tStep))
+  yMat <- array( dim = c(nBirds, nDays, 4/tStep))
 
   for ( l in 1:nBirds ){
     for ( j in 1:nDays ){
@@ -252,15 +330,24 @@ sim_function <- function( i, pars_mat){
        }
   }
 
-  dat <- list( "yMat" = yMat, "tMat" = tMat, "n" = nObs, "nDays" = nDays, "nBirds" = nBirds, "mu_mu_delta" = mu_mu_delta, "mu_mu" = mu_mu, "sd_mu" = sd_mu, "mu_delta_prime" = mu_delta_prime, "sigma_delta_prime" = sigma_delta_prime, "mu_mu_mu_delta" = mu_mu_mu_delta, "delta" = delta)
+
+  dat <- list( yMat = yMat, tMat = tMat, mu_mu_delta = mu_mu_delta, mu_mu = mu_mu, sd_mu = sd_mu, mu_delta_prime = mu_delta_prime, sigma_delta_prime = sigma_delta_prime, mu_mu_mu_delta = mu_mu_mu_delta, delta = delta)
+
+  
 
   print(paste("Building", "model", i, "...", sep = " "))
-  model <- jags.model("populationModel.txt", data = dat, n.chains = 3, n.adapt = 1000)
-
-  print(paste("Running chains for model", i, "...", sep = " " ))
-  monitor <- coda.samples(model, variable.names = c("delta_prime"), n.iter = 5000)
-  summary(monitor)
-  saveRDS(monitor, file = paste( path, "/HPD/", "HPD", toString(i), ".RDS", sep = ""))
+  
+  
+  mcmc.out <- nimbleMCMC( code = modelCode,
+  	      		  constants = list( nBirds = nBirds, nDays = nDays, n = nObs ),
+			  data = dat,
+			  nchains = 3,
+			  niter = 5000,
+			  summary = TRUE,
+			  WAIC = TRUE,
+			  monitors = c('delta_prime', 'mu_mu_delta', 'delta', 'mu_delta', 'tau_mu_mu_delta1', 'tau_mu_mu_delta2', 'tau_delta1', 'tau_delta2', 'm_y', 'sigma_y', 'mu_mu', 'sd_mu' ))
+  samples <- mcmc.out$summary$all.chains["delta_prime",]
+  saveRDS(samples, file = paste("Out/HPD/HPD", toString(i), ".rds", sep = ""))
 }
 
 #' sim_init_vals generates initial values for the parallel processed chains

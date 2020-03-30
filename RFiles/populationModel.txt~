@@ -18,8 +18,8 @@ model{
 	 
 		for ( k in 1:n ){
 
-		    period[ i,D,k ] <- step( tMat[i,D,k] - delta[i,D,1] ) + step( tMat[i,D,k] - delta[i,D, 2] - delta_prime ) + 1 
-		    yMat[i,D,k] ~ dnorm( m_y[ i, period[ i,D,k ]] , 1/sigma_y[ i, period[ i,D,k ]]^2 )
+		    period[ i,N,k ] <- step( tMat[i,N,k] - delta[i,N,1] ) + step( tMat[i,N,k] - delta[i,N, 2] - delta_prime ) + 1 
+		    yMat[i,N,k] ~ dnorm( m_y[ i, period[ i,N,k ]] , 1/sigma_y[ i, period[ i,N,k ]]^2 )
 	  	}
     	}
 
