@@ -1,4 +1,8 @@
-# USRA2019
+## UWO Motus Analysis
+# Department of Mathematical and Statistical Sciences 
+# Department of Biology
+# Western University
+
 
 Simon Bonner: 
 
