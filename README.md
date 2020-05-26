@@ -24,6 +24,8 @@ sbonner@uwo.ca
 
   pmahon3@uwo.ca
 
+## Description and Resources
+
 
 Markov Chain Monte Carlo analysis of MOTUS radio transmitter data from Southwestern Ontario using R's nimble:
 
