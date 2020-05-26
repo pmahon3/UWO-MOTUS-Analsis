@@ -3,17 +3,20 @@
 Simon Bonner: 
 
 sbonner@uwo.ca
-http://simon.bonners.ca/bonner-lab/wpblog/
+  
+  http://simon.bonners.ca/bonner-lab/wpblog/
+  
 
 Yolanda Morbey: 
 
-ymorbey@uwo.ca
-https://www.uwo.ca/biology/faculty/morbey/
+  ymorbey@uwo.ca
+  
+  https://www.uwo.ca/biology/faculty/morbey/
+  
 
 Patrick Mahon: 
 
-pmahon3@uwo.ca
-
+  pmahon3@uwo.ca
 
 
 Markov Chain Monte Carlo analysis of MOTUS radio transmitter data from Southwestern Ontario using R's nimble:
