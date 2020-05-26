@@ -22,5 +22,7 @@ Patrick Mahon:
 Markov Chain Monte Carlo analysis of MOTUS radio transmitter data from Southwestern Ontario using R's nimble:
 
 https://motus.org
+
 https://r-nimble.org/
+
 https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo
