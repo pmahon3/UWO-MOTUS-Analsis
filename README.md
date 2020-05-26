@@ -1,9 +1,8 @@
-# UWO Motus Analysis
+# Motus Analysis
 
 # Western University
 
 ## Department of Biology
-
 
 ### Yolanda Morbey
 
