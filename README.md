@@ -4,7 +4,7 @@
 
 ## Department of Biology
 
-### Yolanda Morbey
+### Associate Professor Yolanda Morbey
 
   ymorbey@uwo.ca
   
@@ -12,7 +12,7 @@
 
 ## Department of Mathematical and Statistical Sciences 
 
-### Simon Bonner
+### Assistant Professor Simon Bonner
 
 sbonner@uwo.ca
   
