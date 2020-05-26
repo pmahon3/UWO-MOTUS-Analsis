@@ -1,24 +1,26 @@
-## UWO Motus Analysis
-# Department of Mathematical and Statistical Sciences 
-# Department of Biology
+# UWO Motus Analysis
+
 # Western University
 
+## Department of Biology
 
-Simon Bonner: 
+
+### Yolanda Morbey
+
+  ymorbey@uwo.ca
+  
+  https://www.uwo.ca/biology/faculty/morbey/
+
+## Department of Mathematical and Statistical Sciences 
+
+### Simon Bonner
 
 sbonner@uwo.ca
   
   http://simon.bonners.ca/bonner-lab/wpblog/
   
 
-Yolanda Morbey: 
-
-  ymorbey@uwo.ca
-  
-  https://www.uwo.ca/biology/faculty/morbey/
-  
-
-Patrick Mahon: 
+### Patrick Mahon
 
   pmahon3@uwo.ca
 
