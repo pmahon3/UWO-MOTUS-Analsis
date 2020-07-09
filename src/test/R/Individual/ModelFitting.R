@@ -1,32 +1,37 @@
 cat("\014")
 library(parallel)
-NCORES = 4
+NCORES = detectCores()
+NINDIV = NCORES
+
+source("DataSimulation.R")
 
 
 runMCMC <- function(x){
   library(nimble)
-  
+
+  # SOURCE DATA SIMULATION AND INPUT SCRIPT ( REFERENCED IN DATASIMULATION )
   source("DataSimulation.R", local = TRUE)
-  
+
   mcmc.out <- nimbleMCMC(
     code = nimCode, 
     constants = CONSTANTS, 
     data = DATA, 
-    nchains = 3, 
+    nchains = 3,
     niter = 5000,
+    thin = 10,
+    samples = TRUE,
     summary = TRUE
   )
-  
-  return(mcmc.out)
+
+  summary  <- mcmc.out
+
+  save(summary, file = paste("Summary", toString(x), ".RData", sep=""))
 }
 
 seed = set.seed(Sys.time())
-cluster <- makeCluster(NCORES)
 
-output <- parLapply(cl = cluster, X=1:NCORES, fun = runMCMC)
+cl <- makeCluster(NCORES)
 
-stopCluster(cluster)
+results <- parLapply(cl, seq(1,NINDIV), runMCMC)
 
-for ( i in 1:NCORES ){
-  print(output[[i]]$summary$all.chains)
-}
+print(results)

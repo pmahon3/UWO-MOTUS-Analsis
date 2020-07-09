@@ -21,17 +21,17 @@ nimCode <- nimbleCode(
     
     ##priors
     for(k in 1:3){
-      mu[k] ~ dnorm( m_y[k], 1 / (sigmaMu[k]^2) )
+      mu[k] ~ dnorm( m_y[k], 1 )
     }
     
     for(k in 1:3){
       tau[k] ~ dgamma(10, 2)
     }
     
-    delta1 ~ dnorm( delta1Mu, 1 / (sigmaDelta1^2) ) 
-    delta2 ~ dnorm( delta2Mu, 1 / (sigmaDelta2^2) ) 
+    delta1 ~ dnorm( delta1Mu, 1 ) 
+    delta2 ~ dnorm( delta2Mu, 1 ) 
     
-    delta ~ dnorm( deltaMu, 1 / sigmaDeltaMu^2 )
+    delta ~ dnorm( deltaMu, 1 )
   }
 )
 
@@ -42,7 +42,7 @@ CONSTANTS = list(
   
   nDays = 10,
   
-  nObservations = 96,
+  nObservations = 512,
   
   interval = 24, 
   
@@ -62,7 +62,7 @@ CONSTANTS = list(
   
   # Changepoint Shift
   
-  deltaMu = 1/4, 
+  deltaMu = 3/8, 
   
   sigmaDeltaMu = 1/120
 )
