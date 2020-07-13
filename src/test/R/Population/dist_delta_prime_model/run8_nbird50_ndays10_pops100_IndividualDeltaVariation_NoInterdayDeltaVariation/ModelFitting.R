@@ -1,33 +1,33 @@
 library(parallel)
 
-## CORE DETECTION AND NUMBER OF POPULATIONS ASSIGNMENT
-NCORES = detectCores()
-NPOPS = 20
+## CORE DETECTION
+NCORES = 6
 
 ## PARALLEL FUNCTION DEFINITION
 runMCMC <- function(x) {
   library(nimble)
 
   source("DataSimulation.R", local = TRUE)
-  saveRDS(simulated_params, paste("./results/SimulatedParams", toString(x), ".rds",
-    sep = ""))
+  saveRDS(simulatedParams, paste("./results/SimulatedParams", toString(x), ".rds", sep = ""))
 
   print("Running simulation")
   print(x)
 
-  model <- nimbleModel(code = nimCode, name = "model", constants = CONSTANTS)
+  model <- nimbleModel( code = modelCode, name = "model", constants = CONSTANTS, data = DATA)
 
-  compiledModel <- compileNimble(model, showCompilerOutput = TRUE)
-  configuredModel <- configureMCMC(model, print = TRUE)
-  modelMCMC <- buildMCMC(configuredModel)
-  compiledMCMC <- compileNimble(modelMCMC, project = model)
+  compiled <- compileNimble(model, showCompilerOutput = TRUE )
+  configured <- configureMCMC( model, print = TRUE )
+  configured$addMonitors(c("delta","delta_prime"))
+  built <- buildMCMC(configured)
+  compiled <- compileNimble( built, project = model, showCompilerOutput = TRUE )
+
   set.seed(Sys.time())
-  compiledMCMC$run(5000)
+  compiled$run(5000)
 
   print("Simulation complete.")
 
-  samples <- compiledMCMC$summary
-  saveRDS(samples, paste("./results/Summary", toString(x), ".rds", sep = ""))
+  samples <- as.matrix(compiled$mvSamples)
+  saveRDS(samples, paste( "./results/Samples", toString(x), ".rds", sep=""))
 }
 
 cl <- makeCluster(NCORES)
