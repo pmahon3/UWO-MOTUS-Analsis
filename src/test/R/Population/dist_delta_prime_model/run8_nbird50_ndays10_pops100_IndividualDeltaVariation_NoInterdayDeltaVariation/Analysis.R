@@ -1,39 +1,40 @@
-source("Inputs.R")
+library(HDInterval)
 
-coverage_results <- array( dim = c(NPOPS + 1, 1) )
-mu_delta_prime_coverage = 0
+coverage <- array( dim = c(NPOPS + 1, 1) )
+muDeltaPrimeCoverage = 0
 
 for ( i in 1: NPOPS ){
 
-    ## INDIVIDUAL DELTA_PRIME COVERAGE
-    actualParams <- readRDS(paste("./results/SimulatedParams", toString(i), ".rds", sep = "" ))
-    simulatedParams <- readRDS(paste("./results/Summary", toString(i), ".rds", sep = "" ))
-    individual_delta_prime_coverage = 0
-   
-    for ( j in 1:CONSTANTS$nBirds ){
+	## INDIVIDUAL DELTA_PRIME COVERAGE
+  simulatedParams <- readRDS(paste("./results/SimulatedParams", toString(i), ".rds",
+sep = ""))
+  fittedParams <- hdi(readRDS(paste( "./results/Samples", toString(i), ".rds", sep="")))
+  individualDeltaPrimeCoverage = 0
 
-    	simulated_delta_prime_lower <- simulatedParams$summary$all.chains[j, 4]
-	simulated_delta_prime_upper <- simulatedParams$summary$all.chains[j, 5]
-	actual_delta_prime <- actualParams[j,1]
+  for ( j in 1:CONSTANTS$nBirds ){
+		bird = paste("delta_prime[", toString(j), "]", sep="")
+  	deltaPrimeLower <- fittedParams[1, bird]
+		deltaPrimeUpper <- fittedParams[2, bird]
+		deltaPrime <- simulatedParams[j,1]
 
-	if ( actual_delta_prime >= simulated_delta_prime_lower && actual_delta_prime <= simulated_delta_prime_upper ){
-	   individual_delta_prime_coverage = individual_delta_prime_coverage + 1
-	}
-    }
+		if ( deltaPrime >= deltaPrimeLower && deltaPrime <= deltaPrimeUpper ){
+   		individualDeltaPrimeCoverage = individualDeltaPrimeCoverage + 1
+		}
+  }
 
-    ## MU_DELTA_PRIME COVERAGE
-    simulated_mu_delta_prime_lower = simulatedParams$summary$all.chains[CONSTANTS$nBirds + 1, 4]
-    simulated_mu_delta_prime_upper = simulatedParams$summary$all.chains[CONSTANTS$nBirds + 1, 5]
-    
-    if ( simulated_mu_delta_prime_lower <= mu_delta_prime && simulated_mu_delta_prime_upper >= mu_delta_prime ){
-       mu_delta_prime_coverage = mu_delta_prime_coverage + 1
-    }
+  ## MU_DELTA_PRIME COVERAGE
+  muDeltaPrimeLower = fittedParams[1, "mu_delta_prime"]
+  muDeltaPrimeUpper = fittedParams[2, "mu_delta_prime"]
 
-    individual_delta_prime_coverage = individual_delta_prime_coverage / CONSTANTS$nBirds
-    coverage_results[i] = individual_delta_prime_coverage
+  if ( muDeltaPrimeLower <= muDeltaPrime && muDeltaPrimeUpper >= muDeltaPrime ){
+     muDeltaPrimeCoverage = muDeltaPrimeCoverage + 1
+  }
+
+  individualDeltaPrimeCoverage = individualDeltaPrimeCoverage / CONSTANTS$nBirds
+	coverage[i] = individualDeltaPrimeCoverage
 }
 
-mu_delta_prime_coverage
-coverage_results[NPOPS + 1] = mu_delta_prime_coverage / NPOPS
-coverage_results
-saveRDS(coverage_results, "Coverage.rds")
+overallCoverage = muDeltaPrimeCoverage / NPOPS
+coverage[NPOPS + 1] = overallCoverage
+
+saveRDS(coverage, "Coverage.rds")

@@ -5,30 +5,28 @@ y = array( dim = c(CONSTANTS$nBirds, CONSTANTS$nDays, CONSTANTS$nObservations))
 t = array( dim = c(CONSTANTS$nBirds, CONSTANTS$nDays, CONSTANTS$nObservations))
 
 ## VECTORS FOR STORING PARAMETERS SIMULATED AT THE INDIVIDUAL LEVEL
-simulated_delta_prime = vector(mode = "double", length = CONSTANTS$nBirds)
-simulated_delta1 = vector(mode = "double", length = CONSTANTS$nBirds)
-simulated_delta2 = vector(mode = "double", length = CONSTANTS$nBirds)
-
+deltaPrimeVec = vector(mode = "double", length = CONSTANTS$nBirds)
+delta1Vec = vector(mode = "double", length = CONSTANTS$nBirds)
+delta2Vec = vector(mode = "double", length = CONSTANTS$nBirds)
 
 for ( bird in 1:CONSTANTS$nBirds ){
 
   ## INDIVIDUAL INTERDAY PARAMETERS
-  delta1 <- rnorm(1, mean = mu_delta1, sd = delta1_sd)
-  delta2 <- rnorm(1, mean = mu_delta2, sd = delta2_sd)
+  delta1 <- rnorm(1, mean = muDelta1, sd = delta1Sd)
+  delta2 <- rnorm(1, mean = muDelta2, sd = delta2Sd)
 
   # INDIVIDUAL DELTA PRIME
-  delta_prime = rnorm(1,  mean = mu_delta_prime, sd = delta_prime_sd )
+  deltaPrime = rnorm(1,  mean = muDeltaPrime, sd = deltaPrimeSd )
 
-  simulated_delta1[bird] = delta1
-  simulated_delta2[bird] = delta2
-  simulated_delta_prime[bird] = delta_prime
+  delta1Vec[bird] = delta1
+  delta2Vec[bird] = delta2
+  deltaPrimeVec[bird] = deltaPrime
 
   # INDIVIDUAL MODE SIGNAL STRENGTH PARAMETERS
-  mu_y= vector(mode = "double", length = 3)
-  tau_y = vector(mode = "double", length = 3)
+  muY = vector(mode = "double", length = 3)
+  tauY = vector(mode = "double", length = 3)
   for ( j in 1:3 ){
-    mu_y[j] <- rnorm(1, mean = mu_mu_y[j], sd = sd_mu_y[j])
-    sd_y[j] <- sd_y[j]
+    muY[j] <- rnorm(1, mean = muMuY[j], sd = sdMuY[j])
   }
 
   ## ALL DAYS TO THE PENULTIMATE DAY
@@ -42,28 +40,28 @@ for ( bird in 1:CONSTANTS$nBirds ){
     ## OBSERVATION SIMULATION
     for ( observation in 1:(CONSTANTS$nObservations)){
       if ( t[bird, day, observation] < delta1 ){
-        mu = mu_y[1]
-        sd = sd_y[1]
+        mu = muY[1]
+        sd = sdY[1]
       }
-      else if ( day == CONSTANTS$nDays && t[bird, day, observation] < delta2 + delta_prime){
-        mu = mu_y[2]
-        sd = sd_y[2]
+      else if ( day == CONSTANTS$nDays && t[bird, day, observation] < delta2 + deltaPrime){
+        mu = muY[2]
+        sd = sdY[2]
       }
       else if ( t[bird, day, observation] < delta2 ){
-        mu = mu_y[2]
-        sd = sd_y[2]
+        mu = muY[2]
+        sd = sdY[2]
       }
       else{
-        mu = mu_y[3]
-        sd = sd_y[3]
+        mu = muY[3]
+        sd = sdY[3]
       }
       y[bird, day, observation] = rnorm(1, mu, sd)
     }
   }
 }
 
-simulated_params = cbind(simulated_delta_prime, simulated_delta1, simulated_delta2)
+simulatedParams = cbind(deltaPrimeVec, delta1Vec, delta2Vec)
 
 print(CONSTANTS)
-DATA = c( list(y = y))
+DATA = c( list(y = y) )
 CONSTANTS = c(CONSTANTS, list(t = t))
