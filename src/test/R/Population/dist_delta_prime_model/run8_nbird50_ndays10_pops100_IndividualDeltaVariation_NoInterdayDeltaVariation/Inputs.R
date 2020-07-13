@@ -47,7 +47,7 @@ modelCode <- nimbleCode(
 )
 
 ## Number of Populations to Simulate
-NPOPS = 1
+NPOPS = 100
 ## TARGET HYPERPARAMETERS: NOT VISIBLE TO JAGS CODE, ONLY VISIBLE TO DATA SIMULATION
 # DELTA_PRIME HYPERPARAMETERS
 muDeltaPrime = 1/4
@@ -68,8 +68,8 @@ sdY = c( one = 3, two = 5, three = 3)
 CONSTANTS = list(
   # FACTORS AFFECTING SIMULATION SIZE
   nDays = 10,
-  nBirds = 5,
-  nObservations = 24,
+  nBirds = 100,
+  nObservations = 512,
   # HYPERPRIORS AFFECTING OBSERVATION FITTING
 	# OBSERVATION MODE SIGNAL STRENGTH HYPERPRIORS
   mu_mu_y = c(one = -80, two = -50,  three = -80),
