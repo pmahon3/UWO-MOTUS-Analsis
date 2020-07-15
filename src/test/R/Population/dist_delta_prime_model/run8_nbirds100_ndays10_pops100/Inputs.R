@@ -1,4 +1,22 @@
 library(nimble)
+## TRUE HYPERPARAMETERS
+trueParams <- list(
+  # DELTA_PRIME HYPERPARAMETERS
+  muDeltaPrime = 1/4,
+  deltaPrimeSd = 1/120,
+
+  # DELTA HYPERPARAMETERS
+  muDelta1 = 6,
+  muDelta2 = 18,
+  delta1Sd = 1/30,
+  delta2Sd = 1/30,
+
+  # OBSERVATION MODEL SIGNAL STRENGTH HYPERPARAMETERS
+  muMuY = c(one = -80, two = -50, three = -80),
+  sdMuY = c(one = 5, two = 5, three = 5),
+  sdY = c( one = 3, two = 5, three = 3)
+)
+
 ## NIMBLE/BUGS/JAGS MODEL
 modelCode <- nimbleCode(
   {
@@ -46,26 +64,8 @@ modelCode <- nimbleCode(
   }
 )
 
-## Number of Populations to Simulate
-NPOPS = 100
-## TARGET HYPERPARAMETERS: NOT VISIBLE TO JAGS CODE, ONLY VISIBLE TO DATA SIMULATION
-# DELTA_PRIME HYPERPARAMETERS
-muDeltaPrime = 1/4
-deltaPrimeSd = 1/120
-
-# DELTA HYPERPARAMETERS
-muDelta1 = 6
-muDelta2 = 18
-delta1Sd = 1/30
-delta2Sd = 1/30
-
-# OBSERVATION MODEL SIGNAL STRENGTH HYPERPARAMETERS
-muMuY = c(one = -80, two = -50, three = -80)
-sdMuY = c(one = 5, two = 5, three = 5)
-sdY = c( one = 3, two = 5, three = 3)
-
 ## CONSTANTS USED IN FITTING
-CONSTANTS = list(
+constants = list(
   # FACTORS AFFECTING SIMULATION SIZE
   nDays = 10,
   nBirds = 100,
