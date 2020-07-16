@@ -68,8 +68,8 @@ modelCode <- nimbleCode(
 constants = list(
   # FACTORS AFFECTING SIMULATION SIZE
   nDays = 10,
-  nBirds = 100,
-  nObservations = 512,
+  nBirds = 5,
+  nObservations = 24,
   # HYPERPRIORS AFFECTING OBSERVATION FITTING
 	# OBSERVATION MODE SIGNAL STRENGTH HYPERPRIORS
   mu_mu_y = c(one = -80, two = -50,  three = -80),

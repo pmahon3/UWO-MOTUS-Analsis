@@ -1,30 +1,36 @@
 cat("\014")
 library(nimble)
 
-for ( i in 1:NPOPS ){
-  library(nimble)
+source("Inputs.R")
+source("DataSimulation.R")
 
-  source("DataSimulation.R", local = TRUE)
-  saveRDS(simulatedParams, paste("./results/SimulatedParams", toString(i), ".rds", sep = ""))
+NPOPS = 100
 
-  print("Running simulation")
-  print(i)
+for ( x in 1:NPOPS ){
 
-  model <- nimbleModel( code = modelCode, name = "model", constants = CONSTANTS, data = DATA)
+  dataAndConstants <- dataSimulation(x, constants, trueParams)
 
-  compiled <- compileNimble(model, showCompilerOutput = TRUE )
-  configured <- configureMCMC( model, print = TRUE )
-  configured$addMonitors(c("delta","delta_prime"))
+  print(paste("Creating model ", toString(x), sep = ""))
+  model <- nimbleModel( code = modelCode, name = "model", constants = dataAndConstants[["constants"]], data = dataAndConstants[["data"]], calculate = FALSE)
+
+  print(paste("Configuring model ", toString(x),  sep = ""))
+  configured <- configureMCMC(model)
+  configured$resetMonitors()
+  configured$addMonitors(c("delta","delta_prime", "mu_delta_prime"))
+  configured$setThin(10)
+
+  print(paste("Building simulation ", toString(x), sep = ""))
   built <- buildMCMC(configured)
-  compiled <- compileNimble( built, project = model, showCompilerOutput = TRUE )
 
+  print(paste("Compiling simulation ", toString(x), "...", sep = ""))
+  compiled <- compileNimble( model, built,  showCompilerOutput = TRUE )
+
+  print(paste("Running simulation ", toString(x), "...", sep = ""))
   set.seed(Sys.time())
   compiled$run(5000)
 
-  print("Simulation complete.")
+  print(paste("Simulation ", toString(x), " complete. Saving chains.", sep = ""))
 
   samples <- as.matrix(compiled$mvSamples)
-  saveRDS(samples, paste( "./results/Samples", toString(i), ".rds", sep=""))
+  saveRDS(samples, paste( "./results/Samples", toString(x), ".rds", sep=""))
 }
-
-source("Analysis.R")

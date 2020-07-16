@@ -22,7 +22,7 @@ runMCMC <- function(x) {
   built <- buildMCMC(configured)
   
   print(paste("Compiling simulation ", toString(x), "...", sep = ""))
-  compiled <- compileNimble( built, project = model, showCompilerOutput = TRUE )
+  compiled <- compileNimble( model, built, showCompilerOutput = TRUE )
 
   print(paste("Running simulation ", toString(x), "...", sep = ""))
   set.seed(Sys.time())
@@ -37,7 +37,7 @@ runMCMC <- function(x) {
 source("Inputs.R")
 source("DataSimulation.R")
 ## BUILD CLUSTER AND EXPORT INPUTS AND DATA SIMULATION SCRIPTS
-cl <- makeCluster(NCORES, outfile = "")
+cl <- makeCluster(NCORES)
 clusterEvalQ(cl, library(nimble))
 clusterExport(cl, c("dataSimulation","constants", "trueParams", "modelCode"))
 ## RUN SIMULATION
