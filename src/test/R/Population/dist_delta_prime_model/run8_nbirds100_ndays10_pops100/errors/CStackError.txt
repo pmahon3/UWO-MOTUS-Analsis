@@ -1,0 +1,51 @@
+attr(,"condition")
+<simpleError: C stack usage  111269581 is too close to the limit>
+
+[[94]]
+[1] "Error in file(con, \"r\") : cannot open the connection\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in file(con, "r"): cannot open the connection>
+
+[[95]]
+[1] "Error in file(con, \"r\") : cannot open the connection\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in file(con, "r"): cannot open the connection>
+
+[[96]]
+[1] "Error in file(con, \"r\") : cannot open the connection\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in file(con, "r"): cannot open the connection>
+
+[[97]]
+[1] "Error in file(con, \"r\") : cannot open the connection\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in file(con, "r"): cannot open the connection>
+
+[[98]]
+[1] "Error in paste0(x, collapse = \",\") : \n  could not allocate memory (105 Mb) in C function 'R_AllocStringBuffer'\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in paste0(x, collapse = ","): could not allocate memory (105 Mb) in C function 'R_AllocStringBuffer'>
+
+[[99]]
+[1] "Error : C stack usage  111269581 is too close to the limit\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError: C stack usage  111269581 is too close to the limit>
+
+[[100]]
+[1] "Error in file(con, \"r\") : cannot open the connection\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in file(con, "r"): cannot open the connection>

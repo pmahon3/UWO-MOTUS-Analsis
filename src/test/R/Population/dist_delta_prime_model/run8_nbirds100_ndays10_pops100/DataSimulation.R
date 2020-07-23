@@ -62,7 +62,7 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS){
   }
 
   simulatedParams = cbind(deltaPrimeVec, delta1Vec, delta2Vec)
-  saveRDS(simulatedParams, paste("./results/SimulatedParams", toString(x), ".rds", sep = ""))
+  saveRDS(simulatedParams, paste("./results/data/simulatedParams", toString(x), ".rds", sep = ""))
 
   DATA = list(y = y)
   CONSTANTS = c(CONSTANTS, list(t = t))
