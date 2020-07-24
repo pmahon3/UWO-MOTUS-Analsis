@@ -1,0 +1,12 @@
+defining model...
+building model...
+setting data and initial values...
+checking model sizes and dimensions... This model is not fully initialized. This is not an error. To see which variables are not initialized, use model$initializeInfo(). For more information on model initialization, see help(modelInitialization).
+model building finished.
+compiling... this may take a minute. On some systems there may be some compiler warnings that can be safely ignored.
+Error in file(con, "r") : cannot open the connection
+Calls: runMCMC ... compileNimble -> <Anonymous> -> <Anonymous> -> readLines -> file
+In addition: There were 50 or more warnings (use warnings() to see the first 50)
+Execution halted
+Warning message:
+system call failed: Cannot allocate memory 

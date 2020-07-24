@@ -6,8 +6,8 @@ NBIRDS = 100
 
 ## PARALLEL FUNCTION DEFINITION
 runMCMC <- function(x) {
-  messagelog <- file(paste("./results/logs/messages/messages", toString(x), ".txt", sep = ""), open = "wt")
-  outputlog <- file(paste("./results/logs/output/output", toString(x), ".txt", sep = "" ), open = "wt")
+  messagelog <- file(paste("messages", toString(x), ".txt", sep = ""), open = "wt")
+  outputlog <- file(paste("output", toString(x), ".txt", sep = "" ), open = "wt")
   sink(file = messagelog, type = "message")
   sink(file = outputlog, type = "output")
   library(nimble)
@@ -24,9 +24,12 @@ runMCMC <- function(x) {
   compiled$built$run(niter = 5000)
   samples <- as.matrix(compiled$built$mvSamples)
   saveRDS(samples, paste( "./results/samples/bird", toString(x), ".rds", sep=""))
+  sink()
 }
 
 source("Inputs.R")
 source("DataSimulation.R")
 ## RUN SIMULATION
-mclapply(seq(1, NBIRDS),  runMCMC, mc.cores = NCORES, mc.set.seed = TRUE, mc.silent = TRUE, mc.cleanup = TRUE)
+for ( i in 1:NBIRDS ){
+  runMCMC(i)
+}

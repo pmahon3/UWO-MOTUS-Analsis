@@ -1,0 +1,1660 @@
+thin = 1: delta, delta1, delta2
+thin = 10: delta, delta1, delta2
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-ttHamR/r-base-4.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_1_model.cpp -o P_1_model.o
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-ttHamR/r-base-4.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_1_model_nfCode.cpp -o P_1_model_nfCode.o
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_1_model_07_24_11_34_34.so P_1_model.o P_1_model_nfCode.o -L/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -lnimble -Wl,-rpath /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-ttHamR/r-base-4.0.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_1_MCMC.cpp -o P_1_MCMC.o
+/usr/lib/R/etc/Makeconf:176: recipe for target 'P_1_MCMC.o' failed
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_1_MCMC_07_24_11_34_45.so P_1_MCMC.o P_1_model.o -L/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -lnimble -Wl,-rpath /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+P_1_MCMC.cpp:16:7: error: ‘initializeModel’ has not been declared
+ void  initializeModel::run (  )  {
+       ^~~~~~~~~~~~~~~
+P_1_MCMC.cpp: In function ‘void run()’:
+P_1_MCMC.cpp:20:30: error: ‘initFunctionList’ was not declared in this scope
+ Interm_45 = static_cast<int>(initFunctionList.size());
+                              ^~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:20:30: note: suggested alternative: ‘Rf_isFunction’
+ Interm_45 = static_cast<int>(initFunctionList.size());
+                              ^~~~~~~~~~~~~~~~
+                              Rf_isFunction
+P_1_MCMC.cpp:24:29: error: ‘typeCode’ was not declared in this scope
+ numNodes = static_cast<int>(typeCode.size()) - 1;
+                             ^~~~~~~~
+P_1_MCMC.cpp:24:29: note: suggested alternative: ‘typeof’
+ numNodes = static_cast<int>(typeCode.size()) - 1;
+                             ^~~~~~~~
+                             typeof
+P_1_MCMC.cpp:27:3: error: ‘initialize_deterministic’ was not declared in this scope
+   initialize_deterministic(i);
+   ^~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:30:7: error: ‘isData’ was not declared in this scope
+    if(isData[(i) - 1]) {
+       ^~~~~~
+P_1_MCMC.cpp:30:7: note: suggested alternative: ‘isnanl’
+    if(isData[(i) - 1]) {
+       ^~~~~~
+       isnanl
+P_1_MCMC.cpp:31:5: error: ‘initialize_stoch_data_node’ was not declared in this scope
+     initialize_stoch_data_node(i);
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:31:5: note: suggested alternative: ‘R_initialize_bcode’
+     initialize_stoch_data_node(i);
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+     R_initialize_bcode
+P_1_MCMC.cpp:33:5: error: ‘initialize_stoch_non_data_node’ was not declared in this scope
+     initialize_stoch_non_data_node(i);
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:39:7: error: ‘initializeModel’ has not been declared
+ void  initializeModel::initialize_deterministic ( int ARG1_i_ )  {
+       ^~~~~~~~~~~~~~~
+P_1_MCMC.cpp: In function ‘void initialize_deterministic(int)’:
+P_1_MCMC.cpp:41:11: error: ‘model_LHSnodes_nodeFxnVector_includeData_TRUE_notSU’ was not declared in this scope
+ calculate(model_LHSnodes_nodeFxnVector_includeData_TRUE_notSU, ARG1_i_);
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:42:19: error: ‘model_LHSnodes_access_logProb_FALSE’ was not declared in this scope
+ nodeValue.setSize(model_LHSnodes_access_logProb_FALSE.getNodeLength(ARG1_i_));
+                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/share/R/include/R.h:82:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArrBase.h:32,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:24,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+/usr/share/R/include/R_ext/Arith.h:64:32: error: no matching function for call to ‘R_IsNA(NimArr<1, double>&)’
+ #define ISNA(x)        R_IsNA(x)
+                                ^
+P_1_MCMC.cpp:44:4: note: in expansion of macro ‘ISNA’
+ if(ISNA(nodeValue) || ISNAN(nodeValue)) {
+    ^~~~
+/usr/share/R/include/R_ext/Arith.h:61:5: note: candidate: int R_IsNA(double)
+ int R_IsNA(double);  /* True for R's NA only */
+     ^~~~~~
+/usr/share/R/include/R_ext/Arith.h:61:5: note:   no known conversion for argument 1 from ‘NimArr<1, double>’ to ‘double’
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/nimbleEigen.h:30:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:33,
+                 from P_1_MCMC.cpp:6:
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:29:6: note: candidate: bool R_IsNA(double*, int)
+ bool R_IsNA(double*, int);
+      ^~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:29:6: note:   candidate expects 2 arguments, 1 provided
+In file included from /usr/share/R/include/R.h:82:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArrBase.h:32,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:24,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+/usr/share/R/include/R_ext/Arith.h:74:36: error: no matching function for call to ‘R_isnancpp(NimArr<1, double>&)’
+ #  define ISNAN(x)     R_isnancpp(x)
+                                    ^
+P_1_MCMC.cpp:44:23: note: in expansion of macro ‘ISNAN’
+ if(ISNA(nodeValue) || ISNAN(nodeValue)) {
+                       ^~~~~
+/usr/share/R/include/R_ext/Arith.h:73:7: note: candidate: int R_isnancpp(double)
+   int R_isnancpp(double); /* in arithmetic.c */
+       ^~~~~~~~~~
+/usr/share/R/include/R_ext/Arith.h:73:7: note:   no known conversion for argument 1 from ‘NimArr<1, double>’ to ‘double’
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/nimbleEigen.h:30:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:33,
+                 from P_1_MCMC.cpp:6:
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:30:6: note: candidate: bool R_isnancpp(double*, int)
+ bool R_isnancpp(double*, int);
+      ^~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:30:6: note:   candidate expects 2 arguments, 1 provided
+P_1_MCMC.cpp:45:67: error: ‘LHSnodes’ was not declared in this scope
+  _nimble_global_output <<"warning: value of deterministic node "<<LHSnodes[(ARG1_i_) - 1]<<": value is NA or NaN even after trying to calculate."<<"\n"; nimble_print_to_R(_nimble_global_output);
+                                                                   ^~~~~~~~
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:48:7: error: ‘initializeModel’ has not been declared
+ void  initializeModel::initialize_stoch_data_node ( int ARG1_i_ )  {
+       ^~~~~~~~~~~~~~~
+P_1_MCMC.cpp: In function ‘void initialize_stoch_data_node(int)’:
+P_1_MCMC.cpp:51:19: error: ‘model_LHSnodes_access_logProb_FALSE’ was not declared in this scope
+ nodeValue.setSize(model_LHSnodes_access_logProb_FALSE.getNodeLength(ARG1_i_));
+                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/share/R/include/R.h:82:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArrBase.h:32,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:24,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+/usr/share/R/include/R_ext/Arith.h:64:32: error: no matching function for call to ‘R_IsNA(NimArr<1, double>&)’
+ #define ISNA(x)        R_IsNA(x)
+                                ^
+P_1_MCMC.cpp:53:4: note: in expansion of macro ‘ISNA’
+ if(ISNA(nodeValue) || ISNAN(nodeValue)) {
+    ^~~~
+/usr/share/R/include/R_ext/Arith.h:61:5: note: candidate: int R_IsNA(double)
+ int R_IsNA(double);  /* True for R's NA only */
+     ^~~~~~
+/usr/share/R/include/R_ext/Arith.h:61:5: note:   no known conversion for argument 1 from ‘NimArr<1, double>’ to ‘double’
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/nimbleEigen.h:30:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:33,
+                 from P_1_MCMC.cpp:6:
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:29:6: note: candidate: bool R_IsNA(double*, int)
+ bool R_IsNA(double*, int);
+      ^~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:29:6: note:   candidate expects 2 arguments, 1 provided
+In file included from /usr/share/R/include/R.h:82:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArrBase.h:32,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:24,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+/usr/share/R/include/R_ext/Arith.h:74:36: error: no matching function for call to ‘R_isnancpp(NimArr<1, double>&)’
+ #  define ISNAN(x)     R_isnancpp(x)
+                                    ^
+P_1_MCMC.cpp:53:23: note: in expansion of macro ‘ISNAN’
+ if(ISNA(nodeValue) || ISNAN(nodeValue)) {
+                       ^~~~~
+/usr/share/R/include/R_ext/Arith.h:73:7: note: candidate: int R_isnancpp(double)
+   int R_isnancpp(double); /* in arithmetic.c */
+       ^~~~~~~~~~
+/usr/share/R/include/R_ext/Arith.h:73:7: note:   no known conversion for argument 1 from ‘NimArr<1, double>’ to ‘double’
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/nimbleEigen.h:30:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:33,
+                 from P_1_MCMC.cpp:6:
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:30:6: note: candidate: bool R_isnancpp(double*, int)
+ bool R_isnancpp(double*, int);
+      ^~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:30:6: note:   candidate expects 2 arguments, 1 provided
+P_1_MCMC.cpp:54:58: error: ‘LHSnodes’ was not declared in this scope
+  _nimble_global_output <<"warning: value of data node "<<LHSnodes[(ARG1_i_) - 1]<<": value is NA or NaN."<<"\n"; nimble_print_to_R(_nimble_global_output);
+                                                          ^~~~~~~~
+P_1_MCMC.cpp:56:16: error: ‘model_LHSnodes_nodeFxnVector_includeData_TRUE_notSU’ was not declared in this scope
+ lp = calculate(model_LHSnodes_nodeFxnVector_includeData_TRUE_notSU, ARG1_i_);
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:58:60: error: ‘LHSnodes’ was not declared in this scope
+  _nimble_global_output <<"warning: logProb of data node "<<LHSnodes[(ARG1_i_) - 1]<<": logProb is NA or NaN."<<"\n"; nimble_print_to_R(_nimble_global_output);
+                                                            ^~~~~~~~
+P_1_MCMC.cpp:61:8: error: ‘silent’ was not declared in this scope
+   if(!(silent)) {
+        ^~~~~~
+P_1_MCMC.cpp:61:8: note: suggested alternative: ‘fileno’
+   if(!(silent)) {
+        ^~~~~~
+        fileno
+P_1_MCMC.cpp:62:62: error: ‘LHSnodes’ was not declared in this scope
+    _nimble_global_output <<"warning: logProb of data node "<<LHSnodes[(ARG1_i_) - 1]<<": logProb is -Inf."<<"\n"; nimble_print_to_R(_nimble_global_output);
+                                                              ^~~~~~~~
+P_1_MCMC.cpp:66:9: error: ‘silent’ was not declared in this scope
+    if(!(silent)) {
+         ^~~~~~
+P_1_MCMC.cpp:66:9: note: suggested alternative: ‘fileno’
+    if(!(silent)) {
+         ^~~~~~
+         fileno
+P_1_MCMC.cpp:67:63: error: ‘LHSnodes’ was not declared in this scope
+     _nimble_global_output <<"warning: logProb of data node "<<LHSnodes[(ARG1_i_) - 1]<<": logProb less than -1e12."<<"\n"; nimble_print_to_R(_nimble_global_output);
+                                                               ^~~~~~~~
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:73:7: error: ‘initializeModel’ has not been declared
+ void  initializeModel::initialize_stoch_non_data_node ( int ARG1_i_ )  {
+       ^~~~~~~~~~~~~~~
+P_1_MCMC.cpp: In function ‘void initialize_stoch_non_data_node(int)’:
+P_1_MCMC.cpp:76:19: error: ‘model_LHSnodes_access_logProb_FALSE’ was not declared in this scope
+ nodeValue.setSize(model_LHSnodes_access_logProb_FALSE.getNodeLength(ARG1_i_));
+                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/share/R/include/R.h:82:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArrBase.h:32,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:24,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+/usr/share/R/include/R_ext/Arith.h:64:32: error: no matching function for call to ‘R_IsNA(NimArr<1, double>&)’
+ #define ISNA(x)        R_IsNA(x)
+                                ^
+P_1_MCMC.cpp:78:4: note: in expansion of macro ‘ISNA’
+ if(ISNA(nodeValue) || ISNAN(nodeValue)) {
+    ^~~~
+/usr/share/R/include/R_ext/Arith.h:61:5: note: candidate: int R_IsNA(double)
+ int R_IsNA(double);  /* True for R's NA only */
+     ^~~~~~
+/usr/share/R/include/R_ext/Arith.h:61:5: note:   no known conversion for argument 1 from ‘NimArr<1, double>’ to ‘double’
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/nimbleEigen.h:30:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:33,
+                 from P_1_MCMC.cpp:6:
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:29:6: note: candidate: bool R_IsNA(double*, int)
+ bool R_IsNA(double*, int);
+      ^~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:29:6: note:   candidate expects 2 arguments, 1 provided
+In file included from /usr/share/R/include/R.h:82:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArrBase.h:32,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:24,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+/usr/share/R/include/R_ext/Arith.h:74:36: error: no matching function for call to ‘R_isnancpp(NimArr<1, double>&)’
+ #  define ISNAN(x)     R_isnancpp(x)
+                                    ^
+P_1_MCMC.cpp:78:23: note: in expansion of macro ‘ISNAN’
+ if(ISNA(nodeValue) || ISNAN(nodeValue)) {
+                       ^~~~~
+/usr/share/R/include/R_ext/Arith.h:73:7: note: candidate: int R_isnancpp(double)
+   int R_isnancpp(double); /* in arithmetic.c */
+       ^~~~~~~~~~
+/usr/share/R/include/R_ext/Arith.h:73:7: note:   no known conversion for argument 1 from ‘NimArr<1, double>’ to ‘double’
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/nimbleEigen.h:30:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:33,
+                 from P_1_MCMC.cpp:6:
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:30:6: note: candidate: bool R_isnancpp(double*, int)
+ bool R_isnancpp(double*, int);
+      ^~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:30:6: note:   candidate expects 2 arguments, 1 provided
+P_1_MCMC.cpp:79:11: error: ‘model_LHSnodes_nodeFxnVector_includeData_TRUE_notSU’ was not declared in this scope
+  simulate(model_LHSnodes_nodeFxnVector_includeData_TRUE_notSU, ARG1_i_);
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/share/R/include/R.h:82:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArrBase.h:32,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:24,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+/usr/share/R/include/R_ext/Arith.h:64:32: error: no matching function for call to ‘R_IsNA(NimArr<1, double>&)’
+ #define ISNA(x)        R_IsNA(x)
+                                ^
+P_1_MCMC.cpp:82:5: note: in expansion of macro ‘ISNA’
+  if(ISNA(nodeValue) || ISNAN(nodeValue)) {
+     ^~~~
+/usr/share/R/include/R_ext/Arith.h:61:5: note: candidate: int R_IsNA(double)
+ int R_IsNA(double);  /* True for R's NA only */
+     ^~~~~~
+/usr/share/R/include/R_ext/Arith.h:61:5: note:   no known conversion for argument 1 from ‘NimArr<1, double>’ to ‘double’
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/nimbleEigen.h:30:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:33,
+                 from P_1_MCMC.cpp:6:
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:29:6: note: candidate: bool R_IsNA(double*, int)
+ bool R_IsNA(double*, int);
+      ^~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:29:6: note:   candidate expects 2 arguments, 1 provided
+In file included from /usr/share/R/include/R.h:82:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArrBase.h:32,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:24,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+/usr/share/R/include/R_ext/Arith.h:74:36: error: no matching function for call to ‘R_isnancpp(NimArr<1, double>&)’
+ #  define ISNAN(x)     R_isnancpp(x)
+                                    ^
+P_1_MCMC.cpp:82:24: note: in expansion of macro ‘ISNAN’
+  if(ISNA(nodeValue) || ISNAN(nodeValue)) {
+                        ^~~~~
+/usr/share/R/include/R_ext/Arith.h:73:7: note: candidate: int R_isnancpp(double)
+   int R_isnancpp(double); /* in arithmetic.c */
+       ^~~~~~~~~~
+/usr/share/R/include/R_ext/Arith.h:73:7: note:   no known conversion for argument 1 from ‘NimArr<1, double>’ to ‘double’
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/nimbleEigen.h:30:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:33,
+                 from P_1_MCMC.cpp:6:
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:30:6: note: candidate: bool R_isnancpp(double*, int)
+ bool R_isnancpp(double*, int);
+      ^~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/dists.h:30:6: note:   candidate expects 2 arguments, 1 provided
+P_1_MCMC.cpp:83:65: error: ‘LHSnodes’ was not declared in this scope
+   _nimble_global_output <<"warning: value of stochastic node "<<LHSnodes[(ARG1_i_) - 1]<<": value is NA or NaN even after trying to simulate."<<"\n"; nimble_print_to_R(_nimble_global_output);
+                                                                 ^~~~~~~~
+P_1_MCMC.cpp:86:16: error: ‘model_LHSnodes_nodeFxnVector_includeData_TRUE_notSU’ was not declared in this scope
+ lp = calculate(model_LHSnodes_nodeFxnVector_includeData_TRUE_notSU, ARG1_i_);
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:88:76: error: ‘LHSnodes’ was not declared in this scope
+  _nimble_global_output <<"warning: problem initializing stochastic node "<<LHSnodes[(ARG1_i_) - 1]<<": logProb is NA or NaN."<<"\n"; nimble_print_to_R(_nimble_global_output);
+                                                                            ^~~~~~~~
+P_1_MCMC.cpp:91:8: error: ‘silent’ was not declared in this scope
+   if(!(silent)) {
+        ^~~~~~
+P_1_MCMC.cpp:91:8: note: suggested alternative: ‘fileno’
+   if(!(silent)) {
+        ^~~~~~
+        fileno
+P_1_MCMC.cpp:92:78: error: ‘LHSnodes’ was not declared in this scope
+    _nimble_global_output <<"warning: problem initializing stochastic node "<<LHSnodes[(ARG1_i_) - 1]<<": logProb is -Inf."<<"\n"; nimble_print_to_R(_nimble_global_output);
+                                                                              ^~~~~~~~
+P_1_MCMC.cpp:96:9: error: ‘silent’ was not declared in this scope
+    if(!(silent)) {
+         ^~~~~~
+P_1_MCMC.cpp:96:9: note: suggested alternative: ‘fileno’
+    if(!(silent)) {
+         ^~~~~~
+         fileno
+P_1_MCMC.cpp:97:79: error: ‘LHSnodes’ was not declared in this scope
+     _nimble_global_output <<"warning: problem initializing stochastic node "<<LHSnodes[(ARG1_i_) - 1]<<": logProb less than -1e12."<<"\n"; nimble_print_to_R(_nimble_global_output);
+                                                                               ^~~~~~~~
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:103:7: error: ‘initializeModel’ has not been declared
+ void  initializeModel::copyFromRobject ( SEXP Robject )  {
+       ^~~~~~~~~~~~~~~
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+P_1_MCMC.cpp: In function ‘void copyFromRobject(SEXP)’:
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:105:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("silent");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:105:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("silent");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: error: ‘getObjectPtr’ was not declared in this scope
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:106:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("typeCode");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: note: suggested alternative: ‘getModelObjectPtr’
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:106:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("typeCode");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: error: ‘getObjectPtr’ was not declared in this scope
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:107:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("isData");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: note: suggested alternative: ‘getModelObjectPtr’
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:107:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("isData");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: error: ‘getObjectPtr’ was not declared in this scope
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:108:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_LHSnodes_nodeFxnVector_includeData_TRUE_notSU");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: note: suggested alternative: ‘getModelObjectPtr’
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:108:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_LHSnodes_nodeFxnVector_includeData_TRUE_notSU");
+ ^
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:111:2: error: ‘initializeModel’ does not name a type; did you mean ‘R_initialize_bcode’?
+  initializeModel::initializeModel (  )  {
+  ^~~~~~~~~~~~~~~
+  R_initialize_bcode
+P_1_MCMC.cpp: In function ‘SEXPREC* new_initializeModel()’:
+P_1_MCMC.cpp:123:1: error: ‘initializeModel’ was not declared in this scope
+ initializeModel * newObj;
+ ^~~~~~~~~~~~~~~
+P_1_MCMC.cpp:123:1: note: suggested alternative: ‘new_initializeModel’
+ initializeModel * newObj;
+ ^~~~~~~~~~~~~~~
+ new_initializeModel
+P_1_MCMC.cpp:123:19: error: ‘newObj’ was not declared in this scope
+ initializeModel * newObj;
+                   ^~~~~~
+P_1_MCMC.cpp:127:14: error: ‘initializeModel’ does not name a type; did you mean ‘new_initializeModel’?
+ newObj = new initializeModel;
+              ^~~~~~~~~~~~~~~
+              new_initializeModel
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/Utils.h:27:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArr.h:27,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:25,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+P_1_MCMC.cpp:129:83: error: cannot dynamic_cast ‘newObj’ (of type ‘<type error>’) to type ‘class NamedObjects*’ (source is not a pointer)
+ PROTECT(SNamedObjects_EXTPTR= R_MakeExternalPtr(dynamic_cast<NamedObjects*>(newObj), R_NilValue, R_NilValue));
+                                                                                   ^
+/usr/share/R/include/Rinternals.h:984:31: note: in definition of macro ‘PROTECT’
+ #define PROTECT(s) Rf_protect(s)
+                               ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_initializeModel_run(SEXP)’:
+P_1_MCMC.cpp:139:13: error: ‘initializeModel’ does not name a type; did you mean ‘new_initializeModel’?
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->run();
+             ^~~~~~~~~~~~~~~
+             new_initializeModel
+P_1_MCMC.cpp:139:28: error: expected ‘>’ before ‘*’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->run();
+                            ^
+P_1_MCMC.cpp:139:28: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:139:29: error: expected primary-expression before ‘>’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->run();
+                             ^
+P_1_MCMC.cpp:139:66: error: ‘void*’ is not a pointer-to-object type
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->run();
+                                                                  ^~
+P_1_MCMC.cpp:139:73: error: expected ‘)’ before ‘;’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->run();
+                                                                         ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_initializeModel_initialize_deterministic(SEXP, SEXP)’:
+P_1_MCMC.cpp:149:13: error: ‘initializeModel’ does not name a type; did you mean ‘new_initializeModel’?
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_deterministic(ARG1_i_);
+             ^~~~~~~~~~~~~~~
+             new_initializeModel
+P_1_MCMC.cpp:149:28: error: expected ‘>’ before ‘*’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_deterministic(ARG1_i_);
+                            ^
+P_1_MCMC.cpp:149:28: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:149:29: error: expected primary-expression before ‘>’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_deterministic(ARG1_i_);
+                             ^
+P_1_MCMC.cpp:149:66: error: ‘void*’ is not a pointer-to-object type
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_deterministic(ARG1_i_);
+                                                                  ^~
+P_1_MCMC.cpp:149:101: error: expected ‘)’ before ‘;’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_deterministic(ARG1_i_);
+                                                                                                     ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_initializeModel_initialize_stoch_data_node(SEXP, SEXP)’:
+P_1_MCMC.cpp:163:13: error: ‘initializeModel’ does not name a type; did you mean ‘new_initializeModel’?
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_stoch_data_node(ARG1_i_);
+             ^~~~~~~~~~~~~~~
+             new_initializeModel
+P_1_MCMC.cpp:163:28: error: expected ‘>’ before ‘*’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_stoch_data_node(ARG1_i_);
+                            ^
+P_1_MCMC.cpp:163:28: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:163:29: error: expected primary-expression before ‘>’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_stoch_data_node(ARG1_i_);
+                             ^
+P_1_MCMC.cpp:163:66: error: ‘void*’ is not a pointer-to-object type
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_stoch_data_node(ARG1_i_);
+                                                                  ^~
+P_1_MCMC.cpp:163:103: error: expected ‘)’ before ‘;’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_stoch_data_node(ARG1_i_);
+                                                                                                       ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_initializeModel_initialize_stoch_non_data_node(SEXP, SEXP)’:
+P_1_MCMC.cpp:177:13: error: ‘initializeModel’ does not name a type; did you mean ‘new_initializeModel’?
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_stoch_non_data_node(ARG1_i_);
+             ^~~~~~~~~~~~~~~
+             new_initializeModel
+P_1_MCMC.cpp:177:28: error: expected ‘>’ before ‘*’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_stoch_non_data_node(ARG1_i_);
+                            ^
+P_1_MCMC.cpp:177:28: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:177:29: error: expected primary-expression before ‘>’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_stoch_non_data_node(ARG1_i_);
+                             ^
+P_1_MCMC.cpp:177:66: error: ‘void*’ is not a pointer-to-object type
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_stoch_non_data_node(ARG1_i_);
+                                                                  ^~
+P_1_MCMC.cpp:177:107: error: expected ‘)’ before ‘;’ token
+ static_cast<initializeModel*>(R_ExternalPtrAddr(SextPtrToObject))->initialize_stoch_non_data_node(ARG1_i_);
+                                                                                                           ^
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:187:7: error: ‘sampler_RW’ has not been declared
+ void  sampler_RW::run (  )  {
+       ^~~~~~~~~~
+P_1_MCMC.cpp: In function ‘void run()’:
+P_1_MCMC.cpp:187:7: error: redefinition of ‘void run()’
+P_1_MCMC.cpp:16:7: note: ‘void run()’ previously defined here
+ void  initializeModel::run (  )  {
+       ^~~~~~~~~~~~~~~
+P_1_MCMC.cpp:195:19: error: ‘model_oB_oBtarget_cB_cB’ was not declared in this scope
+ currentValue = (**model_oB_oBtarget_cB_cB)[(model_oB_oBtarget_cB_cB_flatIndex) - 1];
+                   ^~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:195:45: error: ‘model_oB_oBtarget_cB_cB_flatIndex’ was not declared in this scope
+ currentValue = (**model_oB_oBtarget_cB_cB)[(model_oB_oBtarget_cB_cB_flatIndex) - 1];
+                                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:197:4: error: ‘logScale’ was not declared in this scope
+ if(logScale) {
+    ^~~~~~~~
+P_1_MCMC.cpp:197:4: note: suggested alternative: ‘locale_t’
+ if(logScale) {
+    ^~~~~~~~
+    locale_t
+P_1_MCMC.cpp:198:26: error: ‘scale’ was not declared in this scope
+  propLogScale = rnorm(0, scale);
+                          ^~~~~
+P_1_MCMC.cpp:198:26: note: suggested alternative: ‘scalb’
+  propLogScale = rnorm(0, scale);
+                          ^~~~~
+                          scalb
+P_1_MCMC.cpp:201:34: error: ‘scale’ was not declared in this scope
+  propValue = rnorm(currentValue, scale);
+                                  ^~~~~
+P_1_MCMC.cpp:201:34: note: suggested alternative: ‘scalb’
+  propValue = rnorm(currentValue, scale);
+                                  ^~~~~
+                                  scalb
+P_1_MCMC.cpp:203:4: error: ‘reflective’ was not declared in this scope
+ if(reflective) {
+    ^~~~~~~~~~
+P_1_MCMC.cpp:203:4: note: suggested alternative: ‘select’
+ if(reflective) {
+    ^~~~~~~~~~
+    select
+P_1_MCMC.cpp:204:29: error: ‘model_target__quote_lower_quote__boundInfo_ID’ was not declared in this scope
+  lower = getBound_0D_double(model_target__quote_lower_quote__boundInfo_ID,model_target_nodeFxnVector_includeData_TRUE_SU.getInstructions()[0]);
+                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:204:75: error: ‘model_target_nodeFxnVector_includeData_TRUE_SU’ was not declared in this scope
+  lower = getBound_0D_double(model_target__quote_lower_quote__boundInfo_ID,model_target_nodeFxnVector_includeData_TRUE_SU.getInstructions()[0]);
+                                                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:205:29: error: ‘model_target__quote_upper_quote__boundInfo_ID’ was not declared in this scope
+  upper = getBound_0D_double(model_target__quote_upper_quote__boundInfo_ID,model_target_nodeFxnVector_includeData_TRUE_SU.getInstructions()[0]);
+                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:216:24: error: ‘model_target_nodeFxnVector_includeData_TRUE_SU’ was not declared in this scope
+ logMHR = calculateDiff(model_target_nodeFxnVector_includeData_TRUE_SU);
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:218:10: error: ‘mvSaved_target_access_logProb_TRUE_1_model_target_access_logProb_TRUE’ was not declared in this scope
+  nimCopy(mvSaved_target_access_logProb_TRUE_1_model_target_access_logProb_TRUE, 1);
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:221:35: error: ‘model_calcNodesNoSelf_nodeFxnVector_includeData_TRUE_SU’ was not declared in this scope
+  logMHR = (logMHR + calculateDiff(model_calcNodesNoSelf_nodeFxnVector_includeData_TRUE_SU)) + propLogScale;
+                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:224:11: error: ‘model_calcNodes_access_logProb_TRUE_mvSaved_calcNodes_access_logProb_TRUE_1’ was not declared in this scope
+   nimCopy(model_calcNodes_access_logProb_TRUE_mvSaved_calcNodes_access_logProb_TRUE_1, 0, 1);
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:226:11: error: ‘mvSaved_calcNodes_access_logProb_TRUE_1_model_calcNodes_access_logProb_TRUE’ was not declared in this scope
+   nimCopy(mvSaved_calcNodes_access_logProb_TRUE_1_model_calcNodes_access_logProb_TRUE, 1);
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:229:4: error: ‘adaptive’ was not declared in this scope
+ if(adaptive) {
+    ^~~~~~~~
+P_1_MCMC.cpp:229:4: note: suggested alternative: ‘asctime’
+ if(adaptive) {
+    ^~~~~~~~
+    asctime
+P_1_MCMC.cpp:230:2: error: ‘adaptiveProcedure’ was not declared in this scope
+  adaptiveProcedure(jump);
+  ^~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:233:7: error: ‘sampler_RW’ has not been declared
+ void  sampler_RW::adaptiveProcedure ( bool ARG1_jump_ )  {
+       ^~~~~~~~~~
+P_1_MCMC.cpp: In function ‘void adaptiveProcedure(bool)’:
+P_1_MCMC.cpp:239:1: error: ‘timesRan’ was not declared in this scope
+ timesRan = timesRan + 1;
+ ^~~~~~~~
+P_1_MCMC.cpp:239:1: note: suggested alternative: ‘timespec’
+ timesRan = timesRan + 1;
+ ^~~~~~~~
+ timespec
+P_1_MCMC.cpp:241:2: error: ‘timesAccepted’ was not declared in this scope
+  timesAccepted = timesAccepted + 1;
+  ^~~~~~~~~~~~~
+P_1_MCMC.cpp:241:2: note: suggested alternative: ‘timer_create’
+  timesAccepted = timesAccepted + 1;
+  ^~~~~~~~~~~~~
+  timer_create
+P_1_MCMC.cpp:243:21: error: ‘adaptInterval’ was not declared in this scope
+ if(nimMod(timesRan, adaptInterval) == 0) {
+                     ^~~~~~~~~~~~~
+P_1_MCMC.cpp:243:21: note: suggested alternative: ‘dinterval’
+ if(nimMod(timesRan, adaptInterval) == 0) {
+                     ^~~~~~~~~~~~~
+                     dinterval
+P_1_MCMC.cpp:244:19: error: ‘timesAccepted’ was not declared in this scope
+  acceptanceRate = timesAccepted / static_cast<double>(timesRan);
+                   ^~~~~~~~~~~~~
+P_1_MCMC.cpp:244:19: note: suggested alternative: ‘timer_create’
+  acceptanceRate = timesAccepted / static_cast<double>(timesRan);
+                   ^~~~~~~~~~~~~
+                   timer_create
+P_1_MCMC.cpp:245:2: error: ‘timesAdapted’ was not declared in this scope
+  timesAdapted = timesAdapted + 1;
+  ^~~~~~~~~~~~
+P_1_MCMC.cpp:245:2: note: suggested alternative: ‘timespec’
+  timesAdapted = timesAdapted + 1;
+  ^~~~~~~~~~~~
+  timespec
+P_1_MCMC.cpp:246:5: error: ‘saveMCMChistory’ was not declared in this scope
+  if(saveMCMChistory) {
+     ^~~~~~~~~~~~~~~
+P_1_MCMC.cpp:247:3: error: ‘scaleHistory’ was not declared in this scope
+   scaleHistory.setSize(timesAdapted, true, true);
+   ^~~~~~~~~~~~
+P_1_MCMC.cpp:248:38: error: ‘scale’ was not declared in this scope
+   scaleHistory[(timesAdapted) - 1] = scale;
+                                      ^~~~~
+P_1_MCMC.cpp:248:38: note: suggested alternative: ‘scalb’
+   scaleHistory[(timesAdapted) - 1] = scale;
+                                      ^~~~~
+                                      scalb
+P_1_MCMC.cpp:249:3: error: ‘acceptanceHistory’ was not declared in this scope
+   acceptanceHistory.setSize(timesAdapted, true, true);
+   ^~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:249:3: note: suggested alternative: ‘acceptanceRate’
+   acceptanceHistory.setSize(timesAdapted, true, true);
+   ^~~~~~~~~~~~~~~~~
+   acceptanceRate
+P_1_MCMC.cpp:252:2: error: ‘gamma1’ was not declared in this scope
+  gamma1 = 1 / static_cast<double>((pow( static_cast<double>((timesAdapted + 3)),0.8)));
+  ^~~~~~
+P_1_MCMC.cpp:252:2: note: suggested alternative: ‘gamma2’
+  gamma1 = 1 / static_cast<double>((pow( static_cast<double>((timesAdapted + 3)),0.8)));
+  ^~~~~~
+  gamma2
+P_1_MCMC.cpp:254:47: error: ‘optimalAR’ was not declared in this scope
+  adaptFactor = exp(gamma2 * (acceptanceRate - optimalAR));
+                                               ^~~~~~~~~
+P_1_MCMC.cpp:254:47: note: suggested alternative: ‘optimgr’
+  adaptFactor = exp(gamma2 * (acceptanceRate - optimalAR));
+                                               ^~~~~~~~~
+                                               optimgr
+P_1_MCMC.cpp:255:2: error: ‘scale’ was not declared in this scope
+  scale = scale * adaptFactor;
+  ^~~~~
+P_1_MCMC.cpp:255:2: note: suggested alternative: ‘scalb’
+  scale = scale * adaptFactor;
+  ^~~~~
+  scalb
+P_1_MCMC.cpp:256:5: error: ‘reflective’ was not declared in this scope
+  if(reflective) {
+     ^~~~~~~~~~
+P_1_MCMC.cpp:256:5: note: suggested alternative: ‘select’
+  if(reflective) {
+     ^~~~~~~~~~
+     select
+P_1_MCMC.cpp:257:30: error: ‘model_target__quote_lower_quote__boundInfo_ID’ was not declared in this scope
+   lower = getBound_0D_double(model_target__quote_lower_quote__boundInfo_ID,model_target_nodeFxnVector_includeData_TRUE_SU.getInstructions()[0]);
+                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:257:76: error: ‘model_target_nodeFxnVector_includeData_TRUE_SU’ was not declared in this scope
+   lower = getBound_0D_double(model_target__quote_lower_quote__boundInfo_ID,model_target_nodeFxnVector_includeData_TRUE_SU.getInstructions()[0]);
+                                                                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:258:30: error: ‘model_target__quote_upper_quote__boundInfo_ID’ was not declared in this scope
+   upper = getBound_0D_double(model_target__quote_upper_quote__boundInfo_ID,model_target_nodeFxnVector_includeData_TRUE_SU.getInstructions()[0]);
+                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:267:20: error: ‘sampler_RW’ has not been declared
+ NimArr<1, double>  sampler_RW::getScaleHistory (  )  {
+                    ^~~~~~~~~~
+P_1_MCMC.cpp: In function ‘NimArr<1, double> getScaleHistory()’:
+P_1_MCMC.cpp:269:4: error: ‘saveMCMChistory’ was not declared in this scope
+ if(saveMCMChistory) {
+    ^~~~~~~~~~~~~~~
+P_1_MCMC.cpp:270:9: error: ‘scaleHistory’ was not declared in this scope
+  return(scaleHistory);
+         ^~~~~~~~~~~~
+P_1_MCMC.cpp:270:9: note: suggested alternative: ‘getScaleHistory’
+  return(scaleHistory);
+         ^~~~~~~~~~~~
+         getScaleHistory
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:277:20: error: ‘sampler_RW’ has not been declared
+ NimArr<1, double>  sampler_RW::getAcceptanceHistory (  )  {
+                    ^~~~~~~~~~
+P_1_MCMC.cpp: In function ‘NimArr<1, double> getAcceptanceHistory()’:
+P_1_MCMC.cpp:279:4: error: ‘saveMCMChistory’ was not declared in this scope
+ if(saveMCMChistory) {
+    ^~~~~~~~~~~~~~~
+P_1_MCMC.cpp:280:9: error: ‘acceptanceHistory’ was not declared in this scope
+  return(acceptanceHistory);
+         ^~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:280:9: note: suggested alternative: ‘getAcceptanceHistory’
+  return(acceptanceHistory);
+         ^~~~~~~~~~~~~~~~~
+         getAcceptanceHistory
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:287:7: error: ‘sampler_RW’ has not been declared
+ void  sampler_RW::reset (  )  {
+       ^~~~~~~~~~
+P_1_MCMC.cpp: In function ‘void reset()’:
+P_1_MCMC.cpp:290:1: error: ‘scale’ was not declared in this scope
+ scale = scaleOriginal;
+ ^~~~~
+P_1_MCMC.cpp:290:1: note: suggested alternative: ‘scalb’
+ scale = scaleOriginal;
+ ^~~~~
+ scalb
+P_1_MCMC.cpp:290:9: error: ‘scaleOriginal’ was not declared in this scope
+ scale = scaleOriginal;
+         ^~~~~~~~~~~~~
+P_1_MCMC.cpp:291:1: error: ‘timesRan’ was not declared in this scope
+ timesRan = 0;
+ ^~~~~~~~
+P_1_MCMC.cpp:291:1: note: suggested alternative: ‘timespec’
+ timesRan = 0;
+ ^~~~~~~~
+ timespec
+P_1_MCMC.cpp:292:1: error: ‘timesAccepted’ was not declared in this scope
+ timesAccepted = 0;
+ ^~~~~~~~~~~~~
+P_1_MCMC.cpp:292:1: note: suggested alternative: ‘timer_create’
+ timesAccepted = 0;
+ ^~~~~~~~~~~~~
+ timer_create
+P_1_MCMC.cpp:293:1: error: ‘timesAdapted’ was not declared in this scope
+ timesAdapted = 0;
+ ^~~~~~~~~~~~
+P_1_MCMC.cpp:293:1: note: suggested alternative: ‘timespec’
+ timesAdapted = 0;
+ ^~~~~~~~~~~~
+ timespec
+P_1_MCMC.cpp:294:4: error: ‘saveMCMChistory’ was not declared in this scope
+ if(saveMCMChistory) {
+    ^~~~~~~~~~~~~~~
+P_1_MCMC.cpp:296:2: error: ‘scaleHistory’ was not declared in this scope
+  scaleHistory.setSize(2, 0, 0);
+  ^~~~~~~~~~~~
+P_1_MCMC.cpp:296:2: note: suggested alternative: ‘Eig_scaleHistory’
+  scaleHistory.setSize(2, 0, 0);
+  ^~~~~~~~~~~~
+  Eig_scaleHistory
+P_1_MCMC.cpp:300:2: error: ‘acceptanceHistory’ was not declared in this scope
+  acceptanceHistory.setSize(2, 0, 0);
+  ^~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:300:2: note: suggested alternative: ‘Eig_acceptanceHistory’
+  acceptanceHistory.setSize(2, 0, 0);
+  ^~~~~~~~~~~~~~~~~
+  Eig_acceptanceHistory
+P_1_MCMC.cpp:304:1: error: ‘gamma1’ was not declared in this scope
+ gamma1 = 0;
+ ^~~~~~
+P_1_MCMC.cpp:304:1: note: suggested alternative: ‘gammal’
+ gamma1 = 0;
+ ^~~~~~
+ gammal
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:306:7: error: ‘sampler_RW’ has not been declared
+ void  sampler_RW::copyFromRobject ( SEXP Robject )  {
+       ^~~~~~~~~~
+P_1_MCMC.cpp: In function ‘void copyFromRobject(SEXP)’:
+P_1_MCMC.cpp:306:7: error: redefinition of ‘void copyFromRobject(SEXP)’
+P_1_MCMC.cpp:103:7: note: ‘void copyFromRobject(SEXP)’ previously defined here
+ void  initializeModel::copyFromRobject ( SEXP Robject )  {
+       ^~~~~~~~~~~~~~~
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:308:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("logScale");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:308:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("logScale");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:309:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("reflective");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:309:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("reflective");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:310:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("adaptive");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:310:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("adaptive");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:311:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("adaptInterval");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:311:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("adaptInterval");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:312:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("scale");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:312:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("scale");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:313:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("scaleOriginal");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:313:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("scaleOriginal");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:314:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("timesRan");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:314:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("timesRan");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:315:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("timesAccepted");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:315:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("timesAccepted");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:316:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("timesAdapted");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:316:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("timesAdapted");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: error: ‘getObjectPtr’ was not declared in this scope
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:317:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("scaleHistory");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: note: suggested alternative: ‘getModelObjectPtr’
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:317:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("scaleHistory");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: error: ‘getObjectPtr’ was not declared in this scope
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:318:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("acceptanceHistory");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: note: suggested alternative: ‘getModelObjectPtr’
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:318:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("acceptanceHistory");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:319:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("saveMCMChistory");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:319:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("saveMCMChistory");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:320:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("optimalAR");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:320:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("optimalAR");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:321:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("gamma1");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:321:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("gamma1");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: error: ‘getObjectPtr’ was not declared in this scope
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:322:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_calcNodesNoSelf_nodeFxnVector_includeData_TRUE_SU");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: note: suggested alternative: ‘getModelObjectPtr’
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:322:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_calcNodesNoSelf_nodeFxnVector_includeData_TRUE_SU");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:323:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("model_target__quote_upper_quote__boundInfo_ID");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:323:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("model_target__quote_upper_quote__boundInfo_ID");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:324:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("model_target__quote_lower_quote__boundInfo_ID");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:324:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("model_target__quote_lower_quote__boundInfo_ID");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: error: ‘getObjectPtr’ was not declared in this scope
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:325:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_target_nodeFxnVector_includeData_TRUE_SU");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: note: suggested alternative: ‘getModelObjectPtr’
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:325:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_target_nodeFxnVector_includeData_TRUE_SU");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:326:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("model_oB_oBtarget_cB_cB_flatIndex");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:326:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("model_oB_oBtarget_cB_cB_flatIndex");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:329:2: error: ‘sampler_RW’ does not name a type; did you mean ‘Sampletype’?
+  sampler_RW::sampler_RW (  )  {
+  ^~~~~~~~~~
+  Sampletype
+P_1_MCMC.cpp: In function ‘SEXPREC* new_sampler_RW()’:
+P_1_MCMC.cpp:361:1: error: ‘sampler_RW’ was not declared in this scope
+ sampler_RW * newObj;
+ ^~~~~~~~~~
+P_1_MCMC.cpp:361:1: note: suggested alternative: ‘new_sampler_RW’
+ sampler_RW * newObj;
+ ^~~~~~~~~~
+ new_sampler_RW
+P_1_MCMC.cpp:361:14: error: ‘newObj’ was not declared in this scope
+ sampler_RW * newObj;
+              ^~~~~~
+P_1_MCMC.cpp:366:14: error: ‘sampler_RW’ does not name a type; did you mean ‘new_sampler_RW’?
+ newObj = new sampler_RW;
+              ^~~~~~~~~~
+              new_sampler_RW
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/Utils.h:27:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArr.h:27,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:25,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+P_1_MCMC.cpp:368:63: error: ‘nfRefClass_34’ does not name a type
+ PROTECT(SnfRefClass_34_EXTPTR= R_MakeExternalPtr(dynamic_cast<nfRefClass_34*>(newObj), R_NilValue, R_NilValue));
+                                                               ^
+/usr/share/R/include/Rinternals.h:984:31: note: in definition of macro ‘PROTECT’
+ #define PROTECT(s) Rf_protect(s)
+                               ^
+P_1_MCMC.cpp:368:76: error: expected ‘>’ before ‘*’ token
+ PROTECT(SnfRefClass_34_EXTPTR= R_MakeExternalPtr(dynamic_cast<nfRefClass_34*>(newObj), R_NilValue, R_NilValue));
+                                                                            ^
+/usr/share/R/include/Rinternals.h:984:31: note: in definition of macro ‘PROTECT’
+ #define PROTECT(s) Rf_protect(s)
+                               ^
+P_1_MCMC.cpp:368:76: error: expected ‘(’ before ‘*’ token
+ PROTECT(SnfRefClass_34_EXTPTR= R_MakeExternalPtr(dynamic_cast<nfRefClass_34*>(newObj), R_NilValue, R_NilValue));
+                                                                            ^
+/usr/share/R/include/Rinternals.h:984:31: note: in definition of macro ‘PROTECT’
+ #define PROTECT(s) Rf_protect(s)
+                               ^
+P_1_MCMC.cpp:368:77: error: expected primary-expression before ‘>’ token
+ PROTECT(SnfRefClass_34_EXTPTR= R_MakeExternalPtr(dynamic_cast<nfRefClass_34*>(newObj), R_NilValue, R_NilValue));
+                                                                             ^
+/usr/share/R/include/Rinternals.h:984:31: note: in definition of macro ‘PROTECT’
+ #define PROTECT(s) Rf_protect(s)
+                               ^
+P_1_MCMC.cpp:369:83: error: cannot dynamic_cast ‘newObj’ (of type ‘<type error>’) to type ‘class NamedObjects*’ (source is not a pointer)
+ PROTECT(SNamedObjects_EXTPTR= R_MakeExternalPtr(dynamic_cast<NamedObjects*>(newObj), R_NilValue, R_NilValue));
+                                                                                   ^
+/usr/share/R/include/Rinternals.h:984:31: note: in definition of macro ‘PROTECT’
+ #define PROTECT(s) Rf_protect(s)
+                               ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_sampler_RW_run(SEXP)’:
+P_1_MCMC.cpp:380:13: error: ‘sampler_RW’ does not name a type; did you mean ‘new_sampler_RW’?
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->run();
+             ^~~~~~~~~~
+             new_sampler_RW
+P_1_MCMC.cpp:380:23: error: expected ‘>’ before ‘*’ token
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->run();
+                       ^
+P_1_MCMC.cpp:380:23: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:380:24: error: expected primary-expression before ‘>’ token
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->run();
+                        ^
+P_1_MCMC.cpp:380:61: error: ‘void*’ is not a pointer-to-object type
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->run();
+                                                             ^~
+P_1_MCMC.cpp:380:68: error: expected ‘)’ before ‘;’ token
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->run();
+                                                                    ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_sampler_RW_adaptiveProcedure(SEXP, SEXP)’:
+P_1_MCMC.cpp:390:13: error: ‘sampler_RW’ does not name a type; did you mean ‘new_sampler_RW’?
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->adaptiveProcedure(ARG1_jump_);
+             ^~~~~~~~~~
+             new_sampler_RW
+P_1_MCMC.cpp:390:23: error: expected ‘>’ before ‘*’ token
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->adaptiveProcedure(ARG1_jump_);
+                       ^
+P_1_MCMC.cpp:390:23: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:390:24: error: expected primary-expression before ‘>’ token
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->adaptiveProcedure(ARG1_jump_);
+                        ^
+P_1_MCMC.cpp:390:61: error: ‘void*’ is not a pointer-to-object type
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->adaptiveProcedure(ARG1_jump_);
+                                                             ^~
+P_1_MCMC.cpp:390:92: error: expected ‘)’ before ‘;’ token
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->adaptiveProcedure(ARG1_jump_);
+                                                                                            ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_sampler_RW_getScaleHistory(SEXP)’:
+P_1_MCMC.cpp:404:27: error: ‘sampler_RW’ does not name a type; did you mean ‘new_sampler_RW’?
+ LHSvar_1234 = static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->getScaleHistory();
+                           ^~~~~~~~~~
+                           new_sampler_RW
+P_1_MCMC.cpp:404:37: error: expected ‘>’ before ‘*’ token
+ LHSvar_1234 = static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->getScaleHistory();
+                                     ^
+P_1_MCMC.cpp:404:37: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:404:38: error: expected primary-expression before ‘>’ token
+ LHSvar_1234 = static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->getScaleHistory();
+                                      ^
+P_1_MCMC.cpp:404:75: error: ‘void*’ is not a pointer-to-object type
+ LHSvar_1234 = static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->getScaleHistory();
+                                                                           ^~
+P_1_MCMC.cpp:404:94: error: expected ‘)’ before ‘;’ token
+ LHSvar_1234 = static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->getScaleHistory();
+                                                                                              ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_sampler_RW_getAcceptanceHistory(SEXP)’:
+P_1_MCMC.cpp:418:27: error: ‘sampler_RW’ does not name a type; did you mean ‘new_sampler_RW’?
+ LHSvar_1234 = static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->getAcceptanceHistory();
+                           ^~~~~~~~~~
+                           new_sampler_RW
+P_1_MCMC.cpp:418:37: error: expected ‘>’ before ‘*’ token
+ LHSvar_1234 = static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->getAcceptanceHistory();
+                                     ^
+P_1_MCMC.cpp:418:37: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:418:38: error: expected primary-expression before ‘>’ token
+ LHSvar_1234 = static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->getAcceptanceHistory();
+                                      ^
+P_1_MCMC.cpp:418:75: error: ‘void*’ is not a pointer-to-object type
+ LHSvar_1234 = static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->getAcceptanceHistory();
+                                                                           ^~
+P_1_MCMC.cpp:418:99: error: expected ‘)’ before ‘;’ token
+ LHSvar_1234 = static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->getAcceptanceHistory();
+                                                                                                   ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_sampler_RW_reset(SEXP)’:
+P_1_MCMC.cpp:429:13: error: ‘sampler_RW’ does not name a type; did you mean ‘new_sampler_RW’?
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->reset();
+             ^~~~~~~~~~
+             new_sampler_RW
+P_1_MCMC.cpp:429:23: error: expected ‘>’ before ‘*’ token
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->reset();
+                       ^
+P_1_MCMC.cpp:429:23: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:429:24: error: expected primary-expression before ‘>’ token
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->reset();
+                        ^
+P_1_MCMC.cpp:429:61: error: ‘void*’ is not a pointer-to-object type
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->reset();
+                                                             ^~
+P_1_MCMC.cpp:429:70: error: expected ‘)’ before ‘;’ token
+ static_cast<sampler_RW*>(R_ExternalPtrAddr(SextPtrToObject))->reset();
+                                                                      ^
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:434:2: error: ‘modelValuesConf_UID_14’ does not name a type
+  modelValuesConf_UID_14::modelValuesConf_UID_14 (  )  {
+  ^~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:441:7: error: ‘modelValuesConf_UID_14’ has not been declared
+ void  modelValuesConf_UID_14::resize ( int nrow )  {
+       ^~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp: In function ‘void resize(int)’:
+P_1_MCMC.cpp:443:1: error: ‘delta_Vec’ was not declared in this scope
+ delta_Vec.resize(nrow);
+ ^~~~~~~~~
+P_1_MCMC.cpp:444:1: error: ‘delta1_Vec’ was not declared in this scope
+ delta1_Vec.resize(nrow);
+ ^~~~~~~~~~
+P_1_MCMC.cpp:445:1: error: ‘delta2_Vec’ was not declared in this scope
+ delta2_Vec.resize(nrow);
+ ^~~~~~~~~~
+P_1_MCMC.cpp:451:1: error: ‘numRows’ was not declared in this scope
+ numRows = nrow;
+ ^~~~~~~
+P_1_MCMC.cpp: In function ‘SEXPREC* new_modelValuesConf_UID_14()’:
+P_1_MCMC.cpp:455:1: error: ‘modelValuesConf_UID_14’ was not declared in this scope
+ modelValuesConf_UID_14 * newObj;
+ ^~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:455:1: note: suggested alternative: ‘new_modelValuesConf_UID_14’
+ modelValuesConf_UID_14 * newObj;
+ ^~~~~~~~~~~~~~~~~~~~~~
+ new_modelValuesConf_UID_14
+P_1_MCMC.cpp:455:26: error: ‘newObj’ was not declared in this scope
+ modelValuesConf_UID_14 * newObj;
+                          ^~~~~~
+P_1_MCMC.cpp:460:14: error: ‘modelValuesConf_UID_14’ does not name a type; did you mean ‘new_modelValuesConf_UID_14’?
+ newObj = new modelValuesConf_UID_14;
+              ^~~~~~~~~~~~~~~~~~~~~~
+              new_modelValuesConf_UID_14
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/Utils.h:27:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArr.h:27,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:25,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+P_1_MCMC.cpp:462:71: error: cannot dynamic_cast ‘newObj’ (of type ‘<type error>’) to type ‘class Values*’ (source is not a pointer)
+ PROTECT(SValues_EXTPTR= R_MakeExternalPtr(dynamic_cast<Values*>(newObj), R_NilValue, R_NilValue));
+                                                                       ^
+/usr/share/R/include/Rinternals.h:984:31: note: in definition of macro ‘PROTECT’
+ #define PROTECT(s) Rf_protect(s)
+                               ^
+P_1_MCMC.cpp:463:83: error: cannot dynamic_cast ‘newObj’ (of type ‘<type error>’) to type ‘class NamedObjects*’ (source is not a pointer)
+ PROTECT(SNamedObjects_EXTPTR= R_MakeExternalPtr(dynamic_cast<NamedObjects*>(newObj), R_NilValue, R_NilValue));
+                                                                                   ^
+/usr/share/R/include/Rinternals.h:984:31: note: in definition of macro ‘PROTECT’
+ #define PROTECT(s) Rf_protect(s)
+                               ^
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:472:2: error: ‘modelValuesConf_UID_15’ does not name a type; did you mean ‘new_modelValuesConf_UID_14’?
+  modelValuesConf_UID_15::modelValuesConf_UID_15 (  )  {
+  ^~~~~~~~~~~~~~~~~~~~~~
+  new_modelValuesConf_UID_14
+P_1_MCMC.cpp:476:7: error: ‘modelValuesConf_UID_15’ has not been declared
+ void  modelValuesConf_UID_15::resize ( int nrow )  {
+       ^~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp: In function ‘void resize(int)’:
+P_1_MCMC.cpp:476:7: error: redefinition of ‘void resize(int)’
+P_1_MCMC.cpp:441:7: note: ‘void resize(int)’ previously defined here
+ void  modelValuesConf_UID_14::resize ( int nrow )  {
+       ^~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:480:1: error: ‘numRows’ was not declared in this scope
+ numRows = nrow;
+ ^~~~~~~
+P_1_MCMC.cpp: In function ‘SEXPREC* new_modelValuesConf_UID_15()’:
+P_1_MCMC.cpp:484:1: error: ‘modelValuesConf_UID_15’ was not declared in this scope
+ modelValuesConf_UID_15 * newObj;
+ ^~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:484:1: note: suggested alternative: ‘new_modelValuesConf_UID_15’
+ modelValuesConf_UID_15 * newObj;
+ ^~~~~~~~~~~~~~~~~~~~~~
+ new_modelValuesConf_UID_15
+P_1_MCMC.cpp:484:26: error: ‘newObj’ was not declared in this scope
+ modelValuesConf_UID_15 * newObj;
+                          ^~~~~~
+P_1_MCMC.cpp:489:14: error: ‘modelValuesConf_UID_15’ does not name a type; did you mean ‘new_modelValuesConf_UID_15’?
+ newObj = new modelValuesConf_UID_15;
+              ^~~~~~~~~~~~~~~~~~~~~~
+              new_modelValuesConf_UID_15
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/Utils.h:27:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArr.h:27,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:25,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+P_1_MCMC.cpp:491:71: error: cannot dynamic_cast ‘newObj’ (of type ‘<type error>’) to type ‘class Values*’ (source is not a pointer)
+ PROTECT(SValues_EXTPTR= R_MakeExternalPtr(dynamic_cast<Values*>(newObj), R_NilValue, R_NilValue));
+                                                                       ^
+/usr/share/R/include/Rinternals.h:984:31: note: in definition of macro ‘PROTECT’
+ #define PROTECT(s) Rf_protect(s)
+                               ^
+P_1_MCMC.cpp:492:83: error: cannot dynamic_cast ‘newObj’ (of type ‘<type error>’) to type ‘class NamedObjects*’ (source is not a pointer)
+ PROTECT(SNamedObjects_EXTPTR= R_MakeExternalPtr(dynamic_cast<NamedObjects*>(newObj), R_NilValue, R_NilValue));
+                                                                                   ^
+/usr/share/R/include/Rinternals.h:984:31: note: in definition of macro ‘PROTECT’
+ #define PROTECT(s) Rf_protect(s)
+                               ^
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:501:7: error: ‘MCMC’ has not been declared
+ void  MCMC::run ( int ARG1_niter_, bool ARG2_reset_, bool ARG3_time_, bool ARG4_progressBar_, int ARG5_nburnin_, int ARG6_thin_, int ARG7_thin2_ )  {
+       ^~~~
+P_1_MCMC.cpp: In function ‘void run(int, bool, bool, bool, int, int, int)’:
+P_1_MCMC.cpp:526:1: error: ‘thinToUseVec’ was not declared in this scope
+ thinToUseVec = thinFromConfVec;
+ ^~~~~~~~~~~~
+P_1_MCMC.cpp:526:16: error: ‘thinFromConfVec’ was not declared in this scope
+ thinToUseVec = thinFromConfVec;
+                ^~~~~~~~~~~~~~~
+P_1_MCMC.cpp:533:3: error: ‘my_initializeModel’ was not declared in this scope
+ (*my_initializeModel).run();
+   ^~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:533:3: note: suggested alternative: ‘new_initializeModel’
+ (*my_initializeModel).run();
+   ^~~~~~~~~~~~~~~~~~
+   new_initializeModel
+P_1_MCMC.cpp:534:9: error: ‘model_allModelNodes_model_access_logProb_TRUE_mvSaved_allModelNodes_model_access_logProb_TRUE_1’ was not declared in this scope
+ nimCopy(model_allModelNodes_model_access_logProb_TRUE_mvSaved_allModelNodes_model_access_logProb_TRUE_1, 0, 1);
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:536:31: error: ‘samplerFunctions’ was not declared in this scope
+  Interm_34 = static_cast<int>(samplerFunctions.size());
+                               ^~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:536:31: note: suggested alternative: ‘sampleFinalizer’
+  Interm_34 = static_cast<int>(samplerFunctions.size());
+                               ^~~~~~~~~~~~~~~~
+                               sampleFinalizer
+P_1_MCMC.cpp:540:2: error: ‘samplerTimes’ was not declared in this scope
+  samplerTimes.initialize(0, true, true, true, static_cast<int>(samplerFunctions.size()) + 1);
+  ^~~~~~~~~~~~
+P_1_MCMC.cpp:540:2: note: suggested alternative: ‘sampleNumber’
+  samplerTimes.initialize(0, true, true, true, static_cast<int>(samplerFunctions.size()) + 1);
+  ^~~~~~~~~~~~
+  sampleNumber
+P_1_MCMC.cpp:547:5: error: ‘samplerTimes’ was not declared in this scope
+  if(samplerTimes.dim()[0] != static_cast<int>(samplerFunctions.size()) + 1) {
+     ^~~~~~~~~~~~
+P_1_MCMC.cpp:547:5: note: suggested alternative: ‘sampleNumber’
+  if(samplerTimes.dim()[0] != static_cast<int>(samplerFunctions.size()) + 1) {
+     ^~~~~~~~~~~~
+     sampleNumber
+P_1_MCMC.cpp:547:47: error: ‘samplerFunctions’ was not declared in this scope
+  if(samplerTimes.dim()[0] != static_cast<int>(samplerFunctions.size()) + 1) {
+                                               ^~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:547:47: note: suggested alternative: ‘sampleFinalizer’
+  if(samplerTimes.dim()[0] != static_cast<int>(samplerFunctions.size()) + 1) {
+                                               ^~~~~~~~~~~~~~~~
+                                               sampleFinalizer
+P_1_MCMC.cpp:550:22: error: ‘mvSamples’ was not declared in this scope
+  mvSamples_copyRow = mvSamples->getsize();
+                      ^~~~~~~~~
+P_1_MCMC.cpp:550:22: note: suggested alternative: ‘rawSample’
+  mvSamples_copyRow = mvSamples->getsize();
+                      ^~~~~~~~~
+                      rawSample
+P_1_MCMC.cpp:551:23: error: ‘mvSamples2’ was not declared in this scope
+  mvSamples2_copyRow = mvSamples2->getsize();
+                       ^~~~~~~~~~
+P_1_MCMC.cpp:551:23: note: suggested alternative: ‘rawSample’
+  mvSamples2_copyRow = mvSamples2->getsize();
+                       ^~~~~~~~~~
+                       rawSample
+P_1_MCMC.cpp:553:1: error: ‘mvSamples’ was not declared in this scope
+ mvSamples->resize(mvSamples_copyRow + floor((ARG1_niter_ - ARG5_nburnin_) / thinToUseVec[0]));
+ ^~~~~~~~~
+P_1_MCMC.cpp:553:1: note: suggested alternative: ‘rawSample’
+ mvSamples->resize(mvSamples_copyRow + floor((ARG1_niter_ - ARG5_nburnin_) / thinToUseVec[0]));
+ ^~~~~~~~~
+ rawSample
+P_1_MCMC.cpp:554:1: error: ‘mvSamples2’ was not declared in this scope
+ mvSamples2->resize(mvSamples2_copyRow + floor((ARG1_niter_ - ARG5_nburnin_) / thinToUseVec[1]));
+ ^~~~~~~~~~
+P_1_MCMC.cpp:554:1: note: suggested alternative: ‘rawSample’
+ mvSamples2->resize(mvSamples2_copyRow + floor((ARG1_niter_ - ARG5_nburnin_) / thinToUseVec[1]));
+ ^~~~~~~~~~
+ rawSample
+P_1_MCMC.cpp:555:39: error: ‘samplerExecutionOrderFromConfPlusTwoZeros’ was not declared in this scope
+ lengthSamplerExecutionOrderFromConf = samplerExecutionOrderFromConfPlusTwoZeros.dim()[0] - 2;
+                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:555:39: note: suggested alternative: ‘samplerExecutionOrderToUse’
+ lengthSamplerExecutionOrderFromConf = samplerExecutionOrderFromConfPlusTwoZeros.dim()[0] - 2;
+                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                       samplerExecutionOrderToUse
+P_1_MCMC.cpp:564:18: error: ‘progressBarLength’ was not declared in this scope
+ if(ARG1_niter_ < progressBarLength + 3 || !(progressBarDefaultSetting)) {
+                  ^~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:564:18: note: suggested alternative: ‘progressBarNext’
+ if(ARG1_niter_ < progressBarLength + 3 || !(progressBarDefaultSetting)) {
+                  ^~~~~~~~~~~~~~~~~
+                  progressBarNext
+P_1_MCMC.cpp:564:45: error: ‘progressBarDefaultSetting’ was not declared in this scope
+ if(ARG1_niter_ < progressBarLength + 3 || !(progressBarDefaultSetting)) {
+                                             ^~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:564:45: note: suggested alternative: ‘progressBarNextFloor’
+ if(ARG1_niter_ < progressBarLength + 3 || !(progressBarDefaultSetting)) {
+                                             ^~~~~~~~~~~~~~~~~~~~~~~~~
+                                             progressBarNextFloor
+P_1_MCMC.cpp:570:16: error: ‘progressBarLength’ was not declared in this scope
+   Interm_35 = (progressBarLength / static_cast<double>(4));
+                ^~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:570:16: note: suggested alternative: ‘progressBarNext’
+   Interm_35 = (progressBarLength / static_cast<double>(4));
+                ^~~~~~~~~~~~~~~~~
+                progressBarNext
+P_1_MCMC.cpp:578:59: error: ‘progressBarLength’ was not declared in this scope
+ progressBarIncrement = ARG1_niter_ / static_cast<double>((progressBarLength + 3));
+                                                           ^~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:578:59: note: suggested alternative: ‘progressBarNext’
+ progressBarIncrement = ARG1_niter_ / static_cast<double>((progressBarLength + 3));
+                                                           ^~~~~~~~~~~~~~~~~
+                                                           progressBarNext
+P_1_MCMC.cpp:591:6: error: ‘samplerFunctions’ was not declared in this scope
+    (*samplerFunctions[(ind) - 1]).run();
+      ^~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:591:6: note: suggested alternative: ‘sampleFinalizer’
+    (*samplerFunctions[(ind) - 1]).run();
+      ^~~~~~~~~~~~~~~~
+      sampleFinalizer
+P_1_MCMC.cpp:593:4: error: ‘samplerTimes’ was not declared in this scope
+    samplerTimes[(ind) - 1] = samplerTimes[(ind) - 1] + Interm_33;
+    ^~~~~~~~~~~~
+P_1_MCMC.cpp:593:4: note: suggested alternative: ‘sampleNumber’
+    samplerTimes[(ind) - 1] = samplerTimes[(ind) - 1] + Interm_33;
+    ^~~~~~~~~~~~
+    sampleNumber
+P_1_MCMC.cpp:599:6: error: ‘samplerFunctions’ was not declared in this scope
+    (*samplerFunctions[(ind) - 1]).run();
+      ^~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:599:6: note: suggested alternative: ‘sampleFinalizer’
+    (*samplerFunctions[(ind) - 1]).run();
+      ^~~~~~~~~~~~~~~~
+      sampleFinalizer
+P_1_MCMC.cpp:606:12: error: ‘model_monitors_access_logProb_FALSE_mvSamples_monitors_access_logProb_FALSE_mvSamples_copyRow’ was not declared in this scope
+    nimCopy(model_monitors_access_logProb_FALSE_mvSamples_monitors_access_logProb_FALSE_mvSamples_copyRow, 0, mvSamples_copyRow);
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:610:12: error: ‘model_monitors2_access_logProb_FALSE_mvSamples2_monitors2_access_logProb_FALSE_mvSamples2_copyRow’ was not declared in this scope
+    nimCopy(model_monitors2_access_logProb_FALSE_mvSamples2_monitors2_access_logProb_FALSE_mvSamples2_copyRow, 0, mvSamples2_copyRow);
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:623:20: error: ‘MCMC’ has not been declared
+ NimArr<1, double>  MCMC::getTimes (  )  {
+                    ^~~~
+P_1_MCMC.cpp: In function ‘NimArr<1, double> getTimes()’:
+P_1_MCMC.cpp:628:31: error: ‘samplerTimes’ was not declared in this scope
+ Interm_39 = (static_cast<int>(samplerTimes.size()) - 1);
+                               ^~~~~~~~~~~~
+P_1_MCMC.cpp:628:31: note: suggested alternative: ‘getTimes’
+ Interm_39 = (static_cast<int>(samplerTimes.size()) - 1);
+                               ^~~~~~~~~~~~
+                               getTimes
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:635:9: error: ‘MCMC’ has not been declared
+ double  MCMC::calculateWAIC ( int ARG1_nburnin_, int ARG2_burnIn_ )  {
+         ^~~~
+P_1_MCMC.cpp: In function ‘double calculateWAIC(int, int)’:
+P_1_MCMC.cpp:655:6: error: ‘enableWAIC’ was not declared in this scope
+ if(!(enableWAIC)) {
+      ^~~~~~~~~~
+P_1_MCMC.cpp:665:64: error: ‘thinToUseVec’ was not declared in this scope
+ nburninPostThinning = ceil(ARG1_nburnin_ / static_cast<double>(thinToUseVec[0]));
+                                                                ^~~~~~~~~~~~
+P_1_MCMC.cpp:666:18: error: ‘mvSamples’ was not declared in this scope
+ numMCMCSamples = mvSamples->getsize() - nburninPostThinning;
+                  ^~~~~~~~~
+P_1_MCMC.cpp:666:18: note: suggested alternative: ‘rawSample’
+ numMCMCSamples = mvSamples->getsize() - nburninPostThinning;
+                  ^~~~~~~~~
+                  rawSample
+P_1_MCMC.cpp:671:62: error: ‘dataNodeLength’ was not declared in this scope
+ logPredProbs.initialize(0, true, true, true, numMCMCSamples, dataNodeLength);
+                                                              ^~~~~~~~~~~~~~
+P_1_MCMC.cpp:671:62: note: suggested alternative: ‘useLength’
+ logPredProbs.initialize(0, true, true, true, numMCMCSamples, dataNodeLength);
+                                                              ^~~~~~~~~~~~~~
+                                                              useLength
+P_1_MCMC.cpp:674:21: error: ‘model_allVarsIncludingLogProbs_access_logProb_FALSE’ was not declared in this scope
+ currentVals.setSize(model_allVarsIncludingLogProbs_access_logProb_FALSE.getTotalLength());
+                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:677:10: error: ‘mvSamples_allMVVars_mvSamples_access_logProb_FALSE_i_plus_nburninPostThinning_model_sampledNodes_access_logProb_FALSE’ was not declared in this scope
+  nimCopy(mvSamples_allMVVars_mvSamples_access_logProb_FALSE_i_plus_nburninPostThinning_model_sampledNodes_access_logProb_FALSE, i + nburninPostThinning);
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:678:11: error: ‘model_paramDeps_nodeFxnVector_includeData_FALSE_SU’ was not declared in this scope
+  simulate(model_paramDeps_nodeFxnVector_includeData_FALSE_SU);
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:679:12: error: ‘model_dataNodes_nodeFxnVector_includeData_TRUE_SU’ was not declared in this scope
+  calculate(model_dataNodes_nodeFxnVector_includeData_TRUE_SU);
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp:681:47: error: ‘model_dataNodes_nodeFxnVector_includeData_TRUE_notSU’ was not declared in this scope
+   logPredProbs((i) - 1, (j) - 1) = getLogProb(model_dataNodes_nodeFxnVector_includeData_TRUE_notSU, j);
+                                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:705:7: error: ‘MCMC’ has not been declared
+ void  MCMC::copyFromRobject ( SEXP Robject )  {
+       ^~~~
+P_1_MCMC.cpp: In function ‘void copyFromRobject(SEXP)’:
+P_1_MCMC.cpp:705:7: error: redefinition of ‘void copyFromRobject(SEXP)’
+P_1_MCMC.cpp:103:7: note: ‘void copyFromRobject(SEXP)’ previously defined here
+ void  initializeModel::copyFromRobject ( SEXP Robject )  {
+       ^~~~~~~~~~~~~~~
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:56:35: error: ‘getObjectPtr’ was not declared in this scope
+   setNimbleFxnPtr_copyFromRobject(getObjectPtr(svarName),\
+                                   ^
+P_1_MCMC.cpp:707:1: note: in expansion of macro ‘COPY_NIMBLE_FXN_FROM_R_OBJECT’
+ COPY_NIMBLE_FXN_FROM_R_OBJECT("my_initializeModel");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:56:35: note: suggested alternative: ‘getModelObjectPtr’
+   setNimbleFxnPtr_copyFromRobject(getObjectPtr(svarName),\
+                                   ^
+P_1_MCMC.cpp:707:1: note: in expansion of macro ‘COPY_NIMBLE_FXN_FROM_R_OBJECT’
+ COPY_NIMBLE_FXN_FROM_R_OBJECT("my_initializeModel");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: error: ‘getObjectPtr’ was not declared in this scope
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:708:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("samplerExecutionOrderFromConfPlusTwoZeros");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: note: suggested alternative: ‘getModelObjectPtr’
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:708:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("samplerExecutionOrderFromConfPlusTwoZeros");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: error: ‘getObjectPtr’ was not declared in this scope
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:709:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("thinFromConfVec");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: note: suggested alternative: ‘getModelObjectPtr’
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:709:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("thinFromConfVec");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: error: ‘getObjectPtr’ was not declared in this scope
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:710:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("thinToUseVec");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: note: suggested alternative: ‘getModelObjectPtr’
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:710:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("thinToUseVec");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: error: ‘getObjectPtr’ was not declared in this scope
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:711:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("samplerTimes");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:40:34: note: suggested alternative: ‘getModelObjectPtr’
+   SEXP_2_Nim_for_copyFromRobject(getObjectPtr(svarName),\
+                                  ^
+P_1_MCMC.cpp:711:1: note: in expansion of macro ‘COPY_NUMERIC_VECTOR_FROM_R_OBJECT’
+ COPY_NUMERIC_VECTOR_FROM_R_OBJECT("samplerTimes");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:712:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("progressBarLength");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:64:46: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_double_for_copyFromRobject(getObjectPtr(svarName),\
+                                              ^
+P_1_MCMC.cpp:712:1: note: in expansion of macro ‘COPY_DOUBLE_SCALAR_FROM_R_OBJECT’
+ COPY_DOUBLE_SCALAR_FROM_R_OBJECT("progressBarLength");
+ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:713:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("progressBarDefaultSetting");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:713:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("progressBarDefaultSetting");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:72:43: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_int_for_copyFromRobject(getObjectPtr(svarName),\
+                                           ^
+P_1_MCMC.cpp:714:1: note: in expansion of macro ‘COPY_INTEGER_SCALAR_FROM_R_OBJECT’
+ COPY_INTEGER_SCALAR_FROM_R_OBJECT("dataNodeLength");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:72:43: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_int_for_copyFromRobject(getObjectPtr(svarName),\
+                                           ^
+P_1_MCMC.cpp:714:1: note: in expansion of macro ‘COPY_INTEGER_SCALAR_FROM_R_OBJECT’
+ COPY_INTEGER_SCALAR_FROM_R_OBJECT("dataNodeLength");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: error: ‘getObjectPtr’ was not declared in this scope
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:715:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("enableWAIC");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:80:44: note: suggested alternative: ‘getModelObjectPtr’
+   populate_SEXP_2_bool_for_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:715:1: note: in expansion of macro ‘COPY_LOGICAL_SCALAR_FROM_R_OBJECT’
+ COPY_LOGICAL_SCALAR_FROM_R_OBJECT("enableWAIC");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: error: ‘getObjectPtr’ was not declared in this scope
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:716:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_dataNodes_nodeFxnVector_includeData_TRUE_notSU");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: note: suggested alternative: ‘getModelObjectPtr’
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:716:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_dataNodes_nodeFxnVector_includeData_TRUE_notSU");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: error: ‘getObjectPtr’ was not declared in this scope
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:717:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_dataNodes_nodeFxnVector_includeData_TRUE_SU");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: note: suggested alternative: ‘getModelObjectPtr’
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:717:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_dataNodes_nodeFxnVector_includeData_TRUE_SU");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: error: ‘getObjectPtr’ was not declared in this scope
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:718:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_paramDeps_nodeFxnVector_includeData_FALSE_SU");
+ ^
+/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:48:44: note: suggested alternative: ‘getModelObjectPtr’
+   populateNodeFxnVectorNew_copyFromRobject(getObjectPtr(svarName),\
+                                            ^
+P_1_MCMC.cpp:718:1: note: in expansion of macro ‘COPY_NODE_FXN_VECTOR_FROM_R_OBJECT’
+ COPY_NODE_FXN_VECTOR_FROM_R_OBJECT("model_paramDeps_nodeFxnVector_includeData_FALSE_SU");
+ ^
+P_1_MCMC.cpp: At global scope:
+P_1_MCMC.cpp:721:2: error: ‘MCMC’ does not name a type
+  MCMC::MCMC (  )  {
+  ^~~~
+P_1_MCMC.cpp: In function ‘SEXPREC* new_MCMC()’:
+P_1_MCMC.cpp:755:1: error: ‘MCMC’ was not declared in this scope
+ MCMC * newObj;
+ ^~~~
+P_1_MCMC.cpp:755:8: error: ‘newObj’ was not declared in this scope
+ MCMC * newObj;
+        ^~~~~~
+P_1_MCMC.cpp:759:14: error: ‘MCMC’ does not name a type
+ newObj = new MCMC;
+              ^~~~
+In file included from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/Utils.h:27:0,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NimArr.h:27,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/RcppNimbleUtils.h:25,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/NamedObjects.h:28,
+                 from /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include/nimble/EigenTypedefs.h:26,
+                 from P_1_MCMC.cpp:6:
+P_1_MCMC.cpp:761:83: error: cannot dynamic_cast ‘newObj’ (of type ‘<type error>’) to type ‘class NamedObjects*’ (source is not a pointer)
+ PROTECT(SNamedObjects_EXTPTR= R_MakeExternalPtr(dynamic_cast<NamedObjects*>(newObj), R_NilValue, R_NilValue));
+                                                                                   ^
+/usr/share/R/include/Rinternals.h:984:31: note: in definition of macro ‘PROTECT’
+ #define PROTECT(s) Rf_protect(s)
+                               ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_MCMC_run(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP)’:
+P_1_MCMC.cpp:786:13: error: ‘MCMC’ does not name a type
+ static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->run(ARG1_niter_, ARG2_reset_, ARG3_time_, ARG4_progressBar_, ARG5_nburnin_, ARG6_thin_, ARG7_thin2_);
+             ^~~~
+P_1_MCMC.cpp:786:17: error: expected ‘>’ before ‘*’ token
+ static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->run(ARG1_niter_, ARG2_reset_, ARG3_time_, ARG4_progressBar_, ARG5_nburnin_, ARG6_thin_, ARG7_thin2_);
+                 ^
+P_1_MCMC.cpp:786:17: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:786:18: error: expected primary-expression before ‘>’ token
+ static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->run(ARG1_niter_, ARG2_reset_, ARG3_time_, ARG4_progressBar_, ARG5_nburnin_, ARG6_thin_, ARG7_thin2_);
+                  ^
+P_1_MCMC.cpp:786:55: error: ‘void*’ is not a pointer-to-object type
+ static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->run(ARG1_niter_, ARG2_reset_, ARG3_time_, ARG4_progressBar_, ARG5_nburnin_, ARG6_thin_, ARG7_thin2_);
+                                                       ^~
+P_1_MCMC.cpp:786:157: error: expected ‘)’ before ‘;’ token
+ static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->run(ARG1_niter_, ARG2_reset_, ARG3_time_, ARG4_progressBar_, ARG5_nburnin_, ARG6_thin_, ARG7_thin2_);
+                                                                                                                                                             ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_MCMC_getTimes(SEXP)’:
+P_1_MCMC.cpp:812:27: error: ‘MCMC’ does not name a type
+ LHSvar_1234 = static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->getTimes();
+                           ^~~~
+P_1_MCMC.cpp:812:31: error: expected ‘>’ before ‘*’ token
+ LHSvar_1234 = static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->getTimes();
+                               ^
+P_1_MCMC.cpp:812:31: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:812:32: error: expected primary-expression before ‘>’ token
+ LHSvar_1234 = static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->getTimes();
+                                ^
+P_1_MCMC.cpp:812:69: error: ‘void*’ is not a pointer-to-object type
+ LHSvar_1234 = static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->getTimes();
+                                                                     ^~
+P_1_MCMC.cpp:812:81: error: expected ‘)’ before ‘;’ token
+ LHSvar_1234 = static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->getTimes();
+                                                                                 ^
+P_1_MCMC.cpp: In function ‘SEXPREC* CALL_MCMC_calculateWAIC(SEXP, SEXP, SEXP)’:
+P_1_MCMC.cpp:830:27: error: ‘MCMC’ does not name a type
+ LHSvar_1234 = static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->calculateWAIC(ARG1_nburnin_, ARG2_burnIn_);
+                           ^~~~
+P_1_MCMC.cpp:830:31: error: expected ‘>’ before ‘*’ token
+ LHSvar_1234 = static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->calculateWAIC(ARG1_nburnin_, ARG2_burnIn_);
+                               ^
+P_1_MCMC.cpp:830:31: error: expected ‘(’ before ‘*’ token
+P_1_MCMC.cpp:830:32: error: expected primary-expression before ‘>’ token
+ LHSvar_1234 = static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->calculateWAIC(ARG1_nburnin_, ARG2_burnIn_);
+                                ^
+P_1_MCMC.cpp:830:69: error: ‘void*’ is not a pointer-to-object type
+ LHSvar_1234 = static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->calculateWAIC(ARG1_nburnin_, ARG2_burnIn_);
+                                                                     ^~
+P_1_MCMC.cpp:830:113: error: expected ‘)’ before ‘;’ token
+ LHSvar_1234 = static_cast<MCMC*>(R_ExternalPtrAddr(SextPtrToObject))->calculateWAIC(ARG1_nburnin_, ARG2_burnIn_);
+                                                                                                                 ^
+make: *** [P_1_MCMC.o] Error 1
+|-------------|-------------|-------------|-------------|
+|-------------------------------------------------------|

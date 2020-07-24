@@ -1,2 +1,0 @@
-thin = 1: delta, delta1, delta2
-thin = 10: delta, delta1, delta2

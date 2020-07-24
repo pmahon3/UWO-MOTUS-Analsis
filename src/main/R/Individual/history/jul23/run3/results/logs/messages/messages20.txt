@@ -1,0 +1,3 @@
+Error in sink(file = outputlog, type = "output") : sink stack is full
+Calls: runMCMC -> sink
+Execution halted
