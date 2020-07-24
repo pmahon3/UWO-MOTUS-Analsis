@@ -12,6 +12,7 @@ runMCMC <- function(x) {
   sink(file = outputlog, type = "output")
   library(nimble)
   dataAndConstants <- dataSimulation(x, constants, trueParams)
+  saveRDS(dataAndConstants[["constants"]], paste("./results/data/paramsBird", toString(x), ".rds", sep = ""))
   model <- nimbleModel( code = modelCode, name = "model", constants = dataAndConstants[["constants"]], data = dataAndConstants[["data"]], calculate = FALSE)
   configured <- configureMCMC(model)
   configured$resetMonitors()
