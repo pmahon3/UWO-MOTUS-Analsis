@@ -13,8 +13,8 @@ trueParams <- list(
 
   # OBSERVATION MODEL SIGNAL STRENGTH HYPERPARAMETERS
   muMuY = c(-80, -50, -80),
-  sdMuY = c(5, 5, 5),
-  sdY = c(3, 5, 3)
+  sdMuY = c(5, 10, 5),
+  sdY = c(5, 15, 5)
 )
 
 ## NIMBLE/BUGS/JAGS MODEL

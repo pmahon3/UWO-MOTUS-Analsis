@@ -1,6 +1,6 @@
 
 
-dataSimulation <- function(x, CONSTANTS, TRUEPARAMS){
+dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
 
   y = array( dim = c(CONSTANTS$nBirds, CONSTANTS$nDays, CONSTANTS$nObservations))
   t = array( dim = c(CONSTANTS$nBirds, CONSTANTS$nDays, CONSTANTS$nObservations))
@@ -62,8 +62,11 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS){
   }
 
   simulatedParams = cbind(deltaPrimeVec, delta1Vec, delta2Vec)
-  saveRDS(simulatedParams, paste("./results/data/simulatedParams", toString(x), ".rds", sep = ""))
 
+  if (saveDat){
+    saveRDS(simulatedParams, paste("./results/data/simulatedParams", toString(x), ".rds", sep = ""))
+  }
+  
   DATA = list(y = y)
   CONSTANTS = c(CONSTANTS, list(t = t))
   return(list(data = DATA, constants = CONSTANTS))

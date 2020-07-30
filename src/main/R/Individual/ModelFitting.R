@@ -20,7 +20,7 @@ runMCMC <- function(x) {
   configured$addMonitors(c("delta","delta1", "delta2"))
   configured$setThin(10)
   built <- buildMCMC(configured)
-  compiled <- compileNimble( model, built, showCompilerOutput = TRUE )
+  compiled <- compileNimble( model, built)
   compiled$built$run(niter = 5000)
   samples <- as.matrix(compiled$built$mvSamples)
   saveRDS(samples, paste( "./results/samples/bird", toString(x), ".rds", sep=""))
@@ -29,4 +29,4 @@ runMCMC <- function(x) {
 source("Inputs.R")
 source("DataSimulation.R")
 ## RUN SIMULATION
-mclapply(seq(1, NBIRDS),  runMCMC, mc.cores = NCORES, mc.set.seed = TRUE, mc.silent = TRUE, mc.cleanup = TRUE)
+mclapply(seq(1, NBIRDS),  runMCMC, mc.cores = NCORES, mc.set.seed = TRUE)
