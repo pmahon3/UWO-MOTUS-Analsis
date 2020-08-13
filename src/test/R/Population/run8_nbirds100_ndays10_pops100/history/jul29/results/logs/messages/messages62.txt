@@ -1,2 +1,0 @@
-compiling... this may take a minute. Use 'showCompilerOutput = TRUE' to see C++ compilation details.
-compilation finished.
