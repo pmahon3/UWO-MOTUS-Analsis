@@ -28,7 +28,7 @@ colnames(penultimateDeltas) = c("d 2.5%", "d 97.5%", "d2f 2.5%", "d2f 97.5%", "d
 names = list("delta", "mu[1]", "mu[2]", "mu[3]" )
 for ( day in 1:days ){
   for ( i in 1:2 ){
-    deltaStr = paste("delta", i, "[", day, "]", sep = "")
+    deltaStr = paste0("delta", i, "[", day, "]")
     names = c(names, deltaStr)	
   }
 }
@@ -46,16 +46,16 @@ for ( sim in 1:n) {
   setTxtProgressBar(pb, sim)
   
   ## Load MCMC output for bird i
-  dat = readRDS(paste("results/samples/bird", sim, ".rds", sep = ""))
+  dat = readRDS(paste0("results/samples/bird", sim, ".rds"))
 
   ## Read delta parameters for bird i
-  deltas = readRDS(paste("results/data/paramsBird", sim, ".rds", sep = ""))
+  deltas = readRDS(paste0("results/data/paramsBird", sim, ".rds"))
 
   ## Estimate bounds of 95% credible intervals for each parameter
   bounds = colQuantiles(dat, probs = c(0.025, 0.975))
 
   ## Extract statistics for select parameters
-  penultimateDeltas[sim, 1:4] = c(bounds["delta",], bounds[paste("delta2[", days, "]", sep=""),])
+  penultimateDeltas[sim, 1:4] = c(bounds["delta",], bounds[paste0("delta2[", days, "]",),])
 
   ## Compute average bounds for each parameter
   if ( sim == 1){
@@ -70,11 +70,11 @@ for ( sim in 1:n) {
     for ( i in 1:2 ){
 
       ## Extract bounds for specified changepoint
-      deltaiLow = bounds[ paste("delta", i, "[", day, "]", sep = ""), 1]
-      deltaiHigh = bounds[ paste("delta", i, "[", day, "]", sep = ""), 2]
+      deltaiLow = bounds[ paste0("delta", i, "[", day, "]"), 1]
+      deltaiHigh = bounds[ paste0("delta", i, "[", day, "]"), 2]
 
       ## Identify if truth is covered or not
-      coverage[paste("delta", i, "[", day, "]", sep = ""), sim] = ( deltaiLow < deltas[day,i] && deltaiHigh > deltas[day,i]) 
+      coverage[paste0("delta", i, "[", day, "]"), sim] = ( deltaiLow < deltas[day,i] && deltaiHigh > deltas[day,i]) 
 
       ## Computing derived values (??)
       if ( day == days && i == 2){
