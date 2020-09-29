@@ -1,14 +1,27 @@
+## Load packages
 library(matrixStats)
+
+## Source inputs
 source("Inputs.R")
 
-args = commandArgs(trailingOnly=TRUE)
-n = strtoi(args[1], base=0L)
+if(!interactive){
+  ## Read command line arguments
+  args = commandArgs(trailingOnly=TRUE)
+  n = strtoi(args[1], base=0L)
+}
+else{
+  ## Set arguments manually
+  n = 100
+}
+
+## Set true parameters
 days = trueParams[["nDays"]]
 delta = trueParams[["delta"]]
 mu1 = trueParams[["muY"]][1]
 mu2 = trueParams[["muY"]][2]
 mu3 = trueParams[["muY"]][3]
 
+## Create container to hold stats for select parameters
 penultimateDeltas = matrix(ncol = 6, nrow = n)
 colnames(penultimateDeltas) = c("d 2.5%", "d 97.5%", "d2f 2.5%", "d2f 97.5%", "dd 2.5%", "dd 97.5%")
 
