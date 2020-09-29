@@ -33,6 +33,7 @@ for ( day in 1:days ){
   }
 }
 
+## Create container for coverage
 coverage = matrix( ncol = n, nrow = length(names) )
 rownames(coverage) = names
 
@@ -55,7 +56,7 @@ for ( sim in 1:n) {
   bounds = colQuantiles(dat, probs = c(0.025, 0.975))
 
   ## Extract statistics for select parameters
-  penultimateDeltas[sim, 1:4] = c(bounds["delta",], bounds[paste0("delta2[", days, "]",),])
+  penultimateDeltas[sim, 1:4] = c(bounds["delta",], bounds[paste0("delta2[", days, "]"),])
 
   ## Compute average bounds for each parameter
   if ( sim == 1){
@@ -69,20 +70,20 @@ for ( sim in 1:n) {
   for ( day in 1:days ){
     for ( i in 1:2 ){
 
-      ## Extract bounds for specified changepoint
+      ## Extract bounds for specified parameter
       deltaiLow = bounds[ paste0("delta", i, "[", day, "]"), 1]
       deltaiHigh = bounds[ paste0("delta", i, "[", day, "]"), 2]
 
       ## Identify if truth is covered or not
       coverage[paste0("delta", i, "[", day, "]"), sim] = ( deltaiLow < deltas[day,i] && deltaiHigh > deltas[day,i]) 
 
-      ## Computing derived values (??)
+      ## Computing derived derived changepoint for final day
       if ( day == days && i == 2){
-	newDelta2Low = bounds["delta",1] + deltaiLow
-        newDelta2High = bounds["delta",2] + deltaiHigh
-	newDeltaLow = newDelta2Low - deltas[day,2]
-	newDeltaHigh = newDelta2High - deltas[day,2]
-	penultimateDeltas[sim, 5:6] = c(newDeltaLow, newDeltaHigh)
+        ## Bounds of derived changepoint
+        bounds2 <- quantile(dat[,paste0("delta2[",days,"]")] + dat[,"delta"], c(.025,.975))
+
+        ## Distances from bounds to true value
+	penultimateDeltas[sim, 5:6] = bounds2 - deltas[days,2]
       }
     }
   }
@@ -95,9 +96,11 @@ for ( sim in 1:n) {
 }
 
 ## Print output
-print("Mean Coverage:")
+print("Coverage Probability:")
 cbind(rowMeans(coverage))
+
 print("Bound Averages")
 print(boundsAvg)
+
 print("Derived Bound Averages for Final Day")
 print(colMeans(penultimateDeltas))
