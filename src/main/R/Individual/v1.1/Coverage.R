@@ -36,8 +36,15 @@ for ( day in 1:days ){
 coverage = matrix( ncol = n, nrow = length(names) )
 rownames(coverage) = names
 
+## Initialize progressbar
+if(interactive())
+  pb <- txtProgressBar(0,n,style = 3)
+  
 ## Looping over each bird
 for ( sim in 1:n) {
+  ## Update progress bar
+  setTxtProgressBar(pb, sim)
+  
   ## Load MCMC output for bird i
   dat = readRDS(paste("results/samples/bird", toString(sim), ".rds", sep = ""))
 
@@ -50,12 +57,12 @@ for ( sim in 1:n) {
   ## Extract statistics for select parameters
   penultimateDeltas[sim, 1:4] = c(bounds["delta",], bounds[paste("delta2[", toString(days), "]", sep=""),])
 
-  ## Looks like this is computing the average bounds (?). This can be done in post-processing.
+  ## Compute average bounds for each parameter
   if ( sim == 1){
-    boundsAvg = bounds
+    boundsAvg = bounds/n
   }
   else{ 
-    boundsAvg = (boundsAvg + bounds)/2
+    boundsAvg = boundsAvg/n + bounds/n
   }
   
   ## Loop over days and changepoints
