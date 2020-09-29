@@ -36,14 +36,21 @@ for ( day in 1:days ){
 coverage = matrix( ncol = n, nrow = length(names) )
 rownames(coverage) = names
 
-
+## Looping over each bird
 for ( sim in 1:n) {
+  ## Load MCMC output for bird i
   dat = readRDS(paste("results/samples/bird", toString(sim), ".rds", sep = ""))
+
+  ## Read delta parameters for bird i
   deltas = readRDS(paste("results/data/paramsBird", toString(sim), ".rds", sep = ""))
+
+  ## Estimate bounds of 95% credible intervals for each parameter
   bounds = colQuantiles(dat, probs = c(0.025, 0.975))
-  
+
+  ## Extract statistics for select parameters
   penultimateDeltas[sim, 1:4] = c(bounds["delta",], bounds[paste("delta2[", toString(days), "]", sep=""),])
 
+  ## Looks like this is computing the average bounds (?). This can be done in post-processing.
   if ( sim == 1){
     boundsAvg = bounds
   }
@@ -51,17 +58,23 @@ for ( sim in 1:n) {
     boundsAvg = (boundsAvg + bounds)/2
   }
   
-
+  ## Loop over days and changepoints
   for ( day in 1:days ){
     for ( i in 1:2 ){
+
+      ## Extract bounds for specified changepoint
       deltaiLow = bounds[ paste("delta", toString(i), "[", toString(day), "]", sep = ""), 1]
       deltaiHigh = bounds[ paste("delta", toString(i), "[", toString(day), "]", sep = ""), 2]
+
+      ## Identify if truth is covered or not
       if( deltaiLow < deltas[day,i] && deltaiHigh > deltas[day,i]) {
        coverage[paste("delta", toString(i), "[", toString(day), "]", sep = ""), sim] = 1
       }
       else{
         coverage[paste("delta", toString(i), "[", toString(day), "]", sep = ""), sim] = 0
       }
+
+      ## Computing derived values (??)
       if ( day == days && i == 2){
 	newDelta2Low = bounds["delta",1] + deltaiLow
         newDelta2High = bounds["delta",2] + deltaiHigh
@@ -71,6 +84,8 @@ for ( sim in 1:n) {
       }
     }
   }
+
+  ## Compute coverage for remaining parameters
   if ( bounds["delta",1] < delta && delta < bounds["delta",2] ) { coverage["delta", sim] = 1 }
   else { coverage["delta", sim] = 0 }
   if ( bounds["mu[1]", 1] < mu1 && mu1 < bounds["mu[1]", 2] ) { coverage["mu[1]", sim] = 1 }
@@ -81,9 +96,10 @@ for ( sim in 1:n) {
   else { coverage["mu[3]", sim] = 0 }
 }
 
+## Print output
 print("Mean Coverage:")
 cbind(rowMeans(coverage))
 print("Bound Averages")
 print(boundsAvg)
-print("Derived Bound Avrerages for Final Day")
+print("Derived Bound Averages for Final Day")
 print(colMeans(penultimateDeltas))
