@@ -74,12 +74,7 @@ for ( sim in 1:n) {
       deltaiHigh = bounds[ paste("delta", toString(i), "[", toString(day), "]", sep = ""), 2]
 
       ## Identify if truth is covered or not
-      if( deltaiLow < deltas[day,i] && deltaiHigh > deltas[day,i]) {
-       coverage[paste("delta", toString(i), "[", toString(day), "]", sep = ""), sim] = 1
-      }
-      else{
-        coverage[paste("delta", toString(i), "[", toString(day), "]", sep = ""), sim] = 0
-      }
+      coverage[paste("delta", toString(i), "[", toString(day), "]", sep = ""), sim] = ( deltaiLow < deltas[day,i] && deltaiHigh > deltas[day,i]) 
 
       ## Computing derived values (??)
       if ( day == days && i == 2){
@@ -93,14 +88,10 @@ for ( sim in 1:n) {
   }
 
   ## Compute coverage for remaining parameters
-  if ( bounds["delta",1] < delta && delta < bounds["delta",2] ) { coverage["delta", sim] = 1 }
-  else { coverage["delta", sim] = 0 }
-  if ( bounds["mu[1]", 1] < mu1 && mu1 < bounds["mu[1]", 2] ) { coverage["mu[1]", sim] = 1 }
-  else { coverage["mu[1]", sim] = 0 }
-  if ( bounds["mu[2]", 1] < mu2 && mu2 < bounds["mu[2]", 2] ) { coverage["mu[2]", sim] = 1 }
-  else { coverage["mu[2]", sim] = 0 }
-  if ( bounds["mu[3]", 1] < mu3 && mu3 < bounds["mu[3]", 2] ) { coverage["mu[3]",sim] = 1 }
-  else { coverage["mu[3]", sim] = 0 }
+  coverage["delta", sim] = ( bounds["delta",1] < delta && delta < bounds["delta",2] )
+  coverage["mu[1]", sim] = ( bounds["mu[1]", 1] < mu1 && mu1 < bounds["mu[1]", 2] ) 
+  coverage["mu[2]", sim] = ( bounds["mu[2]", 1] < mu2 && mu2 < bounds["mu[2]", 2] )
+  coverage["mu[3]",sim] = ( bounds["mu[3]", 1] < mu3 && mu3 < bounds["mu[3]", 2] )
 }
 
 ## Print output
