@@ -7,8 +7,8 @@ trueParams = list(
 
   muDelta1 = 6,
   muDelta2 = 18,
-  sigmaDelta1 = 0.1,
-  sigmaDelta2 = 0.1,
+  sigmaDelta1 = .1,
+  sigmaDelta2 = .2,
 
   delta = 1/4
 )
@@ -19,10 +19,8 @@ constants = list(
   mu_y = c(  one = -80, two = -50,  three = -80  ),
   sigmaMu = c(   one = 10,   two =  10,  three =  10  ),
 
-  muDelta1 = 6,
-  muDelta2 = 18,
-  sigmaDelta1 = 1,
-  sigmaDelta2 = 1,
+  muDelta = c(6, 18),
+  sigmaDelta = c(1, 1),
 
   muDelta = 0.25,
   sigmaMuDelta = 0.5
@@ -30,13 +28,13 @@ constants = list(
 
 modelCode <- nimbleCode(
   {
-    ## UP TO PENULTIMATE DAY
-    for ( i in 1:nDays-1 ){
-      #LIKELIHOODS
+    #LIKELIHOODS
+
+    for ( i in 1:nDays ){
       for ( j in 1:nObservations){
         ## Identify period of day
         k[i,j] <- step( t[i,j] - delta[1,i] ) +
-          step( t[i,j] - delta[2,i] ) + 1
+          step( t[i,j] - delta[2,i] - delta.prime * step(days - nDays)) + 1
 
         ## Model response
         y[i,j] ~ dnorm( mu[k[i,j]],tau[k[i,j]])
@@ -48,17 +46,6 @@ modelCode <- nimbleCode(
       }
     }
 
-    ## PENULTIMATE DAY
-    # LIKELIHOODS
-    for ( j in 1:nObservations ){
-      ## Identify period of day
-      k[nDays,j] <- step( t[nDays,j] - delta[1,nDays] ) +
-        step( t[nDays,j] - delta[2,nDays] - delta ) + 1
-
-      ## Model response
-      y[nDays,j] ~ dnorm(mu[k[nDays,j]], tau[k[nDays,j]])
-    }
-    
     # PRIORS
     for(k in 1:2){
       delta[k,nDays] ~ dnorm( etaDelta[k], tauDelta[k] )
@@ -67,7 +54,7 @@ modelCode <- nimbleCode(
 
     ## HYPERPRIORS
     for(k in 1:2){
-      etaDelta[k] ~ dnorm(muDelta1, 1/ sigmaDelta1^2)
+      etaDelta[k] ~ dnorm(muDelta[k], 1/ sigmaDelta[k]^2)
       tauDelta[k] ~ dgamma(.01,.01)
     }
     
