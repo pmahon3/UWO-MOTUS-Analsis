@@ -39,16 +39,13 @@ modelCode <- nimbleCode(
         ## Model response
         y[i,j] ~ dnorm( mu[k[i,j]],tau[k[i,j]])
       }
-      
-      #PRIORS
-      for(k in 1:2){
-        delta[k,i] ~ dnorm( etaDelta[k], tauDelta[k] )
-      }
     }
 
     # PRIORS
-    for(k in 1:2){
-      delta[k,nDays] ~ dnorm( etaDelta[k], tauDelta[k] )
+    for ( i in 1:nDays ){
+      for(k in 1:2){
+        delta[k,nDays] ~ dnorm( etaDelta[k], tauDelta[k] )
+      }
     }
     delta.prime ~ dnorm( muDelta, 1 / sigmaMuDelta^2 )
 
