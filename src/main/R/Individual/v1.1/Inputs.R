@@ -29,12 +29,11 @@ constants = list(
 modelCode <- nimbleCode(
   {
     #LIKELIHOODS
-
     for ( i in 1:nDays ){
       for ( j in 1:nObservations){
         ## Identify period of day
         k[i,j] <- step( t[i,j] - delta[1,i] ) +
-          step( t[i,j] - delta[2,i] - delta.prime * step(days - nDays)) + 1
+          step( t[i,j] - delta[2,i] - delta.prime * step(i - nDays)) + 1
 
         ## Model response
         y[i,j] ~ dnorm( mu[k[i,j]],tau[k[i,j]])
