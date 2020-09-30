@@ -1,6 +1,10 @@
 ## Load packages
-library(parallel)
+library(nimble)
 library(HDInterval)
+library(tidyverse)
+library(patchwork)
+library(coda)
+library(ggmcmc)
 
 ## Simulation parameters
 NBIRDS = 100
@@ -9,55 +13,118 @@ NBIRDS = 100
 source("Inputs.R")
 source("DataSimulation.R")
 
-## PARALLEL FUNCTION DEFINITION
-runMCMC <- function(x) {
-  print(paste("Simulation", toString(x), sep = " "))
-  print("------------------------------------------")
-  
-  ##messagelog <- file(paste("messages", toString(x), ".txt", sep = ""), open = "wt")
-  ##outputlog <- file(paste("output", toString(x), ".txt", sep = "" ), open = "wt")
-  ##sink(file = messagelog, type = "message")
-  ##sink(file = outputlog, type = "output")
+## Set seed
+set.seed(7777)
 
-  ## Load packages
-  library(nimble)
+## Simulate data
+dataAndConstants <- dataSimulation(x, constants, trueParams)
 
-  ## Simulate data
-  dataAndConstants <- dataSimulation(x, constants, trueParams)
+## Convert data to a tibble
+deltas <- dataAndConstants$data$ds
 
-  ## Save data
-  saveRDS(dataAndConstants[["data"]]$ds, paste("./results/data/paramsBird", toString(x), ".rds", sep = ""))
+mydat <- lapply(1:10, function(day){
+  tibble(time = dataAndConstants$constants$t[day,],
+         y = dataAndConstants$data$y[day,]) %>%
+    add_column(Day = day, .before = 1)
+}) %>%
+  bind_rows() %>%
+  mutate(CP1 = deltas[Day,1],
+         CP2 = deltas[Day,2] + (Day == dataAndConstants$constants$nDays) * trueParams$delta,
+         Period = 1 + (time > CP1) + (time > CP2))
 
-  ## Configure nimble model
-  model <- nimbleModel( code = modelCode,
-                       name = "model",
-                       constants = dataAndConstants[["constants"]],
-                       data = dataAndConstants[["data"]],
-                       calculate = FALSE)
-  configured <- configureMCMC(model)
-  configured$resetMonitors()
-  configured$setSamplers(c("delta", "delta1", "delta2", "mu"))
-  configured$addMonitors(c("delta","delta1", "delta2", "mu"))
-  configured$setThin(10)
+## Explore data
+day <- 10
 
-  ## Build and compile
-  built <- buildMCMC(configured)
-  compiled <- compileNimble( model, built, showCompilerOutput = TRUE )
+plotAM <- mydat %>%
+  filter(Day == day, time < 12) %>%
+  ggplot(aes(x = time, y = y)) +
+  geom_line() +
+  geom_vline(xintercept = deltas[day,1],colour = "red")
 
-  ## Run sampler
-  compiled$built$run(niter = 5000)
+plotPM <- mydat %>%
+  filter(Day == day, time >= 12) %>%
+  ggplot(aes(x = time, y = y)) +
+  geom_line() +
+  geom_vline(xintercept = deltas[day,2] + ifelse(day == trueParams$nDays, trueParams$delta, 0) ,colour = "red")
 
-  ## Save samples
-  samples <- as.matrix(compiled$built$mvSamples)
-  saveRDS(samples, paste( "./results/samples/bird", toString(x), ".rds", sep=""))
-  ##sink()
+plotAM / plotPM
 
-  
-  print(paste("Simulation", toString(x), "complete.", sep = " "))
-  print("-------------------------------------------")
-}
+## Configure nimble model
+model <- nimbleModel( code = modelCode,
+                     name = "model",
+                     constants = dataAndConstants[["constants"]],
+                     data = dataAndConstants[["data"]],
+                     calculate = FALSE)
 
-## RUN SIMULATION
-for ( i in 1:NBIRDS ){
-  runMCMC(i)
-}
+configured <- configureMCMC(model)
+configured$resetMonitors()
+configured$setSamplers(c("delta", "delta1", "delta2", "mu", "tau"))
+configured$addMonitors(c("delta","delta1", "delta2", "mu", "tau"))
+configured$setThin(10)
+
+## Build and compile
+built <- buildMCMC(configured)
+compiled <- compileNimble( model, built, showCompilerOutput = TRUE )
+
+## Run sampler
+compiled$built$run(niter = 5000)
+
+## Formate samples
+samples <- as.mcmc(as.matrix(compiled$built$mvSamples)) %>%
+  window(start = 100)
+
+## Compute summaries
+summ <- summary(samples)
+
+## Examine traceplots for select parameters
+ggsamples <- samples %>%
+  as_tibble() %>%
+  rowid_to_column(var = "Iteration") %>%
+  gather(key = Parameter, value = Value, -Iteration)
+
+## mu
+tmp <- grep("mu",rownames(summ[[1]]))
+
+cbind(summ[[1]][tmp,c("Mean","SD")],
+      summ[[2]][tmp,c("2.5%","97.5%")])
+
+mydat %>%
+  group_by(Period) %>%
+  summarise(n = n(),
+            ybar = mean(y),
+            se = sd(y)/sqrt(n),
+            lower = ybar - 1.96 * se,
+            upper = ybar + 1.96 * se)
+
+ggsamples %>%
+  filter(grepl("mu", Parameter)) %>%
+  ggplot(aes(x = Iteration, y = Value)) +
+  geom_line()  +
+  facet_grid(Parameter ~ ., scales = "free")
+
+## tau
+tmp <- grep("tau",rownames(summ[[1]]))
+
+cbind(summ[[1]][tmp,c("Mean","SD")],
+      summ[[2]][tmp,c("2.5%","97.5%")])
+
+ggsamples %>%
+  filter(grepl("mu", Parameter)) %>%
+  ggplot(aes(x = Iteration, y = Value)) +
+  geom_line()  +
+  facet_grid(Parameter ~ ., scales = "free")
+
+
+## delta2
+ggsamples %>%
+  filter(grepl("delta2",Parameter)) %>%
+  ggplot(aes(x = Iteration, y = Value)) +
+  geom_line() +
+  facet_grid(Parameter ~ ., scales = "free")
+
+## delta2[day] and delta
+bind_rows(filter(ggsamples, Parameter == "delta2[10]"),
+          filter(ggsamples, Parameter == "delta")) %>%
+  ggplot(aes(x = Iteration, y = Value)) +
+  geom_line() +
+  facet_grid(Parameter ~ ., scales = "free")
