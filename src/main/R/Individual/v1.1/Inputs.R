@@ -35,39 +35,41 @@ modelCode <- nimbleCode(
       #LIKELIHOODS
       for ( j in 1:nObservations){
         ## Identify period of day
-        k[i,j] <- step( t[i,j] - delta1[i] ) + step( t[i,j] - delta2[i] ) + 1
+        k[i,j] <- step( t[i,j] - delta[1,i] ) +
+          step( t[i,j] - delta[2,i] ) + 1
 
         ## Model response
         y[i,j] ~ dnorm( mu[k[i,j]],tau[k[i,j]])
       }
       
       #PRIORS
-      delta1[i] ~ dnorm( etaDelta1, tauDelta1^2 )
-      delta2[i] ~ dnorm( etaDelta2, tauDelta2^2 )
+      for(k in 1:2){
+        delta[k,i] ~ dnorm( etaDelta[k], tauDelta[k] )
+      }
     }
 
     ## PENULTIMATE DAY
     # LIKELIHOODS
     for ( j in 1:nObservations ){
       ## Identify period of day
-      k[nDays,j] <- step( t[nDays,j] - delta1[nDays] ) +
-        step( t[nDays,j] - delta2[nDays] - delta ) + 1
+      k[nDays,j] <- step( t[nDays,j] - delta[1,nDays] ) +
+        step( t[nDays,j] - delta[2,nDays] - delta ) + 1
 
       ## Model response
       y[nDays,j] ~ dnorm(mu[k[nDays,j]], tau[k[nDays,j]])
     }
     
     # PRIORS
-    delta1[nDays] ~ dnorm( etaDelta1, tauDelta1 )
-    delta2[nDays] ~ dnorm( etaDelta2, tauDelta2 )
-    delta ~ dnorm( muDelta, 1 / sigmaMuDelta^2 )
+    for(k in 1:2){
+      delta[k,nDays] ~ dnorm( etaDelta[k], tauDelta[k] )
+    }
+    delta.prime ~ dnorm( muDelta, 1 / sigmaMuDelta^2 )
 
     ## HYPERPRIORS
-    etaDelta1 ~ dnorm(muDelta1, 1/ sigmaDelta1^2)
-    etaDelta2 ~ dnorm(muDelta2, 1/ sigmaDelta2^2)
-
-    tauDelta1 ~ dgamma(.01,.01)
-    tauDelta2 ~ dgamma(.01,.01)
+    for(k in 1:2){
+      etaDelta[k] ~ dnorm(muDelta1, 1/ sigmaDelta1^2)
+      tauDelta[k] ~ dgamma(.01,.01)
+    }
     
     ## GLOBAL PRIORS
     for(k in 1:3){
