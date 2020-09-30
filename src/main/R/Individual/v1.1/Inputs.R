@@ -65,7 +65,7 @@ modelCode <- nimbleCode(
     ## GLOBAL PRIORS
     for(k in 1:3){
       mu[k] ~ dnorm( mu_y[k], 1 / (sigmaMu[k]^2) )
-      tau[k] ~ dgamma(10, 2)
+      tau[k] ~ dgamma(.01, .01)
     }
   }
 )
