@@ -50,6 +50,8 @@ plotPM <- mydat %>%
 plotAM / plotPM
 
 ## Configure nimble model
+params <- c("etaDelta","tauDelta", "delta","delta.prime", "mu", "tau")
+
 model <- nimbleModel( code = modelCode,
                      name = "model",
                      constants = dataAndConstants[["constants"]],
@@ -58,8 +60,8 @@ model <- nimbleModel( code = modelCode,
 
 configured <- configureMCMC(model)
 configured$resetMonitors()
-configured$setSamplers(c("delta", "delta1", "delta2", "mu", "tau"))
-configured$addMonitors(c("delta","delta1", "delta2", "mu", "tau"))
+configured$setSamplers(params)
+configured$addMonitors(params)
 configured$setThin(10)
 
 ## Build and compile
@@ -102,6 +104,15 @@ ggsamples %>%
   geom_line()  +
   facet_grid(Parameter ~ ., scales = "free")
 
+## etaDelta
+ggsamples %>%
+  filter(grepl("etaDelta",Parameter)) %>%
+  ggplot(aes(x = Iteration, y = Value)) +
+  geom_line() +
+  facet_grid(Parameter ~ ., scales = "free")
+
+## sigmaDelta
+
 ## tau
 tmp <- grep("tau",rownames(summ[[1]]))
 
@@ -109,22 +120,33 @@ cbind(summ[[1]][tmp,c("Mean","SD")],
       summ[[2]][tmp,c("2.5%","97.5%")])
 
 ggsamples %>%
-  filter(grepl("mu", Parameter)) %>%
+  filter(grepl("tau\\[", Parameter)) %>%
   ggplot(aes(x = Iteration, y = Value)) +
   geom_line()  +
   facet_grid(Parameter ~ ., scales = "free")
 
 
-## delta2
+## delta1
 ggsamples %>%
-  filter(grepl("delta2",Parameter)) %>%
+  filter(grepl("delta\\[1",Parameter)) %>%
   ggplot(aes(x = Iteration, y = Value)) +
   geom_line() +
   facet_grid(Parameter ~ ., scales = "free")
 
-## delta2[day] and delta
-bind_rows(filter(ggsamples, Parameter == "delta2[10]"),
-          filter(ggsamples, Parameter == "delta")) %>%
+## delta2
+ggsamples %>%
+  filter(grepl("delta\\[2",Parameter)) %>%
+  ggplot(aes(x = Iteration, y = Value)) +
+  geom_line() +
+  facet_grid(Parameter ~ ., scales = "free")
+
+## delta2[nDays] and delta.prime
+
+c(summ[[1]]["delta.prime",c("Mean","SD")],
+  summ[[2]]["delta.prime",c("2.5%","97.5%")])
+
+bind_rows(filter(ggsamples, Parameter == paste0("delta[2, ",trueParams$nDays,"]")),
+          filter(ggsamples, Parameter == "delta.prime")) %>%
   ggplot(aes(x = Iteration, y = Value)) +
   geom_line() +
   facet_grid(Parameter ~ ., scales = "free")
