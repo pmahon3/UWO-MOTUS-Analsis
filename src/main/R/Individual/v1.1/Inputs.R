@@ -22,8 +22,8 @@ constants = list(
   muDelta = c(6, 18),
   sigmaDelta = c(1, 1),
 
-  muDelta = 0.25,
-  sigmaMuDelta = 0.5
+  muDelta.prime = 0.25,
+  sigmaMuDelta.prime = 0.5
 )
 
 modelCode <- nimbleCode(
@@ -47,7 +47,7 @@ modelCode <- nimbleCode(
         delta[k,nDays] ~ dnorm( etaDelta[k], tauDelta[k] )
       }
     }
-    delta.prime ~ dnorm( muDelta, 1 / sigmaMuDelta^2 )
+    delta.prime ~ dnorm( muDelta.prime, 1 / sigmaMuDelta.prime^2 )
 
     ## HYPERPRIORS
     for(k in 1:2){
