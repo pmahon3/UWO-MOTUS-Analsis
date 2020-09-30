@@ -42,8 +42,8 @@ modelCode <- nimbleCode(
       }
       
       #PRIORS
-      delta1[i] ~ dnorm( muDelta1, 1 / sigmaDelta1^2 )
-      delta2[i] ~ dnorm( muDelta2, 1 / sigmaDelta2^2 )
+      delta1[i] ~ dnorm( etaDelta1, tauDelta1^2 )
+      delta2[i] ~ dnorm( etaDelta2, tauDelta2^2 )
     }
 
     ## PENULTIMATE DAY
@@ -58,10 +58,17 @@ modelCode <- nimbleCode(
     }
     
     # PRIORS
-    delta1[nDays] ~ dnorm( muDelta1, 1 / sigmaDelta1^2 )
-    delta2[nDays] ~ dnorm( muDelta2, 1 / sigmaDelta2^2 )
+    delta1[nDays] ~ dnorm( etaDelta1, tauDelta1 )
+    delta2[nDays] ~ dnorm( etaDelta2, tauDelta2 )
     delta ~ dnorm( muDelta, 1 / sigmaMuDelta^2 )
 
+    ## HYPERPRIORS
+    etaDelta1 ~ dnorm(muDelta1, 1/ sigmaDelta1^2)
+    etaDelta2 ~ dnorm(muDelta2, 1/ sigmaDelta2^2)
+
+    tauDelta1 ~ dgamma(.01,.01)
+    tauDelta2 ~ dgamma(.01,.01)
+    
     ## GLOBAL PRIORS
     for(k in 1:3){
       mu[k] ~ dnorm( mu_y[k], 1 / (sigmaMu[k]^2) )
