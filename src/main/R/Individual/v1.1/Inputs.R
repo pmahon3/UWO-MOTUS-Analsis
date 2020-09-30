@@ -44,7 +44,7 @@ modelCode <- nimbleCode(
     # PRIORS
     for ( i in 1:nDays ){
       for(k in 1:2){
-        delta[k,nDays] ~ dnorm( etaDelta[k], tauDelta[k] )
+        delta[k,i] ~ dnorm( etaDelta[k], tauDelta[k] )
       }
     }
     delta.prime ~ dnorm( muDelta.prime, 1 / sigmaMuDelta.prime^2 )
