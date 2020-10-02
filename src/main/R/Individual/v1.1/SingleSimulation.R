@@ -1,6 +1,5 @@
 ## Load packages
 library(nimble)
-library(HDInterval)
 library(tidyverse)
 library(patchwork)
 library(coda)
@@ -112,6 +111,7 @@ ggsamples %>%
   facet_grid(Parameter ~ ., scales = "free")
 
 ## sigmaDelta
+
 
 ## tau
 tmp <- grep("tau",rownames(summ[[1]]))
