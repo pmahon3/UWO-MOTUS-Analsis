@@ -14,8 +14,12 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS){
   for ( day in 1:CONSTANTS$nDays ){
     ## Define observation times
     tdat[day,] = c(
-      seq(from = deltas[day,1] - 1, to = deltas[day,1] + 1, length.out = CONSTANTS$nObservations/2),
-      seq(from = deltas[day,2] - 1, to = deltas[day,2] + 1, length.out = CONSTANTS$nObservations/2)
+      seq(from = CONSTANTS$window1[1],
+          to = CONSTANTS$window1[2],
+          length.out = CONSTANTS$nObservations/2),
+      seq(from = CONSTANTS$window2[1],
+          to = CONSTANTS$window2[2],
+          length.out = CONSTANTS$nObservations/2)
     )
 
     ## Loop over observations within each day

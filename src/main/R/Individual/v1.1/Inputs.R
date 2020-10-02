@@ -15,6 +15,8 @@ trueParams = list(
 
 constants = list(
   nDays = 10,
+  window1 = c(5,7),
+  window2 = c(17,19),
   nObservations = 600,
   mu_y = c(  one = -80, two = -50,  three = -80  ),
   sigmaMu = c(   one = 10,   two =  10,  three =  10  ),
