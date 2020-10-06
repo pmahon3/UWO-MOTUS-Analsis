@@ -23,37 +23,19 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS){
     )
 
     ## Loop over observations within each day
-    for ( j in 1:CONSTANTS$nObservations){
-      ## Identify parameters of signal strength
-      if ( tdat[day,j] < deltas[day,1] ){
-        # Period 1
-        mu = TRUEPARAMS$muY[1]
-        sd = TRUEPARAMS$sigmaY[1]
-      }
-      else if ( day == TRUEPARAMS$nDays && tdat[day,j] < deltas[day,2] + TRUEPARAMS$delta ){
-        ## Period 2 of final day
-        mu = TRUEPARAMS$muY[2]
-        sd = TRUEPARAMS$sigmaY[2]
-      }
-      else if( tdat[day,j] < deltas[day,2] ){
-        ## Period 2 of other days
-        mu = TRUEPARAMS$muY[2]
-        sd = TRUEPARAMS$sigmaY[2]
-      }
-      else{
-        ## Period 3
-        mu = TRUEPARAMS$muY[3]
-        sd = TRUEPARAMS$sigmaY[3]
-      }
+    period <- (tdat[day,] > deltas[day, 1]) +
+      (tdat[day,] > (deltas[day,2] + (day == CONSTANTS$nDays) * TRUEPARAMS$delta)) + 1
 
-      ## Simulate signal 
-      ydat[day, j] = rnorm(1, mu, sd)
-    }
-
+    ## Simulate signal 
+    ydat[day, ] = rnorm(length(tdat[day,]),
+                        TRUEPARAMS$muY[day,period],
+                        TRUEPARAMS$sigmaY[period])
   }
 
   ## Return output
   DATA = c( list(y = ydat, ds = deltas) )
+
   CONSTANTS = c(CONSTANTS, list(t = tdat))
+  
   return(list(data = DATA,constants = CONSTANTS))
 }
