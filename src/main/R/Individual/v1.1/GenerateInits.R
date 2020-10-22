@@ -1,8 +1,8 @@
 genInits <- function(data,constants){
   
   ## Set initial changepoints to middle of windows
-  delta <- rbind(rep(mean(constants$window1, constants$nDays)),
-                 rep(mean(constants$window2, constants$nDays)))
+  delta <- rbind(rep(mean(constants$window1), constants$nDays),
+                 rep(mean(constants$window2), constants$nDays))
 
   ## Set initial delta.prime to zero
   delta.prime <- 0
@@ -23,10 +23,11 @@ genInits <- function(data,constants){
 
   ## Return list of initial values
   list(delta = delta,
+       delta.prime = delta.prime,
        mu = mu,
        mu_y = apply(mu, 2, mean),
        tau_y = 1/apply(mu, 2, var),
-       sigma = apply(sigma,2,mean))
+       tau = 1/apply(sigma^2,2,mean))
 }
       
                      
