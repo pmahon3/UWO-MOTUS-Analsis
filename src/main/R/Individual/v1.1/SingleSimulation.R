@@ -11,6 +11,7 @@ NBIRDS = 100
 ## Load input files
 source("Inputs.R")
 source("DataSimulation.R")
+source("GenerateInits.R")
 
 ## Set seed
 set.seed(7777)
@@ -18,9 +19,9 @@ set.seed(7777)
 ## Simulate data
 dataAndConstants <- dataSimulation(x, constants, trueParams)
 
-## Convert data to a tibble
 deltas <- dataAndConstants$data$ds
 
+## Convert data to a tibble
 mydat <- lapply(1:10, function(day){
   tibble(time = dataAndConstants$constants$t[day,],
          y = dataAndConstants$data$y[day,]) %>%
@@ -38,23 +39,38 @@ plotAM <- mydat %>%
   filter(Day == day, time < 12) %>%
   ggplot(aes(x = time, y = y)) +
   geom_line() +
-  geom_vline(xintercept = deltas[day,1],colour = "red")
+  geom_vline(xintercept = deltas[day,1],colour = "red") +
+  geom_hline(yintercept = trueParams$muY[day,1:2],lty=2, colour = "blue")
 
 plotPM <- mydat %>%
   filter(Day == day, time >= 12) %>%
   ggplot(aes(x = time, y = y)) +
   geom_line() +
-  geom_vline(xintercept = deltas[day,2] + ifelse(day == trueParams$nDays, trueParams$delta, 0) ,colour = "red")
+  geom_vline(xintercept = deltas[day,2] + ifelse(day == trueParams$nDays, trueParams$delta, 0) ,colour = "red") +
+  geom_hline(yintercept = trueParams$muY[day,2:3],lty=2, colour = "blue")
+
 
 plotAM / plotPM
 
+## Generate initial values
+inits <- genInits(dataAndConstants$data, dataAndConstants$constants)
+
+## Add parameters of hyperpriors to the constants
+constants <- hyperpriors(dataAndConstants[["constants"]],
+                                          median_xiDelta = .1,
+                                          median_xi_y = 10,
+                                          median_xi = 10)
+  
 ## Configure nimble model
-params <- c("etaDelta","tauDelta", "delta","delta.prime", "mu", "tau")
+params <- c("etaDelta", "xiDelta", "tauDelta", "delta","delta.prime",
+            "mu", "xi", "tau",
+            "mu_y", "xi_y","tau_y")
 
 model <- nimbleModel( code = modelCode,
                      name = "model",
-                     constants = dataAndConstants[["constants"]],
+                     constants = constants,
                      data = dataAndConstants[["data"]],
+                     inits = inits,
                      calculate = FALSE)
 
 configured <- configureMCMC(model)
@@ -83,8 +99,8 @@ ggsamples <- samples %>%
   rowid_to_column(var = "Iteration") %>%
   gather(key = Parameter, value = Value, -Iteration)
 
-## mu
-tmp <- grep("mu",rownames(summ[[1]]))
+## mu_y
+tmp <- grep("mu_y",rownames(summ[[1]]))
 
 cbind(summ[[1]][tmp,c("Mean","SD")],
       summ[[2]][tmp,c("2.5%","97.5%")])
@@ -98,7 +114,22 @@ mydat %>%
             upper = ybar + 1.96 * se)
 
 ggsamples %>%
-  filter(grepl("mu", Parameter)) %>%
+  filter(grepl("mu_y", Parameter)) %>%
+  ggplot(aes(x = Iteration, y = Value)) +
+  geom_line()  +
+  facet_grid(Parameter ~ ., scales = "free")
+
+
+## mu
+day <- 10
+
+tmp <- grep(paste0("mu\\[",day,","),rownames(summ[[1]]))
+
+cbind(summ[[1]][tmp,c("Mean","SD"), drop = FALSE],
+      summ[[2]][tmp,c("2.5%","97.5%"), drop = FALSE])
+
+ggsamples %>%
+  filter(grepl(paste0("mu\\[",day,","), Parameter)) %>%
   ggplot(aes(x = Iteration, y = Value)) +
   geom_line()  +
   facet_grid(Parameter ~ ., scales = "free")
@@ -113,18 +144,17 @@ ggsamples %>%
 ## sigmaDelta
 
 
-## tau
-tmp <- grep("tau",rownames(summ[[1]]))
+## xi
+tmp <- grep("xi",rownames(summ[[1]]))
 
 cbind(summ[[1]][tmp,c("Mean","SD")],
       summ[[2]][tmp,c("2.5%","97.5%")])
 
 ggsamples %>%
-  filter(grepl("tau\\[", Parameter)) %>%
+  filter(grepl("xi\\[", Parameter)) %>%
   ggplot(aes(x = Iteration, y = Value)) +
   geom_line()  +
   facet_grid(Parameter ~ ., scales = "free")
-
 
 ## delta1
 ggsamples %>%
