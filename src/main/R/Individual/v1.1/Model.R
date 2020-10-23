@@ -23,7 +23,7 @@ modelCode <- nimbleCode(
     ## HYPERPRIORS
     for(k in 1:2){
       etaDelta[k] ~ dnorm(muDelta[k], 1/ sigmaDelta[k]^2)
-      xiDelta[k] ~ T(dt(0, 50, 4),0,Inf)
+      xiDelta[k] ~ T(dt(0, tau_xiDelta, df_xiDelta),0,Inf)
       tauDelta[k] <- 1/xiDelta[k]^2 
     }
     
@@ -31,14 +31,14 @@ modelCode <- nimbleCode(
     for(k in 1:3){
       ## HYPERPRIORS
       mu_y[k] ~ dnorm(eta_y[k], 1 / sigmaMu[k]^2 )
-      xi_y[k] ~ T(dt(0,5.5e-3,4),0,Inf)
+      xi_y[k] ~ T(dt(0,tau_xi_y, df_xi_y),0,Inf)
       tau_y[k] <- 1/xi_y[k]^2
 
       for ( i in 1:nDays){
         mu[i,k] ~ dnorm( mu_y[k], tau_y[k] )
       }
 
-      xi[k] ~ T(dt(0,5.5e-3, 4), 0, )
+      xi[k] ~ T(dt(0,tau_xi, df_xi), 0, )
       tau[k] <- 1/xi[k]^2 
     }
   }
