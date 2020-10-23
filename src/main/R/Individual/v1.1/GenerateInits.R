@@ -24,10 +24,12 @@ genInits <- function(data,constants){
   ## Return list of initial values
   list(delta = delta,
        delta.prime = delta.prime,
+       etaDelta = apply(delta,1,mean),
+       xiDelta = pmax(apply(delta,1,sd),.1),
        mu = mu,
        mu_y = apply(mu, 2, mean),
-       tau_y = 1/apply(mu, 2, var),
-       tau = 1/apply(sigma^2,2,mean))
+       xi_y = apply(mu, 2, sd),
+       xi = apply(sigma,2,mean))
 }
       
                      
