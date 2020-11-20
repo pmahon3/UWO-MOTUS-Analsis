@@ -12,6 +12,8 @@ NBIRDS = 100
 source("Inputs.R")
 source("DataSimulation.R")
 source("GenerateInits.R")
+source("Hyperpriors.R")
+source("Model.R")
 
 ## Set seed
 set.seed(7777)
