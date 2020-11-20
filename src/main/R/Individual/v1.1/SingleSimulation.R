@@ -88,7 +88,7 @@ compiled <- compileNimble( model, built, showCompilerOutput = TRUE )
 ## Run sampler
 compiled$built$run(niter = 5000)
 
-## Formate samples
+## Format samples
 samples <- as.mcmc(as.matrix(compiled$built$mvSamples)) %>%
   window(start = 100)
 
