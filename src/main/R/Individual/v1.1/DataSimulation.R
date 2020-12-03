@@ -1,38 +1,41 @@
 dataSimulation <- function(x, CONSTANTS, TRUEPARAMS){
+  ## Initialize data list
   data = list(size = CONSTANTS$nDays)
+
+  ## Generate parameters
+  deltas <- cbind(rnorm( CONSTANTS$nDays, TRUEPARAMS$muDelta1, TRUEPARAMS$sigmaDelta1),
+                  rnorm( CONSTANTS$nDays, TRUEPARAMS$muDelta2, TRUEPARAMS$sigmaDelta2))
+  
+  ## Initialize storage matrices
   ydat = matrix( nrow = CONSTANTS$nDays, ncol = CONSTANTS$nObservations)
   tdat = matrix( nrow = CONSTANTS$nDays, ncol = CONSTANTS$nObservations)
-  deltas = matrix( nrow = CONSTANTS$nDays, ncol = 2)
+
+  ## Loop over days
   for ( day in 1:CONSTANTS$nDays ){
-    delta1 = rnorm( 1, TRUEPARAMS$muDelta1, TRUEPARAMS$sigmaDelta1)
-    delta2 = rnorm( 1, TRUEPARAMS$muDelta2, TRUEPARAMS$sigmaDelta2)
+    ## Define observation times
     tdat[day,] = c(
-      seq(from = delta1 - 1, to = delta1 + 1, length.out = CONSTANTS$nObservations/2),
-      seq(from = delta2 - 1, to = delta2 + 1, length.out = CONSTANTS$nObservations/2)
+      seq(from = CONSTANTS$window1[1],
+          to = CONSTANTS$window1[2],
+          length.out = CONSTANTS$nObservations/2),
+      seq(from = CONSTANTS$window2[1],
+          to = CONSTANTS$window2[2],
+          length.out = CONSTANTS$nObservations/2)
     )
-    for ( j in 1:CONSTANTS$nObservations){
-      if ( tdat[day,j] < delta1 ){
-        mu = TRUEPARAMS$muY[1]
-        sd = TRUEPARAMS$sigmaY[1]
-      }
-      else if ( day == TRUEPARAMS$nDays && tdat[day,j] < delta2 + TRUEPARAMS$delta ){
-        mu = TRUEPARAMS$muY[2]
-        sd = TRUEPARAMS$sigmaY[2]
-      }
-      else if( tdat[day,j] < delta2 ){
-        mu = TRUEPARAMS$muY[2]
-        sd = TRUEPARAMS$sigmaY[2]
-      }
-      else{
-        mu = TRUEPARAMS$muY[3]
-        sd = TRUEPARAMS$sigmaY[3]
-      }
-      ydat[day, j] = rnorm(1, mu, sd)
-    }
-    deltas[day, 1] = delta1
-    deltas[day, 2] = delta2
+
+    ## Loop over observations within each day
+    period <- (tdat[day,] > deltas[day, 1]) +
+      (tdat[day,] > (deltas[day,2] + (day == CONSTANTS$nDays) * TRUEPARAMS$delta)) + 1
+
+    ## Simulate signal 
+    ydat[day, ] = rnorm(length(tdat[day,]),
+                        TRUEPARAMS$muY[day,period],
+                        TRUEPARAMS$sigmaY[period])
   }
+
+  ## Return output
   DATA = c( list(y = ydat, ds = deltas) )
+
   CONSTANTS = c(CONSTANTS, list(t = tdat))
+  
   return(list(data = DATA,constants = CONSTANTS))
 }
