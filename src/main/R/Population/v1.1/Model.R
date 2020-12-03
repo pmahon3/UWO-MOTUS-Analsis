@@ -6,7 +6,7 @@ modelCode <- nimbleCode(
         for ( k in 1:nObservations){
           ## Identify period of day
           p[i,j,k] <- step( t[i,j,k] - delta[1,i,j] ) +
-            step( t[i,j,k] - delta[2,i,j] - delta.prime * step(i - nDays)) + 1
+            step( t[i,j,k] - delta[2,i,j] - delta.prime[i] * step(i - nDays)) + 1
           ## Model response
           y[i,j,k] ~ dnorm( mu[i,p[i,j,k]],tau[p[i,j,k]])
         }
@@ -20,7 +20,7 @@ modelCode <- nimbleCode(
           delta[k,i,j] ~ dnorm( etaDelta[k,i], tauDelta[k,i] )
         }
       }
-      delta.prime ~ dnorm( muDelta.prime, 1 / sigmaMuDelta.prime^2 )
+      delta.prime[i] ~ dnorm( muDelta.prime, 1 / sigmaMuDelta.prime^2 )
     }
    
     ## HYPERPRIORS
@@ -31,6 +31,8 @@ modelCode <- nimbleCode(
         tauDelta[k,i] <- 1/xiDelta[k]^2 
       }
     }
+    
+    muDelta.prime ~ dnorm( muMuDelta.prime, 1 / sigmaMuMuDelta.prime^2 )
     
     ## GLOBAL PRIORS
     for(k in 1:3){
