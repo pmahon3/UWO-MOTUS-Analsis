@@ -20,7 +20,7 @@ modelCode <- nimbleCode(
           delta[k,i,j] ~ dnorm( etaDelta[k,i], tauDelta[k,i] )
         }
       }
-      delta.prime[i] ~ dnorm( muDelta.prime, 1 / sigmaMuDelta.prime^2 )
+      delta.prime[i] ~ dnorm( muDelta.prime, 1 / sigmaDelta.prime^2 )
     }
    
     ## HYPERPRIORS
@@ -32,7 +32,7 @@ modelCode <- nimbleCode(
       }
     }
     
-    muDelta.prime ~ dnorm( muMuDelta.prime, 1 / sigmaMuMuDelta.prime^2 )
+    muDelta.prime ~ dnorm( muMuDelta.prime, 1 / sigmaMuDelta.prime^2 )
     
     ## GLOBAL PRIORS
     for(k in 1:3){
