@@ -37,7 +37,7 @@ modelCode <- nimbleCode(
     ## GLOBAL PRIORS
     for(p in 1:3){
       ## HYPERPRIORS
-      etaY[p] ~ dnorm(etaY[p], 1 / sigmaMuY[p]^2 )
+      etaY[p] ~ dnorm(etaY[p], 1 / sigmaEtaY[p]^2 )
       xi_y[p] ~ T(dt(0,tau_xi_y, df_xi_y),0,Inf)
       tau_y[p] <- 1/xi_y[p]^2
 
