@@ -41,12 +41,12 @@ modelCode <- nimbleCode(
       xi_y[k] ~ T(dt(0,tau_xi_y, df_xi_y),0,Inf)
       tau_y[k] <- 1/xi_y[k]^2
       
-      for ( i in 1:nDays){
-        muY[i,k] ~ dnorm( mu_y[k], tau_y[k] )
+      for ( i in 1:nBirds){
+        muY[i,j,k] ~ dnorm( mu_y[k], tau_y[k] )
       }
       
       xi[k] ~ T(dt(0,tau_xi, df_xi), 0, )
-      tauY[k] <- 1/xi[k]^2 
+      tauY[i,j,k] <- 1/xi[k]^2 
     }
   }
 )
