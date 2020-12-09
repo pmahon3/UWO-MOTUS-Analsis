@@ -26,7 +26,7 @@ modelCode <- nimbleCode(
     ## HYPERPRIORS
     for ( i in 1:nBirds){
       for(p in 1:2){
-        muDelta[p,i] ~ dnorm(etaDelta[p], 1/ sigmaDelta[p]^2)
+        muDelta[p,i] ~ dnorm(etaDelta[p], 1/ sigmaMuDelta[p]^2)
         sigmaDelta[p,i] ~ T(dt(0, tau_xiDelta, df_xiDelta),0,Inf)
         tauDelta[p,i] <- 1/xiDelta[p]^2 
       }
