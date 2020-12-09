@@ -27,7 +27,7 @@ modelCode <- nimbleCode(
     for ( i in 1:nBirds){
       for(p in 1:2){
         muDelta[p,i] ~ dnorm(etaDelta[p], 1/ sigmaDelta[p]^2)
-        xiDelta[p,i] ~ T(dt(0, tau_xiDelta, df_xiDelta),0,Inf)
+        sigmaDelta[p,i] ~ T(dt(0, tau_xiDelta, df_xiDelta),0,Inf)
         tauDelta[p,i] <- 1/xiDelta[p]^2 
       }
     }
@@ -38,17 +38,17 @@ modelCode <- nimbleCode(
     for(p in 1:3){
       ## HYPERPRIORS
       etaY[p] ~ dnorm(etaY[p], 1 / sigmaEtaY[p]^2 )
-      xi_y[p] ~ T(dt(0,tau_xi_y, df_xi_y),0,Inf)
-      tau_y[p] <- 1/xi_y[p]^2
+      sigmaMuY[p] ~ T(dt(0,tau_xi_y, df_xi_y),0,Inf)
+      tauMuY[p] <- 1/sigmaMuY[p]^2
 
       
       for ( i in 1:nBirds){
         for(j in 1:nDays){
           
-          muY[i,j,p] ~ dnorm( etaY[p], tau_y[p] )
-          xi[i,j,p] ~ T(dt(0,tau_xi, df_xi), 0, )
+          muY[i,j,p] ~ dnorm( etaY[p], tauMuY[p] )
+          sigmaY[i,j,p] ~ T(dt(0,tau_xi, df_xi), 0, )
           
-          tauY[i,j,p] <- 1/xi[i,j,p]^2
+          tauY[i,j,p] <- 1/sigmaY[i,j,p]^2
         }
     }
   }
