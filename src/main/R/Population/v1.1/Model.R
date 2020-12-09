@@ -1,3 +1,21 @@
+## Naming Conventions
+##
+## Indexing:
+## i -- individual birds
+## j -- day
+## k -- observation within day
+## p -- period
+##
+## Unknown parameter values:
+## muXxx -- mean of xxx. This may be compound (e.g., muMuX is the mean of muX).
+## sigmaXxx -- standard deviation of xxx. This may be compound (e.g., sigmaMuX is the SD of muX).
+## tauXxx -- precision of xxx. This is always the square of the inverse of sigmaXxx.
+##
+## Fixed parameter values: (hyperparameters)
+## etaXxx -- mean of xxx. This will be compound (e.g., etaMuX is the mean of muX when this is value is fixed).
+## dfXxx -- degrees of freedom when xxx is a standard deviation assigned a half-t prior.
+## sXxx -- scale when xxx is a standard deviation assigned a half-t prior.
+
 modelCode <- nimbleCode(
   {
     #LIKELIHOODS
@@ -27,7 +45,7 @@ modelCode <- nimbleCode(
     for ( i in 1:nBirds){
       for(p in 1:2){
         muDelta[p,i] ~ dnorm(etaDelta[p], 1/ sigmaMuDelta[p]^2)
-        sigmaDelta[p,i] ~ T(dt(0, tau_xiDelta, df_xiDelta),0,Inf)
+        sigmaDelta[p,i] ~ T(dt(0, sSigmaDelta, dfSigmaDelta),0,Inf)
         tauDelta[p,i] <- 1/xiDelta[p]^2 
       }
     }
@@ -38,7 +56,7 @@ modelCode <- nimbleCode(
     for(p in 1:3){
       ## HYPERPRIORS
       muMuY[p] ~ dnorm(etaY[p], 1 / sigmaEtaY[p]^2 )
-      sigmaMuY[p] ~ T(dt(0,tau_xi_y, df_xi_y),0,Inf)
+      sigmaMuY[p] ~ T(dt(0,sSigmaMuY, dfSigmaMuY), 0, Inf)
       tauMuY[p] <- 1/sigmaMuY[p]^2
 
       
@@ -46,7 +64,7 @@ modelCode <- nimbleCode(
         for(j in 1:nDays){
           
           muY[i,j,p] ~ dnorm( muMuY[p], tauMuY[p] )
-          sigmaY[i,j,p] ~ T(dt(0,tau_xi, df_xi), 0, )
+          sigmaY[i,j,p] ~ T(dt(0, sSigmaY, dfSigmaY), 0, Inf)
           
           tauY[i,j,p] <- 1/sigmaY[i,j,p]^2
         }
