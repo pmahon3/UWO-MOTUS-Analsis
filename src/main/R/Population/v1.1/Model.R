@@ -8,7 +8,7 @@ modelCode <- nimbleCode(
           p[i,j,k] <- step( t[i,j,k] - delta[1,i,j] ) +
             step( t[i,j,k] - delta[2,i,j] - delta.prime[i] * step(i - nDays)) + 1
           ## Model response
-          y[i,j,k] ~ dnorm( mu[i,p[i,j,k]],tau[p[i,j,k]])
+          y[i,j,k] ~ dnorm( muY[i,p[i,j,k]],tauY[p[i,j,k]])
         }
       }
     }
@@ -42,11 +42,11 @@ modelCode <- nimbleCode(
       tau_y[k] <- 1/xi_y[k]^2
       
       for ( i in 1:nDays){
-        mu[i,k] ~ dnorm( mu_y[k], tau_y[k] )
+        muY[i,k] ~ dnorm( mu_y[k], tau_y[k] )
       }
       
       xi[k] ~ T(dt(0,tau_xi, df_xi), 0, )
-      tau[k] <- 1/xi[k]^2 
+      tauY[k] <- 1/xi[k]^2 
     }
   }
 )
