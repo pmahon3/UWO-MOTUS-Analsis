@@ -37,7 +37,7 @@ modelCode <- nimbleCode(
     ## GLOBAL PRIORS
     for(p in 1:3){
       ## HYPERPRIORS
-      etaY[p] ~ dnorm(etaY[p], 1 / sigmaEtaY[p]^2 )
+      muMuY[p] ~ dnorm(etaY[p], 1 / sigmaEtaY[p]^2 )
       sigmaMuY[p] ~ T(dt(0,tau_xi_y, df_xi_y),0,Inf)
       tauMuY[p] <- 1/sigmaMuY[p]^2
 
@@ -45,7 +45,7 @@ modelCode <- nimbleCode(
       for ( i in 1:nBirds){
         for(j in 1:nDays){
           
-          muY[i,j,p] ~ dnorm( etaY[p], tauMuY[p] )
+          muY[i,j,p] ~ dnorm( muMuY[p], tauMuY[p] )
           sigmaY[i,j,p] ~ T(dt(0,tau_xi, df_xi), 0, )
           
           tauY[i,j,p] <- 1/sigmaY[i,j,p]^2
