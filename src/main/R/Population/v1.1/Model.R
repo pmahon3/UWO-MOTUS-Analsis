@@ -62,12 +62,11 @@ modelCode <- nimbleCode(
       
       for ( i in 1:nBirds){
         for(j in 1:nDays){
-          
           muY[i,j,p] ~ dnorm( muMuY[p], tauMuY[p] )
           sigmaY[i,j,p] ~ T(dt(0, sSigmaY, dfSigmaY), 0, Inf)
-          
           tauY[i,j,p] <- 1/sigmaY[i,j,p]^2
         }
+      }
     }
   }
 )
