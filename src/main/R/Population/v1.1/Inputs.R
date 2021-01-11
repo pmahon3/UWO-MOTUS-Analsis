@@ -12,10 +12,10 @@ trueParams = list(
   sigmaMuY = c(5, 10, 5),
   muMuDelta1 = 6,
   muMuDelta2 = 18,
-  sigmaDelta1 = .1,
-  sigmaDelta2 = .1,
+  sigmaMuDelta1 = .1,
+  sigmaMuDelta2 = .1,
   
-  delta = 1/4
+  muDelta.prime = 1/4
 )
 
 constants = list(
@@ -23,12 +23,12 @@ constants = list(
   window1 = c(5,7),
   window2 = c(17,19),
   nObservations = 600,
-  eta_y = c(  one = -80, two = -50,  three = -80  ),
-  sigmaMu = c(   one = 10,   two =  10,  three =  10  ),
+  muMuY = c(  one = -80, two = -50,  three = -80  ),
+  sigmaMuY = c(   one = 10,   two =  10,  three =  10  ),
   
-  muDelta = c(6, 18),
-  sigmaDelta = c(.25, .25),
+  etaMuDelta = c(6, 18),
+  thetaMuDelta = c(.25, .25),
   
-  muDelta.prime = 0.25,
-  sigmaMuDelta.prime = 0.5
+  etaMuDelta.prime = 0.25,
+  thetaMuDelta.prime = 0.5
 )
