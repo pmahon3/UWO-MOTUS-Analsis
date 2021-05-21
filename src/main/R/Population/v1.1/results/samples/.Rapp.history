@@ -1,0 +1,5 @@
+load("/Users/patrickmahon@ibm.com/Documents/research/UWO-MOTUS-Analysis/src/main/R/Population/v1.1/results/samples/bird1.rds")
+load("/Users/patrickmahon@ibm.com/Documents/research/UWO-MOTUS-Analysis/src/main/R/Population/v1.1/results/data/simulatedParams1.rds")
+bird1.rds
+var
+var()

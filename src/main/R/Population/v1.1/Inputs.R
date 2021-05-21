@@ -10,16 +10,20 @@ trueParams = list(
                rnorm(nDays, -50, 5),
                rnorm(nDays, -80, 5)),
   sigmaMuY = c(5, 10, 5),
+  shapeSdY = c(1/2,1,1/2),
+  scaleSdY = c(1,2,1),
   muMuDelta1 = 6,
   muMuDelta2 = 18,
   sigmaMuDelta1 = .1,
   sigmaMuDelta2 = .1,
   
-  muDelta.prime = 1/4
+  muDelta.prime = 1/4,
+  sigmaDelta.prime = .05
 )
 
 constants = list(
   nDays = nDays,
+  nBirds = nBirds,
   window1 = c(5,7),
   window2 = c(17,19),
   nObservations = 600,
