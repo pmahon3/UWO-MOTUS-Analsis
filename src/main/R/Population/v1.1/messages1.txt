@@ -6,3 +6,5 @@ checking model sizes and dimensions... This model is not fully initialized. This
 model building finished.
 compiling... this may take a minute. On some systems there may be some compiler warnings that can be safely ignored.
 compilation finished.
+Warning message:
+closing unused connection 24 (output1.txt) 

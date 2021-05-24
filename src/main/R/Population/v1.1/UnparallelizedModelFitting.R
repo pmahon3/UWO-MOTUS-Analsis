@@ -2,7 +2,7 @@ library(parallel)
 library(HDInterval)
 
 NCORES = 6
-NBIRDS = 100
+NPOPS = 1
 
 ## PARALLEL FUNCTION DEFINITION
 runMCMC <- function(x) {
@@ -14,18 +14,18 @@ runMCMC <- function(x) {
   sink(file = outputlog, type = "output")
   library(nimble)
   dataAndConstants <- dataSimulation(x, constants, trueParams, TRUE)
-  ##saveRDS(dataAndConstants[["constants"]], paste("./results/data/paramsBird", toString(x), ".rds", sep = ""))
+  saveRDS(dataAndConstants[["constants"]], paste("./results/data/paramsPopulation", toString(x), ".rds", sep = ""))
   model <- nimbleModel( code = modelCode, name = "model", constants = dataAndConstants[["constants"]], data = dataAndConstants[["data"]], calculate = FALSE)
   configured <- configureMCMC(model)
   configured$resetMonitors()
-  configured$setSamplers(c("muDelta.prime", "delta.prime", "muDelta"))
-  configured$addMonitors(c("muDelta.prime","delta.prime", "muDelta"))
+  configured$setSamplers(c("muDelta.prime", "delta.prime", "muDelta", "delta"))
+  configured$addMonitors(c("muDelta.prime","delta.prime", "muDelta", "delta"))
   configured$setThin(10)
   built <- buildMCMC(configured)
   compiled <- compileNimble( model, built, showCompilerOutput = TRUE )
   compiled$built$run(niter = 5000)
   samples <- as.matrix(compiled$built$mvSamples)
-  saveRDS(samples, paste( "./results/samples/bird", toString(x), ".rds", sep=""))
+  saveRDS(samples, paste( "./results/samples/population", toString(x), ".rds", sep=""))
   sink()
   print(paste("Simulation", toString(x), "complete.", sep = " "))
   print("-------------------------------------------")
@@ -33,7 +33,12 @@ runMCMC <- function(x) {
 
 source("Inputs.R")
 source("DataSimulation.R")
+source("Model.R")
 ## RUN SIMULATION
-for ( i in 1:NBIRDS ){
+for ( i in 1:NPOPS ){
   runMCMC(i)
 }
+
+dat = data.frame(readRDS("./results/samples/population1.rds"))
+params = data.frame(readRDS("./results/data/simulatedParams1.rds"))
+plot(seq(1,length(dat$muDelta.prime)), dat$muDelta.prime, type = 'l')

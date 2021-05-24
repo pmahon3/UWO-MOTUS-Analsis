@@ -20,9 +20,14 @@ library(nimble)
 
 modelCode <- nimbleCode(
   {
-    #LIKELIHOODS
+
     for ( i in 1:nBirds ){
+      delta.prime[i] ~ dnorm( muDelta.prime, 1 / sigmaDelta.prime^2 )
       for ( j in 1:nDays ){
+        for(p in 1:2){
+          delta[p,i,j] ~ dnorm( muDelta[p,i], tauDelta[p,i] )
+        }
+
         for ( k in 1:nObservations){
           ## Identify period of day
           p[i,j,k] <- step( t[i,j,k] - delta[1,i,j] ) +
@@ -32,37 +37,24 @@ modelCode <- nimbleCode(
         }
       }
     }
-    
-    # PRIORS
-    for ( i in 1:nBirds){
-      for ( j in 1:nDays ){
-        for(p in 1:2){
-          delta[p,i,j] ~ dnorm( muDelta[p,i], tauDelta[p,i] )
-        }
-      }
-      delta.prime[i] ~ dnorm( muDelta.prime, 1 / sigmaDelta.prime^2 )
-    }
-   
-    ## HYPERPRIORS
-    
+
     for(p in 1:2){
       muMuDelta[p] ~ dnorm(etaMuDelta[p], 1/ thetaMuDelta[p]^2)
-      
+
       for ( i in 1:nBirds){
         muDelta[p,i] ~ dnorm(muMuDelta[p], 1/ sigmaMuDelta[p]^2)
         sigmaDelta[p,i] ~ T(dt(0, sSigmaDelta, dfSigmaDelta),0,Inf)
-        tauDelta[p,i] <- 1/xiDelta[p]^2 
+        tauDelta[p,i] <- 1/xiDelta[p]^2
       }
     }
     muDelta.prime ~ dnorm( etaMuDelta.prime, 1 / thetaMuDelta.prime^2 )
-    
-    ## GLOBAL PRIORS
+
     for(p in 1:3){
       ## HYPERPRIORS
       muMuY[p] ~ dnorm(etaY[p], 1 / sigmaEtaY[p]^2 )
       sigmaMuY[p] ~ T(dt(0,sSigmaMuY, dfSigmaMuY), 0, Inf)
       tauMuY[p] <- 1/sigmaMuY[p]^2
-      
+
       for ( i in 1:nBirds){
         for(j in 1:nDays){
           muY[i,j,p] ~ dnorm( muMuY[p], tauMuY[p] )
