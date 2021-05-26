@@ -1,10 +1,12 @@
-library(parallel)
+library(foreach)
+library(doParallel)
+library(nimble)
 library(HDInterval)
 
-NCORES = 6
-NPOPS = 1
+NCORES = 8
+NPOPS = 6
 
-## PARALLEL FUNCTION DEFINITION
+## Parallel function definition
 runMCMC <- function(x) {
   print(paste("Simulation", toString(x), sep = " "))
   print("------------------------------------------")
@@ -12,7 +14,6 @@ runMCMC <- function(x) {
   outputlog <- file(paste("output", toString(x), ".txt", sep = "" ), open = "wt")
   sink(file = messagelog, type = "message")
   sink(file = outputlog, type = "output")
-  library(nimble)
   dataAndConstants <- dataSimulation(x, constants, trueParams, TRUE)
   saveRDS(dataAndConstants[["constants"]], paste("./results/data/paramsPopulation", toString(x), ".rds", sep = ""))
   model <- nimbleModel( code = modelCode, name = "model", constants = dataAndConstants[["constants"]], data = dataAndConstants[["data"]], calculate = FALSE)
@@ -34,11 +35,16 @@ runMCMC <- function(x) {
 source("Inputs.R")
 source("DataSimulation.R")
 source("Model.R")
-## RUN SIMULATION
-for ( i in 1:NPOPS ){
+registerDoParallel(NCORES)
+
+## Run Simulation
+foreach ( i=1:NPOPS ) %dopar% {
   runMCMC(i)
 }
 
-dat = data.frame(readRDS("./results/samples/population1.rds"))
-params = data.frame(readRDS("./results/data/simulatedParams1.rds"))
-plot(seq(1,length(dat$muDelta.prime)), dat$muDelta.prime, type = 'l')
+## Plot results
+for (i in 1:NPOPS){
+  samplesFile = paste("./results/samples/population", toString(i), ".rds", sep="")
+  samples = data.frame(readRDS(samplesFile))
+  plot(seq(1,length(samples$muDelta.prime)), samples$muDelta.prime, type = 'l')
+}

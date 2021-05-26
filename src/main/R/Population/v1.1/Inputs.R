@@ -1,6 +1,6 @@
 library(nimble)
 
-nBirds = 20
+nBirds = 100
 nDays = 10
 nObservations = 600
 

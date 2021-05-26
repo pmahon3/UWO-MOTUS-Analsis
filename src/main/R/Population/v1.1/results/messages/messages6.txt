@@ -1,0 +1,17 @@
+defining model...
+Adding muMuY, sigmaMuY as data for building model.
+building model...
+setting data and initial values...
+checking model sizes and dimensions... This model is not fully initialized. This is not an error. To see which variables are not initialized, use model$initializeInfo(). For more information on model initialization, see help(modelInitialization).
+model building finished.
+compiling... this may take a minute. On some systems there may be some compiler warnings that can be safely ignored.
+compilation finished.
+Warning messages:
+1: closing unused connection 27 (output1.txt) 
+2: closing unused connection 10 (./results/output/output1.txt) 
+3: closing unused connection 16 (./results/output/output2.txt) 
+4: In if (length(text) == 0L) return(expression()) :
+  closing unused connection 19 (./results/output/output3.txt)
+5: In .Internal(eval(expr, envir, enclos)) :
+  closing unused connection 26 (./results/output/output4.txt)
+6: closing unused connection 27 (./results/output/output5.txt) 
