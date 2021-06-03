@@ -37,5 +37,8 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS){
 
   CONSTANTS = c(CONSTANTS, list(t = tdat))
   
+  ## Save simulated params 
+  saveRDS(list(deltas, ))
+  
   return(list(data = DATA,constants = CONSTANTS))
 }

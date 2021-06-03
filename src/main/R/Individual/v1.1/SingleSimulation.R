@@ -182,3 +182,10 @@ bind_rows(filter(ggsamples, Parameter == paste0("delta[2, ",trueParams$nDays,"]"
   ggplot(aes(x = Iteration, y = Value)) +
   geom_line() +
   facet_grid(Parameter ~ ., scales = "free")
+
+## Plot sampled delta.prime + delta[2, nDays], and true value of delta[2, 10] + delta.prime ( True final day bedtime )
+out = as.matrix(compiled$built$mvSamples)
+sampledSum = out[,'delta.prime'] + out[,'delta[2, 10]']
+trueSum = dataAndConstants$data$ds[nDays,2] + 1/4
+trueSum = list(rep(trueSum, length(sampledSum)))
+bind_rows(out[,'delta.prime'], out[,'delta[2, 10]'], sampledSum, trueSum)

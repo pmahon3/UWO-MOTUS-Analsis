@@ -20,46 +20,48 @@ library(nimble)
 
 modelCode <- nimbleCode(
   {
-
+    # Likelihood
     for ( i in 1:nBirds ){
-      delta.prime[i] ~ dnorm( muDelta.prime, 1 / sigmaDelta.prime^2 )
       for ( j in 1:nDays ){
-        for(p in 1:2){
-          delta[p,i,j] ~ dnorm( muDelta[p,i], tauDelta[p,i] )
-        }
-
         for ( k in 1:nObservations){
           ## Identify period of day
-          p[i,j,k] <- step( t[i,j,k] - delta[1,i,j] ) +
-            step( t[i,j,k] - delta[2,i,j] - delta.prime[i] * step(i - nDays)) + 1
+          p[i,j,k] <- step( t[i,j,k] - delta[i,j,1] ) +
+            step( t[i,j,k] - delta[i,j,2] - delta.prime[i] * step(i - nDays)) + 1
           ## Model response
           y[i,j,k] ~ dnorm( muY[i,j,p[i,j,k]],tauY[i,j,p[i,j,k]])
         }
       }
     }
 
+    # delta.prime and muDeltaPrime priors
+    for ( bird in 1:nBirds){
+      delta.prime[bird] ~ dnorm( muDelta.prime, 1/sigmaDelta.prime^2 )
+    }
+    muDelta.prime ~ dnorm( etaMuDelta.prime, 1/thetaMuDelta.prime^2 )
+    
+    # delta, muDelta, and muMuDelta priors
     for(p in 1:2){
-      muMuDelta[p] ~ dnorm(etaMuDelta[p], 1/ thetaMuDelta[p]^2)
-
-      for ( i in 1:nBirds){
-        muDelta[p,i] ~ dnorm(muMuDelta[p], 1/ sigmaMuDelta[p]^2)
-        sigmaDelta[p,i] ~ T(dt(0, sSigmaDelta, dfSigmaDelta),0,Inf)
-        tauDelta[p,i] <- 1/xiDelta[p]^2
+      muMuDelta[p] ~ dnorm(etaMuMuDelta[p], 1/thetaMuMuDelta[p]^2)
+      for ( bird in 1:nBirds){
+        muDelta[bird,p] ~ dnorm(muMuDelta[p], 1/thetaMuDelta[p]^2)
+        sigmaDelta[bird,p] ~ T(dt(0, sSigmaDelta, dfSigmaDelta),0,Inf)
+        tauDelta[bird,p] <- 1/sigmaDelta[bird,p]
+        for ( day in 1:nDays ){
+          delta[bird,day,p] ~ dnorm( muDelta[bird,p], tauDelta[bird,p] )
+        }
       }
     }
-    muDelta.prime ~ dnorm( etaMuDelta.prime, 1 / thetaMuDelta.prime^2 )
-
+    
+    # muY, muMuY, sigmaY, and sigmaMuY priors
     for(p in 1:3){
-      ## HYPERPRIORS
       muMuY[p] ~ dnorm(etaY[p], 1 / sigmaEtaY[p]^2 )
       sigmaMuY[p] ~ T(dt(0,sSigmaMuY, dfSigmaMuY), 0, Inf)
       tauMuY[p] <- 1/sigmaMuY[p]^2
-
-      for ( i in 1:nBirds){
-        for(j in 1:nDays){
-          muY[i,j,p] ~ dnorm( muMuY[p], tauMuY[p] )
-          sigmaY[i,j,p] ~ T(dt(0, sSigmaY, dfSigmaY), 0, Inf)
-          tauY[i,j,p] <- 1/sigmaY[i,j,p]^2
+      for (bird in 1:nBirds){
+        for (day in 1:nDays){
+          muY[bird,day,p] ~ dnorm( muMuY[p], tauMuY[p] )
+          sigmaY[bird,day,p] ~ T(dt(0, sSigmaY, dfSigmaY), 0, Inf)
+          tauY[bird,day,p] <- 1/sigmaY[bird,day,p]^2
         }
       }
     }
