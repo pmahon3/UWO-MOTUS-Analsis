@@ -12,7 +12,9 @@ runMCMC <- function(x) {
   # Output logging
   messagelog <- file(paste("./results/messages/messages", toString(x), ".txt", sep = ""), open = "wt")
   outputlog <- file(paste("./results/output/output", toString(x), ".txt", sep = "" ), open = "wt")
-  
+
+  sink(messagelog, type = "message")
+  sink(outputlog, type = "output") 
   # Simulation
   print(paste("Simulation", toString(x), sep = " "))
   print("------------------------------------------")
@@ -21,9 +23,9 @@ runMCMC <- function(x) {
   model <- nimbleModel( code = modelCode, name = "model", constants = dataAndConstants[["constants"]], data = dataAndConstants[["data"]], calculate = FALSE)
   configured <- configureMCMC(model)
   configured$resetMonitors()
-  configured$setSamplers(c("muDelta.prime", "delta.prime", "muMuDelta", "muDelta", "delta", "tauDelta", "muMuY", "muY"))
-  configured$addMonitors(c("muDelta.prime","delta.prime", "muMuDelta", "muDelta", "delta", "tauDelta", "muMuY", "muY"))
-  configured$setThin(10)
+  configured$setThin(10)  
+  configured$setSamplers(c("muDelta.prime", "delta.prime", "muMuDelta", "muDelta", "delta", "tauDelta", "muMuMuY", "muMuY", "muY", "sigmaMuMuY", "sigmaMuY", "sigmaY"))
+  configured$addMonitors(c("muDelta.prime", "delta.prime", "muMuDelta", "muDelta", "delta", "tauDelta", "muMuMuY", "muMuY", "muY", "sigmaMuMuY", "sigmaMuY", "sigmaY"))
   built <- buildMCMC(configured)
   compiled <- compileNimble( model, built, showCompilerOutput = TRUE )
   compiled$built$run(niter = 5000)
@@ -33,14 +35,16 @@ runMCMC <- function(x) {
   saveRDS(samples, paste( "./results/samples/population", toString(x), ".rds", sep=""))
   print(paste("Simulation", toString(x), "complete.", sep = " "))
   print("-------------------------------------------")
+  sink(NULL)
+  sink(NULL) 
 }
 
 source("Inputs.R")
-source("DataSimulation.R")
+source("Simulation.R")
 source("Model.R")
 registerDoParallel(NCORES)
 
 ## Run in parallel
-for ( i in 1:NPOPS ) {
+foreach ( i=1:NPOPS ) %dopar% {
   runMCMC(i)
 }

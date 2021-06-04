@@ -54,13 +54,16 @@ modelCode <- nimbleCode(
     
     # muY, muMuY, sigmaY, and sigmaMuY priors
     for(p in 1:3){
-      muMuY[p] ~ dnorm(etaY[p], 1 / sigmaEtaY[p]^2 )
-      sigmaMuY[p] ~ T(dt(0,sSigmaMuY, dfSigmaMuY), 0, Inf)
-      tauMuY[p] <- 1/sigmaMuY[p]^2
+      muMuMuY[p] ~ dnorm(etaY[p], 1 / sigmaEtaY[p]^2 )
+      sigmaMuMuY[p] ~ T(dt(0,sSigmaMuMuY[p], dfSigmaMuMuY[p]), 0, Inf)
+      tauMuMuY[p] <- 1/sigmaMuMuY[p]^2
       for (bird in 1:nBirds){
+        muMuY[bird,p] ~ dnorm(muMuMuY[p], tauMuMuY[p])
+        sigmaMuY[bird,p] ~ T(dt(0,sSigmaMuY[p], dfSigmaMuY[p]), 0, Inf)
+        tauMuY[bird,p] <- 1/sigmaMuY[bird,p]^2
         for (day in 1:nDays){
-          muY[bird,day,p] ~ dnorm( muMuY[p], tauMuY[p] )
-          sigmaY[bird,day,p] ~ T(dt(0, sSigmaY, dfSigmaY), 0, Inf)
+          muY[bird,day,p] ~ dnorm( muMuY[bird,p], tauMuY[bird,p] )
+          sigmaY[bird,day,p] ~ T(dt(0, sSigmaY[p], dfSigmaY[p]), 0, Inf)
           tauY[bird,day,p] <- 1/sigmaY[bird,day,p]^2
         }
       }

@@ -1,22 +1,24 @@
 library(nimble)
 
-nBirds = 20
-nDays = 10
+nBirds = 25
+nDays = 15
 nObservations = 600
 
 trueParams = list(
   nBirds = nBirds,
   nDays = nDays,
   nObservations = nObservations,
-  muMuY = c(-80,-50, -80),
-  sigmaMuY = c(5, 10, 5),
+  muMuMuY = c(-80,-50, -80),
+  sdMuMuY = c(5, 10, 5),
+  dfSdMuY = c(10,10,10),
+  scaleSdMuY = c(2,3,2),
+  dfSdMuY = c(10,10,10),
+  scaleSdMuY = c(2,3,2),
   dfSdY = c(10,10,10),
   scaleSdY = c(2,3,2),
   
-  muMuDelta1 = 6,
-  muMuDelta2 = 18,
-  sigmaMuDelta1 = .1,
-  sigmaMuDelta2 = .1,
+  muMuDelta = c(6,18),
+  sigmaMuDelta = c(.1,.1),
   dfSigmaDelta = c(10,10),
   scaleSigmaDelta = c(1/10,1/10), 
   
@@ -46,9 +48,10 @@ constants = list(
 
   etaY = c(-80,-50,-80),
   sigmaEtaY = c(15,20,15),
-  sSigmaMuY = 1,
-  dfSigmaMuY = 5,
-
-  sSigmaY = 1.0,
-  dfSigmaY = 1.0
+  sSigmaMuMuY = c(1,1,1),
+  dfSigmaMuMuY = c(5,5,5),
+  sSigmaMuY = c(1,1,1),
+  dfSigmaMuY = c(5,5,5),
+  sSigmaY = c(1.0,1.0,1.0),
+  dfSigmaY = c(1.0,1.0,1.0)
 )
