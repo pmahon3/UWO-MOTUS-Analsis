@@ -22,6 +22,8 @@ sbonner@uwo.ca
 ### Patrick Mahon
 
   pmahon3@uwo.ca
+  
+  https://github.com/pmahon3/
 
 ## Description and Resources
 
