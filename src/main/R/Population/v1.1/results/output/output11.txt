@@ -1,0 +1,13 @@
+[1] "Simulation 11"
+[1] "------------------------------------------"
+[1] "Saving simulated parameters to  ./results/data/simulatedParams11.rds"
+thin = 10: muDelta.prime, delta.prime, muMuDelta, muDelta, delta, tauDelta, muMuMuY, muMuY, muY, sigmaMuMuY, sigmaMuY, sigmaY
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-7BvS0x/r-base-4.0.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_3_model.cpp -o P_3_model.o
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-7BvS0x/r-base-4.0.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_3_model_nfCode.cpp -o P_3_model_nfCode.o
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_3_model_06_04_19_22_48.so P_3_model.o P_3_model_nfCode.o -L/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -lnimble -Wl,-rpath /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-7BvS0x/r-base-4.0.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_3_MCMC.cpp -o P_3_MCMC.o
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_3_MCMC_06_04_19_27_03.so P_3_MCMC.o P_3_model.o -L/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -lnimble -Wl,-rpath /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+|-------------|-------------|-------------|-------------|
+|-------------------------------------------------------|
+[1] "Simulation 11 complete."
+[1] "-------------------------------------------"
