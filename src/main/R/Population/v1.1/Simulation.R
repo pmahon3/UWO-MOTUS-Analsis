@@ -8,7 +8,7 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
   muDelta = array(dim = c(CONSTANTS$nBirds, 2))
   sigmaDelta = array(dim = c(CONSTANTS$nBirds, 2))
   delta = array(dim = c(CONSTANTS$nBirds, CONSTANTS$nDays, 2))
-  deltaPrime = vector(mode = "double", length = CONSTANTS$nBirds)
+  delta.prime = vector(mode = "double", length = CONSTANTS$nBirds)
   muY = array(dim = c(CONSTANTS$nBirds, CONSTANTS$nDays, 3))
   sdY = array(dim = c(CONSTANTS$nBirds, CONSTANTS$nDays, 3))
   muMuY = array(dim = c(CONSTANTS$nBirds, 3))
@@ -22,7 +22,7 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
       muDelta[bird,i] <- rnorm(1, mean = TRUEPARAMS$muMuDelta[i], sd = TRUEPARAMS$sigmaMuDelta[i])
       sigmaDelta[bird,i] <- rht(1, nu = TRUEPARAMS$dfSigmaDelta[i], sigma = TRUEPARAMS$scaleSigmaDelta[i])
     }
-    deltaPrime[bird] = rnorm(1,  mean = TRUEPARAMS$muDelta.prime, sd = TRUEPARAMS$sigmaDelta.prime )
+    delta.prime[bird] = rnorm(1,  mean = TRUEPARAMS$muDelta.prime, sd = TRUEPARAMS$sigmaDelta.prime )
 
     # Mean strength and standard deviations
     for ( p in 1:3 ){
@@ -53,7 +53,7 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
           mu = muY[bird,day,1]
           sd = sdY[bird,day,1]
         }
-        else if ( day == CONSTANTS$nDays && t[bird, day, observation] < delta[bird,day,2] + deltaPrime){
+        else if ( day == CONSTANTS$nDays && t[bird, day, observation] < delta[bird,day,2] + delta.prime[bird]){
           mu = muY[bird,day,2]
           sd = sdY[bird,day,2]
         }
@@ -70,7 +70,7 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
     }
   }
 
-  simulatedParams = list('delta'=delta,'muDelta'=muDelta,'sigmaDelta'=sigmaDelta,'deltaPrime'=deltaPrime,'muY'=muY,'sdY'=sdY, 'muMuY'=muMuY, 'sdMuY'=sdMuY)
+  simulatedParams = list('delta'=delta,'muDelta'=muDelta,'sigmaDelta'=sigmaDelta,'deltaPrime'=delta.prime,'muY'=muY,'sdY'=sdY, 'muMuY'=muMuY, 'sdMuY'=sdMuY)
 
   if (saveDat){
     file =  paste("./results/data/simulatedParams", toString(x), ".rds", sep = "")
