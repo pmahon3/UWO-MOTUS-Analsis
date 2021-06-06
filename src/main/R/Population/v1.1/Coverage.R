@@ -1,6 +1,6 @@
 library(HDInterval)
 ## Analyze coverage
-NPOPS=25
+NPOPS=30
 printPopulationResults = TRUE
 # source params
 source("Inputs.R")

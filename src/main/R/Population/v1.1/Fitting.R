@@ -4,8 +4,8 @@ library(nimble)
 library(HDInterval)
 library(extraDistr)
 
-NCORES = 5
-NPOPS = 25
+NCORES = 6
+NPOPS = 30
 
 ## Parallel function definition
 runMCMC <- function(x) {
@@ -13,8 +13,8 @@ runMCMC <- function(x) {
   messagelog <- file(paste("./results/messages/messages", toString(x), ".txt", sep = ""), open = "wt")
   outputlog <- file(paste("./results/output/output", toString(x), ".txt", sep = "" ), open = "wt")
 
-  #sink(messagelog, type = "message")
-  #sink(outputlog, type = "output") 
+  sink(messagelog, type = "message")
+  sink(outputlog, type = "output") 
   # Simulation
   print(paste("Simulation", toString(x), sep = " "))
   print("------------------------------------------")
@@ -35,8 +35,8 @@ runMCMC <- function(x) {
   saveRDS(samples, paste( "./results/samples/population", toString(x), ".rds", sep=""))
   print(paste("Simulation", toString(x), "complete.", sep = " "))
   print("-------------------------------------------")
-  #sink(NULL)
-  #sink(NULL) 
+  sink(NULL)
+  sink(NULL) 
 }
 
 source("Inputs.R")

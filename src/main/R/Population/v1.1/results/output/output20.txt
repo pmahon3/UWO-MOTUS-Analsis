@@ -2,10 +2,93 @@
 [1] "------------------------------------------"
 [1] "Saving simulated parameters to  ./results/data/simulatedParams20.rds"
 thin = 10: muDelta.prime, delta.prime, muMuDelta, muDelta, delta, tauDelta, muMuMuY, muMuY, muY, sigmaMuMuY, sigmaMuY, sigmaY
-g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-7BvS0x/r-base-4.0.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_4_model.cpp -o P_4_model.o
-g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-7BvS0x/r-base-4.0.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_4_model_nfCode.cpp -o P_4_model_nfCode.o
-g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_4_model_06_04_21_14_19.so P_4_model.o P_4_model_nfCode.o -L/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -lnimble -Wl,-rpath /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
-g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-7BvS0x/r-base-4.0.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_4_MCMC.cpp -o P_4_MCMC.o
-g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_4_MCMC_06_04_21_17_50.so P_4_MCMC.o P_4_model.o -L/home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -lnimble -Wl,-rpath /home/pmahon/R/x86_64-pc-linux-gnu-library/4.0/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_4_model.cpp -o P_4_model.o
+clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_4_model_nfCode.cpp -o P_4_model_nfCode.o
+clang++ -mmacosx-version-min=10.13 -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o P_4_model_06_05_19_11_06.so P_4_model.o P_4_model_nfCode.o -L/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/CppCode -lnimble -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_4_MCMC.cpp -o P_4_MCMC.o
+clang++ -mmacosx-version-min=10.13 -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o P_4_MCMC_06_05_19_24_03.so P_4_MCMC.o P_4_model.o -L/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/CppCode -lnimble -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+In file included from P_4_MCMC.cpp:6:
+In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/nimble/EigenTypedefs.h:24:
+In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Dense:1:
+In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Core:420:
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:86:63: warning: converting the enum constant to a boolean [-Wint-in-bool-context]
+    MayLinearVectorize = bool(MightVectorize) && MayLinearize && DstHasDirectAccess
+                                                              ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:607:20: note: in instantiation of template class 'Eigen::internal::copy_using_evaluator_traits<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>, Eigen::internal::assign_op<double, double>>' requested here
+  typedef typename AssignmentTraits::PacketType PacketType;
+                   ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:739:10: note: in instantiation of template class 'Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>, Eigen::internal::assign_op<double, double>, 0>' requested here
+  Kernel kernel(dstEvaluator, srcEvaluator, func, dst.const_cast_derived());
+         ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:879:5: note: in instantiation of function template specialization 'Eigen::internal::call_dense_assignment_loop<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>>' requested here
+    call_dense_assignment_loop(dst, src, func);
+    ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:836:46: note: in instantiation of member function 'Eigen::internal::Assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>, Eigen::internal::Dense2Dense, void>::run' requested here
+  Assignment<ActualDstTypeCleaned,Src,Func>::run(actualDst, src, func);
+                                             ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:804:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment_no_alias<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>>' requested here
+  call_assignment_no_alias(dst, src, func);
+  ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:782:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>>' requested here
+  call_assignment(dst, src, internal::assign_op<typename Dst::Scalar,typename Src::Scalar>());
+  ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Assign.h:66:13: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>' requested here
+  internal::call_assignment(derived(), other.derived());
+            ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Map.h:155:5: note: in instantiation of function template specialization 'Eigen::MatrixBase<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>::operator=<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>' requested here
+    EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Map)
+    ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:839:53: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_OPERATORS'
+#define EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Derived) EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR(Derived)
+                                                    ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:823:108: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR'
+    EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE Derived& operator=(const DenseBase<OtherDerived>& other) { Base::operator=(other.derived()); return *this; }
+                                                                                                           ^
+P_4_MCMC.cpp:470:19: note: in instantiation of function template specialization 'Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0, Eigen::Stride<0, 0>>::operator=<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>' requested here
+ Eig_scaleHistory = nimCd((ConcatenateInterm_14));
+                  ^
+In file included from P_4_MCMC.cpp:6:
+In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/nimble/EigenTypedefs.h:24:
+In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Dense:1:
+In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Core:420:
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:86:63: warning: converting the enum constant to a boolean [-Wint-in-bool-context]
+    MayLinearVectorize = bool(MightVectorize) && MayLinearize && DstHasDirectAccess
+                                                              ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:607:20: note: in instantiation of template class 'Eigen::internal::copy_using_evaluator_traits<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>, Eigen::internal::assign_op<double, double>>' requested here
+  typedef typename AssignmentTraits::PacketType PacketType;
+                   ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:739:10: note: in instantiation of template class 'Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>, Eigen::internal::assign_op<double, double>, 0>' requested here
+  Kernel kernel(dstEvaluator, srcEvaluator, func, dst.const_cast_derived());
+         ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:879:5: note: in instantiation of function template specialization 'Eigen::internal::call_dense_assignment_loop<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>>' requested here
+    call_dense_assignment_loop(dst, src, func);
+    ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:836:46: note: in instantiation of member function 'Eigen::internal::Assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>, Eigen::internal::Dense2Dense, void>::run' requested here
+  Assignment<ActualDstTypeCleaned,Src,Func>::run(actualDst, src, func);
+                                             ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:804:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment_no_alias<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>>' requested here
+  call_assignment_no_alias(dst, src, func);
+  ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:782:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>>' requested here
+  call_assignment(dst, src, internal::assign_op<typename Dst::Scalar,typename Src::Scalar>());
+  ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Assign.h:66:13: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>' requested here
+  internal::call_assignment(derived(), other.derived());
+            ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Map.h:155:5: note: in instantiation of function template specialization 'Eigen::MatrixBase<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>::operator=<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>' requested here
+    EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Map)
+    ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:839:53: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_OPERATORS'
+#define EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Derived) EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR(Derived)
+                                                    ^
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:823:108: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR'
+    EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE Derived& operator=(const DenseBase<OtherDerived>& other) { Base::operator=(other.derived()); return *this; }
+                                                                                                           ^
+P_4_MCMC.cpp:941:33: note: in instantiation of function template specialization 'Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0, Eigen::Stride<0, 0>>::operator=<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>' requested here
+ Eig_samplerExecutionOrderToUse = (eigenBlock_oPsamplerExecutionOrderFromConfPlusTwoZeros_comma_1tolengthSamplerExecutionOrderFromConf_cP).block(0, 0, (lengthSamplerExecutionOrderFromConf - 1) + 1, 1);
+                                ^
+2 warnings generated.
 |-------------|-------------|-------------|-------------|
-|-----
+|-------------------------------------------------------|
+[1] "Simulation 20 complete."
+[1] "-------------------------------------------"
