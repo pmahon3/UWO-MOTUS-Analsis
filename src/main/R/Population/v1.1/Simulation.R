@@ -23,11 +23,6 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
                                 mean = TRUEPARAMS$muDelta.prime,
                                 sd = TRUEPARAMS$sigmaDelta.prime )
 
-    # Mean strength and standard deviations
-      muMuY[bird,] <- rnorm(3,
-                            mean = TRUEPARAMS$muMuMuY,
-                            sd = TRUEPARAMS$sdMuMuY)
-    
     # All days to the penultimate day
     for ( day in 1:CONSTANTS$nDays ){
       
@@ -36,9 +31,9 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
                                 mean = muMuY[bird,],
                                 sd = TRUEPARAMS$sdMuY)
         
-        sdY[bird,day,] <- rht(3,
-                               nu = TRUEPARAMS$dfSdY,
-                               sigma = TRUEPARAMS$scaleSdY)
+        sdY[bird,day,] <- exp(rnorm(3,
+                                    nu = TRUEPARAMS$muSdY,
+                                    sigma = TRUEPARAMS$sdSdY))
       
       # Simulate change points
         delta[bird,day,] <- rnorm(2,
@@ -65,7 +60,12 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
     }
   }
 
-  simulatedParams = list('delta'=delta,'muDelta'=muDelta,'deltaPrime'=delta.prime,'muY'=muY,'sdY'=sdY, 'muMuY'=muMuY, 'sdMuY'=sdMuY)
+    simulatedParams <- list('delta'=delta,
+                            'muDelta'=muDelta,
+                            'deltaPrime'=delta.prime,
+                            'muY'=muY,'sdY'=sdY,
+                            'muMuY'=muMuY,
+                            'sdMuY'=sdMuY)
 
   if (saveDat){
     file =  paste("./results/data/simulatedParams", toString(x), ".rds", sep = "")
