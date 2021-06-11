@@ -9,7 +9,6 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
   delta.prime <- vector(mode = "double", length = CONSTANTS$nBirds)
   muY <- array(dim = c(CONSTANTS$nBirds, CONSTANTS$nDays, 3))
   sdY <- array(dim = c(CONSTANTS$nBirds, CONSTANTS$nDays, 3))
-  muMuY <- array(dim = c(CONSTANTS$nBirds, 3))
 
   # Loop over birds
   for ( bird in 1:CONSTANTS$nBirds ){
@@ -26,9 +25,9 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
     # All days to the penultimate day
     for ( day in 1:CONSTANTS$nDays ){
       
-      # Signal strength means and standard deviations
+                                        # Signal strength means and standard deviations
         muY[bird,day,] <- rnorm(3,
-                                mean = muMuY[bird,],
+                                mean = trueParams$muMuY,
                                 sd = TRUEPARAMS$sdMuY)
         
         sdY[bird,day,] <- exp(rnorm(3,
@@ -63,8 +62,8 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
     simulatedParams <- list('delta'=delta,
                             'muDelta'=muDelta,
                             'deltaPrime'=delta.prime,
-                            'muY'=muY,'sdY'=sdY,
-                            'muMuY'=muMuY)
+                            'muY'=muY,
+                            'sdY'=sdY)
 
   if (saveDat){
     file =  paste("./results/data/simulatedParams", toString(x), ".rds", sep = "")
