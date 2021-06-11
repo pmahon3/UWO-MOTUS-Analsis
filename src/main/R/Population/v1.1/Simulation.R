@@ -46,11 +46,11 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
                                  sd = TRUEPARAMS$sigmaDelta)
         
       # Vectors for the time stamps
-        t[bird, day,]  <- c(seq( from = delta[bird,day,1]-1,
-                                to = delta[bird,day,1]+1,
+        t[bird, day,]  <- c(seq(from = TRUEPARAMS$muMuDelta[1]-1,
+                                to = TRUEPARAMS$muMuDelta[1]+1,
                                 length.out = CONSTANTS$nObservations / 2),
-                            seq( from = delta[bird,day,2]-1,
-                                to = delta[bird,day,2]+1,
+                            seq(from = TRUEPARAMS$muMuDelta[2]-1,
+                                to = TRUEPARAMS$muMuDelta[2]+1,
                                 length.out = CONSTANTS$nObservations / 2))
 
       # Period
