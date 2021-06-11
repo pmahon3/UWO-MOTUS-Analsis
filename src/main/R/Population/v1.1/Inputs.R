@@ -5,25 +5,25 @@ nDays = 15
 nObservations = 600
 
 trueParams = list(
+    ## Basic paramters
   nBirds = nBirds,
   nDays = nDays,
   nObservations = nObservations,
-  muMuMuY = c(-80,-50, -80),
-  sdMuMuY = c(5, 10, 5),
-  dfSdMuY = c(10,10,10),
-  scaleSdMuY = c(2,3,2),
-  dfSdMuY = c(10,10,10),
-  scaleSdMuY = c(2,3,2),
-  dfSdY = c(10,10,10),
-  scaleSdY = c(2,3,2),
-  
-  muMuDelta = c(6,18),
-  sigmaMuDelta = c(.1,.1),
-  dfSigmaDelta = c(10,10),
-  scaleSigmaDelta = c(1/10,1/10), 
-  
-  muDelta.prime = .25,
-  sigmaDelta.prime = .05
+
+  ## Signal Strength
+  muMuY = c(-80,-50, -80), # Mean of means by period
+  sdMuY = c(5,10,5),       # Variation of means by period
+  muSdY = c(log(5),log(10),log(5)),       # Mean of log-variation by period
+  sdSdY = c(.1,.2,.1),        # Variation of log-variation by period
+
+  ## Changepoints
+  muMuDelta = c(6,18), # Overall means
+  sigmaMuDelta = c(.1,.1), # Individual variation
+  sigmaDelta = c(.2,.2),   # Daily variation 
+
+  ## Departure day effect
+  muDelta.prime = .25, # Mean
+  sigmaDelta.prime = .05 # Individual variation
 )
 
 constants = list(
