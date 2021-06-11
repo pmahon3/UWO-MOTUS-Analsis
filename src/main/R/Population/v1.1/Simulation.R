@@ -64,8 +64,7 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
                             'muDelta'=muDelta,
                             'deltaPrime'=delta.prime,
                             'muY'=muY,'sdY'=sdY,
-                            'muMuY'=muMuY,
-                            'sdMuY'=sdMuY)
+                            'muMuY'=muMuY)
 
   if (saveDat){
     file =  paste("./results/data/simulatedParams", toString(x), ".rds", sep = "")
