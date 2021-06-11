@@ -32,8 +32,8 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
                                 sd = TRUEPARAMS$sdMuY)
         
         sdY[bird,day,] <- exp(rnorm(3,
-                                    nu = TRUEPARAMS$muSdY,
-                                    sigma = TRUEPARAMS$sdSdY))
+                                    mean = TRUEPARAMS$muSdY,
+                                    sd = TRUEPARAMS$sdSdY))
       
       # Simulate change points
         delta[bird,day,] <- rnorm(2,
