@@ -44,6 +44,7 @@ modelCode <- nimbleCode(
               for (day in 1:nDays){
                   muY[bird,day,p] ~ dnorm( muMuY[p], tauMuY[p] )
                   log(sigmaY[bird,day,p]) ~ dnorm(muSdY[p], tauSdY[p])
+                  tauY[bird, day, p] <- 1/sigmaY[bird, day, p]
               }
           }
       }
@@ -73,7 +74,7 @@ modelCode <- nimbleCode(
 
       for(p in 1:2){
           muMuDelta[p] ~ dnorm(etaMuMuDelta[p], 1/thetaMuMuDelta[p]^2)
-          sigmaDelta[p] <- T(dt(0,sSigmaDelta, dfSigmaDelta), 0, Inf)
+          sigmaDelta[p] ~ T(dt(0,sSigmaDelta, dfSigmaDelta), 0, Inf)
       }
 
       ## Signal strength
@@ -85,7 +86,7 @@ modelCode <- nimbleCode(
 
           ## SD model
           muSdY[p] ~ dnorm(etaSdY[p], 1/ sigmaSdY[p]^2)
-          #sigmaSdY[p] ~ T(dt(0,sSigmaSdY[p], dfSigmaSdY[p]), 0, Inf)
+          sigmaSdY[p] ~ T(dt(0,sSigmaSdY[p], dfSigmaSdY[p]), 0, Inf)
           tauSdY[p] <- 1/sigmaSdY[p]^2
       }
   }
