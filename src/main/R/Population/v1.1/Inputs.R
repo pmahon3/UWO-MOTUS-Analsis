@@ -48,8 +48,6 @@ constants = list(
 
   etaY = c(-80,-50,-80),
   sigmaEtaY = c(15,20,15),
-  sSigmaMuMuY = c(1,1,1),
-  dfSigmaMuMuY = c(5,5,5),
   sSigmaMuY = c(1,1,1),
   dfSigmaMuY = c(5,5,5),
   sSigmaY = c(1.0,1.0,1.0),
