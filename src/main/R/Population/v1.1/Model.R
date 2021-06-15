@@ -71,6 +71,7 @@ modelCode <- nimbleCode(
 
       ## Changepoints
       muDelta.prime ~ dnorm( etaMuDelta.prime, 1/thetaMuDelta.prime^2 )
+      sigmaDelta.prime ~ T(dt(0,sSigmaDelta.prime, dfSigmaDelta.prime), 0, Inf)
 
       for(p in 1:2){
           muMuDelta[p] ~ dnorm(etaMuMuDelta[p], 1/thetaMuMuDelta[p]^2)

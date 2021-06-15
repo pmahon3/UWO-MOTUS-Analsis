@@ -38,18 +38,25 @@ constants = list(
   thetaMuMuDelta = c(1,1),
   thetaMuDelta = c(1,1),
 
-  sSigmaDelta = 1.0,
-  dfSigmaDelta = 5.0,
+  sSigmaDelta = c(1.0, 1.0, 1.0),
+  dfSigmaDelta = c(5.0, 5.0, 5.0), 
   xiDelta = c(0.25, 0.25),
   
   etaMuDelta.prime = 0.25,
   thetaMuDelta.prime = 2,
-  sigmaDelta.prime = 0.25,
 
+  sSigmaDelta.prime = 1,
+  dfSigmaDelta.prime = 5,
+  
   etaY = c(-80,-50,-80),
   sigmaEtaY = c(15,20,15),
+  
   sSigmaMuY = c(1,1,1),
   dfSigmaMuY = c(5,5,5),
+
+  sSigmaSdY = c(1,1,1),
+  dfSigmaSdY = c(5,5,5),
+
   sSigmaY = c(1.0,1.0,1.0),
   dfSigmaY = c(1.0,1.0,1.0)
 )
