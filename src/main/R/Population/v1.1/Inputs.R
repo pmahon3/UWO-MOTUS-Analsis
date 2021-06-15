@@ -31,16 +31,14 @@ constants = list(
   nDays = nDays,
   nObservations = nObservations,
 
-  window1 = c(5,7),
-  window2 = c(17,19),
-  
   etaMuMuDelta = c(6, 18),
   thetaMuMuDelta = c(1,1),
-  thetaMuDelta = c(1,1),
 
+  sSigmaMuDelta = c(1,1,1),
+  dfSigmaMuDelta = c(5,5,5)
+  
   sSigmaDelta = c(1.0, 1.0, 1.0),
   dfSigmaDelta = c(5.0, 5.0, 5.0), 
-  xiDelta = c(0.25, 0.25),
   
   etaMuDelta.prime = 0.25,
   thetaMuDelta.prime = 2,
@@ -48,8 +46,8 @@ constants = list(
   sSigmaDelta.prime = 1,
   dfSigmaDelta.prime = 5,
   
-  etaY = c(-80,-50,-80),
-  sigmaEtaY = c(15,20,15),
+  etaMuY = c(-80,-50,-80),
+  thetaMuMuY = c(15,20,15),
   
   sSigmaMuY = c(1,1,1),
   dfSigmaMuY = c(5,5,5),
@@ -57,6 +55,9 @@ constants = list(
   sSigmaSdY = c(1,1,1),
   dfSigmaSdY = c(5,5,5),
 
+  etaSdY = c(1,1,1),
+  thetaSdY = c(5,5,5),
+
   sSigmaY = c(1.0,1.0,1.0),
-  dfSigmaY = c(1.0,1.0,1.0)
+  dfSigmaY = c(5,5,5)
 )

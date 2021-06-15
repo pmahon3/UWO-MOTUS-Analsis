@@ -59,7 +59,7 @@ modelCode <- nimbleCode(
     # delta, muDelta, and muMuDelta priors
       for ( bird in 1:nBirds){
           for(p in 1:2){
-              muDelta[bird,p] ~ dnorm(muMuDelta[p], 1/thetaMuDelta[p]^2)
+              muDelta[bird,p] ~ dnorm(muMuDelta[p], 1/sigmaMuDelta[p]^2)
 
               for ( day in 1:nDays ){
                   delta[bird,day,p] ~ dnorm( muDelta[bird,p], 1/sigmaDelta[p]^2)
@@ -75,18 +75,19 @@ modelCode <- nimbleCode(
 
       for(p in 1:2){
           muMuDelta[p] ~ dnorm(etaMuMuDelta[p], 1/thetaMuMuDelta[p]^2)
+          sigmaMuDelta[p] ~ T(dt(0,sSigmaMuDelta[p], dfSigmaMuDelta[p]), 0, Inf)
           sigmaDelta[p] ~ T(dt(0,sSigmaDelta[p], dfSigmaDelta[p]), 0, Inf)
       }
 
       ## Signal strength
       for(p in 1:3){
           ## Mean model
-          muMuY[p] ~ dnorm(etaMuY[p], 1 / sigmaMuY[p]^2 )
+          muMuY[p] ~ dnorm(etaMuY[p], 1 / thetaMuMuY[p]^2 )
           sigmaMuY[p] ~ T(dt(0,sSigmaMuY[p], dfSigmaMuY[p]), 0, Inf)
           tauMuY[p] <- 1/sigmaMuY[p]^2
 
           ## SD model
-          muSdY[p] ~ dnorm(etaSdY[p], 1/ sigmaSdY[p]^2)
+          muSdY[p] ~ dnorm(etaSdY[p], 1/ thetaSdY[p]^2)
           sigmaSdY[p] ~ T(dt(0,sSigmaSdY[p], dfSigmaSdY[p]), 0, Inf)
           tauSdY[p] <- 1/sigmaSdY[p]^2
       }
