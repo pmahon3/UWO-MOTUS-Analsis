@@ -29,7 +29,7 @@ modelCode <- nimbleCode(
         for ( k in 1:nObservations){
           ## Identify period of day
           p[i,j,k] <- step( t[i,j,k] - delta[i,j,1] ) +
-              step( t[i,j,k] - delta[i,j,2] - delta.prime[i] * step(i - nDays)) +
+              step( t[i,j,k] - delta[i,j,2] - delta.prime[i] * step(j - nDays)) +
               1
             
           ## Model response
