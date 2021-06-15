@@ -71,7 +71,8 @@ dataSimulation <- function(x, CONSTANTS, TRUEPARAMS, saveDat){
     saveRDS(simulatedParams, file)
   }
   
-  DATA = list(y = y)
-  CONSTANTS = c(CONSTANTS, list(t = t))
-  return(list(data = DATA, constants = CONSTANTS))
+    DATA = list(y = y,
+                t = t)
+
+    return(DATA)
 }
