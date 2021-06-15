@@ -74,7 +74,7 @@ modelCode <- nimbleCode(
 
       for(p in 1:2){
           muMuDelta[p] ~ dnorm(etaMuMuDelta[p], 1/thetaMuMuDelta[p]^2)
-          sigmaDelta[p] <- T(dt(0,sSigmaDelta[p], dfSigmaDelta[p]), 0, Inf)
+          sigmaDelta[p] <- T(dt(0,sSigmaDelta, dfSigmaDelta), 0, Inf)
       }
 
       ## Signal strength
