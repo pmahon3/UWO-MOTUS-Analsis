@@ -2,7 +2,7 @@ library(nimble)
 
 nBirds = 25
 nDays = 15
-nObservations = 600
+nObservations = 60 #600
 
 trueParams = list(
     ## Basic paramters
@@ -27,37 +27,51 @@ trueParams = list(
 )
 
 constants = list(
+    ## Design parameters
   nBirds = nBirds,
   nDays = nDays,
   nObservations = nObservations,
 
+  ## Hyperparameters
+
+  ## 1) Changepoints
+  
+  ## Overall mean
   etaMuMuDelta = c(6, 18),
   thetaMuMuDelta = c(1,1),
 
+  ## Variation between birds
   sSigmaMuDelta = c(1,1,1),
-  dfSigmaMuDelta = c(5,5,5)
-  
+  dfSigmaMuDelta = c(5,5,5),
+
+  ## Variation within birds
   sSigmaDelta = c(1.0, 1.0, 1.0),
   dfSigmaDelta = c(5.0, 5.0, 5.0), 
-  
+
+  ## 2) Final day effect
+
+  ## Means
   etaMuDelta.prime = 0.25,
   thetaMuDelta.prime = 2,
 
+  ## Variation between birds
   sSigmaDelta.prime = 1,
   dfSigmaDelta.prime = 5,
-  
+
+  ## 3) Signal strength
+
+  ## Overall means by period
   etaMuY = c(-80,-50,-80),
   thetaMuMuY = c(15,20,15),
-  
-  sSigmaMuY = c(1,1,1),
+
+  ## Variation between birds
+  sSigmaMuY = c(.1,.1,.1),
   dfSigmaMuY = c(5,5,5),
 
-  sSigmaSdY = c(1,1,1),
+  ## Variation within birds
+  sSigmaSdY = c(.1,.1,.1),
   dfSigmaSdY = c(5,5,5),
 
   etaSdY = c(1,1,1),
-  thetaSdY = c(5,5,5),
-
-  sSigmaY = c(1.0,1.0,1.0),
-  dfSigmaY = c(5,5,5)
+  thetaSdY = c(5,5,5)
 )
