@@ -44,7 +44,7 @@ modelCode <- nimbleCode(
               for (day in 1:nDays){
                   muY[bird,day,p] ~ dnorm( muMuY[p], tauMuY[p] )
                   log(sigmaY[bird,day,p]) ~ dnorm(muSdY[p], tauSdY[p])
-                  tauY[bird, day, p] <- 1/sigmaY[bird, day, p]
+                  tauY[bird, day, p] <- 1/sigmaY[bird, day, p]^2
               }
           }
       }
