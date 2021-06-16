@@ -4,10 +4,11 @@ library(tibble)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(patchwork)
 
 ## MCMC parameters
 thin <- 10
-niter <- 20000
+niter <- 1000 #20000
 
 ## Load inputs (true parameters and constants)
 source("Inputs.R")
