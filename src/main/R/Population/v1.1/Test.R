@@ -1,13 +1,9 @@
 ## Load packages
-# library(foreach) 
-#library(doParallel)
 library(nimble)
 library(tibble)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-#library(HDInterval)
-# library(extraDistr)
 
 ## MCMC parameters
 thin <- 10
