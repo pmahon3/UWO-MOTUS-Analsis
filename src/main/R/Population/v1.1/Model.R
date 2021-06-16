@@ -43,7 +43,7 @@ modelCode <- nimbleCode(
           for (bird in 1:nBirds){
               for (day in 1:nDays){
                   muY[bird,day,p] ~ dnorm( muMuY[p], tauMuY[p] )
-                  log(sigmaY[bird,day,p]) ~ dnorm(muSdY[p], tauSdY[p])
+                  log(sigmaY[bird,day,p]) ~ dnorm(muSigmaY[p], tauSigmaY[p])
                   tauY[bird, day, p] <- 1/sigmaY[bird, day, p]^2
               }
           }
@@ -87,9 +87,9 @@ modelCode <- nimbleCode(
           tauMuY[p] <- 1/sigmaMuY[p]^2
 
           ## SD model
-          muSdY[p] ~ dnorm(etaSdY[p], 1/ thetaSdY[p]^2)
-          sigmaSdY[p] ~ T(dt(0,sSigmaSdY[p], dfSigmaSdY[p]), 0, Inf)
-          tauSdY[p] <- 1/sigmaSdY[p]^2
+          muSigmaY[p] ~ dnorm(etaSigmaY[p], 1/ thetaSigmaY[p]^2)
+          sigmaSigmaY[p] ~ T(dt(0,sSigmaSigmaY[p], dfSigmaSigmaY[p]), 0, Inf)
+          tauSigmaY[p] <- 1/sigmaSigmaY[p]^2
       }
   }
 )

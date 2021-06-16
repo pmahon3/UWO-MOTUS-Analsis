@@ -12,9 +12,9 @@ trueParams = list(
 
   ## Signal Strength
   muMuY = c(-80,-50, -80), # Mean of means by period
-  sdMuY = c(5,10,5),       # Variation of means by period
-  muSdY = c(log(5),log(10),log(5)),       # Mean of log-variation by period
-  sdSdY = c(.1,.2,.1),        # Variation of log-variation by period
+  sigmaMuY = c(5,10,5),       # Variation of means by period
+  muSigmaY = c(log(5),log(10),log(5)),       # Mean of log-variation by period
+  sigmaSigmaY = c(.1,.2,.1),        # Variation of log-variation by period
 
   ## Changepoints
   muMuDelta = c(6,18), # Overall means
@@ -69,9 +69,9 @@ constants = list(
   dfSigmaMuY = c(5,5,5),
 
   ## Variation within birds
-  sSigmaSdY = c(.1,.1,.1),
-  dfSigmaSdY = c(5,5,5),
+  sSigmaSigmaY = c(.1,.1,.1),
+  dfSigmaSigmaY = c(5,5,5),
 
-  etaSdY = c(1,1,1),
-  thetaSdY = c(5,5,5)
+  etaSigmaY = c(1,1,1),
+  thetaSigmaY = c(5,5,5)
 )

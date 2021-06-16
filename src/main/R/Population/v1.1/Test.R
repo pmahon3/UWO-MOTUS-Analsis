@@ -59,8 +59,8 @@ configured$addMonitors(c("muDelta.prime",
                          "muMuY",
                          "sigmaMuY",
                          "muY",
-                         "muSdY",
-                         "sigmaSdY",
+                         "muSigmaY",
+                         "sigmaSigmaY",
                          "sigmaY"))
 
 ## Build model
@@ -169,61 +169,61 @@ plot1 <- samplesdf %>%
     filter(Parameter == "sigmaMuY[1]") %>%
     ggplot(aes(x = Iteration, y = Value)) +
     geom_line() +
-    geom_hline(yintercept = trueParams$sdMuY[1], colour = "red", lty = 2)
+    geom_hline(yintercept = trueParams$sigmaMuY[1], colour = "red", lty = 2)
 
 plot2 <- samplesdf %>%
     filter(Parameter == "sigmaMuY[2]") %>%
     ggplot(aes(x = Iteration, y = Value)) +
     geom_line() +
-    geom_hline(yintercept = trueParams$sdMuY[2], colour = "red", lty = 2)
+    geom_hline(yintercept = trueParams$sigmaMuY[2], colour = "red", lty = 2)
 
 plot3 <- samplesdf %>%
     filter(Parameter == "sigmaMuY[3]") %>%
     ggplot(aes(x = Iteration, y = Value)) +
     geom_line() +
-    geom_hline(yintercept = trueParams$sdMuY[3], colour = "red", lty = 2)
+    geom_hline(yintercept = trueParams$sigmaMuY[3], colour = "red", lty = 2)
 
 plot1 / plot2 / plot3
 
 ## 6) muSdY
 plot1 <- samplesdf %>%
-    filter(Parameter == "muSdY[1]") %>%
+    filter(Parameter == "muSigmaY[1]") %>%
     ggplot(aes(x = Iteration, y = Value)) +
     geom_line() +
-    geom_hline(yintercept = trueParams$muSdY[1], colour = "red", lty = 2)
+    geom_hline(yintercept = trueParams$muSigmaY[1], colour = "red", lty = 2)
 
 plot2 <- samplesdf %>%
-    filter(Parameter == "muSdY[2]") %>%
+    filter(Parameter == "muSigmaY[2]") %>%
     ggplot(aes(x = Iteration, y = Value)) +
     geom_line() +
-    geom_hline(yintercept = trueParams$muSdY[2], colour = "red", lty = 2)
+    geom_hline(yintercept = trueParams$muSigmaY[2], colour = "red", lty = 2)
 
 plot3 <- samplesdf %>%
-    filter(Parameter == "muSdY[3]") %>%
+    filter(Parameter == "muSigmaY[3]") %>%
     ggplot(aes(x = Iteration, y = Value)) +
     geom_line() +
-    geom_hline(yintercept = trueParams$muSdY[3], colour = "red", lty = 2)
+    geom_hline(yintercept = trueParams$muSigmaY[3], colour = "red", lty = 2)
 
 plot1 / plot2 / plot3
 
-## 6) sdSdY
+## 6) sdSigmaY
 plot1 <- samplesdf %>%
-    filter(Parameter == "sigmaSdY[1]") %>%
+    filter(Parameter == "sigmaSigmaY[1]") %>%
     ggplot(aes(x = Iteration, y = Value)) +
     geom_line() +
-    geom_hline(yintercept = trueParams$sdSdY[1], colour = "red", lty = 2)
+    geom_hline(yintercept = trueParams$sigmaSigmaY[1], colour = "red", lty = 2)
 
 plot2 <- samplesdf %>%
-    filter(Parameter == "sigmaSdY[2]") %>%
+    filter(Parameter == "sigmaSigmaY[2]") %>%
     ggplot(aes(x = Iteration, y = Value)) +
     geom_line() +
-    geom_hline(yintercept = trueParams$sdSdY[2], colour = "red", lty = 2)
+    geom_hline(yintercept = trueParams$sigmaSigmaY[2], colour = "red", lty = 2)
 
 plot3 <- samplesdf %>%
-    filter(Parameter == "sigmaSdY[3]") %>%
+    filter(Parameter == "sigmaSigmaY[3]") %>%
     ggplot(aes(x = Iteration, y = Value)) +
     geom_line() +
-    geom_hline(yintercept = trueParams$sdSdY[3], colour = "red", lty = 2)
+    geom_hline(yintercept = trueParams$sigmaSigmaY[3], colour = "red", lty = 2)
 
 plot1 / plot2 / plot3
 
