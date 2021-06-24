@@ -3,9 +3,14 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(patchwork)
+library(HDInterval)
 source("Inputs.R")
 ## Analyze coverage
-NPOPS=1
+NPOPS=67
+
+## init coverage results
+muDelta.primeCoverage = 0
+muMuDeltaCoverage = c(0,0)
 
 for (i in 1:NPOPS){
   
@@ -18,10 +23,9 @@ for (i in 1:NPOPS){
   # Coverage
   
   simulatedParams = readRDS(paste("./results/data/simulatedParams", toString(i), ".rds", sep = ""))
-  
+
   # init coverage results
-  muDelta.primeCoverage = 0
-  muMuDeltaCoverage = c(0,0)
+
   delta.primeCoverage = 0
   muDeltaCoverage = c(0,0)
   deltaCoverage = c(0,0)
@@ -74,12 +78,12 @@ for (i in 1:NPOPS){
   print("muMuDelta:")
   print(tmp)
 
+  print(muDelta.primeHdi)
   
   # results output
   delta.primeCoverage = delta.primeCoverage/nBirds
   deltaCoverage = deltaCoverage/(nBirds*nDays)
   muDeltaCoverage = muDeltaCoverage/nBirds
-  
   
   print("delta.prime:")
   print(delta.primeCoverage)
