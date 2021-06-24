@@ -5,7 +5,7 @@ library(HDInterval)
 library(extraDistr)
 
 NCORES = 6
-NPOPS = 30
+NPOPS = 6
 
 ## Parallel function definition
 runMCMC <- function(x) {
@@ -18,17 +18,32 @@ runMCMC <- function(x) {
   # Simulation
   print(paste("Simulation", toString(x), sep = " "))
   print("------------------------------------------")
-  dataAndConstants <- dataSimulation(x, constants, trueParams, TRUE)
-  saveRDS(dataAndConstants[["constants"]], paste("./results/data/populationInputs", toString(x), ".rds", sep = ""))
-  model <- nimbleModel( code = modelCode, name = "model", constants = dataAndConstants[["constants"]], data = dataAndConstants[["data"]], calculate = FALSE)
+  data <- dataSimulation(x, constants, trueParams, TRUE)
+  saveRDS(constants, paste("./results/data/populationInputs", toString(x), ".rds", sep = ""))
+  model <- nimbleModel(code = modelCode,
+                       name = "model",
+                       constants = constants,
+                       data = data,
+                       calculate = FALSE)
   configured <- configureMCMC(model)
   configured$resetMonitors()
   configured$setThin(10)  
-  configured$setSamplers(c("muDelta.prime", "delta.prime", "muMuDelta", "muDelta", "delta", "tauDelta", "muMuMuY", "muMuY", "muY", "sigmaMuMuY", "sigmaMuY", "sigmaY"))
-  configured$addMonitors(c("muDelta.prime", "delta.prime", "muMuDelta", "muDelta", "delta", "tauDelta", "muMuMuY", "muMuY", "muY", "sigmaMuMuY", "sigmaMuY", "sigmaY"))
+  configured$addMonitors(c("muDelta.prime",
+                           "sigmaDelta.prime",
+                           "delta.prime",
+                           "muMuDelta",
+                           "muDelta",
+                           "delta",
+                           "sigmaDelta",
+                           "muMuY",
+                           "sigmaMuY",
+                           "muY",
+                           "muSigmaY",
+                           "sigmaSigmaY",
+                           "sigmaY"))
   built <- buildMCMC(configured)
   compiled <- compileNimble( model, built, showCompilerOutput = TRUE )
-  compiled$built$run(niter = 5000)
+  compiled$built$run(niter = 1000)
   
   # Save results
   samples <- as.matrix(compiled$built$mvSamples)
@@ -45,6 +60,6 @@ source("Model.R")
 registerDoParallel(NCORES)
 
 ## Run in parallel
-foreach ( i=1:NPOPS ) %dopar% {
+foreach ( i in 1:NPOPS ) %dopar% {
   runMCMC(i)
 }

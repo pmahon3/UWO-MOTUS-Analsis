@@ -1,13 +1,13 @@
 [1] "Simulation 6"
 [1] "------------------------------------------"
 [1] "Saving simulated parameters to  ./results/data/simulatedParams6.rds"
-thin = 10: muDelta.prime, delta.prime, muMuDelta, muDelta, delta, tauDelta, muMuMuY, muMuY, muY, sigmaMuMuY, sigmaMuY, sigmaY
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_1_model.cpp -o P_1_model.o
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_1_model_nfCode.cpp -o P_1_model_nfCode.o
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o P_1_model_06_05_10_44_38.so P_1_model.o P_1_model_nfCode.o -L/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/CppCode -lnimble -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_1_MCMC.cpp -o P_1_MCMC.o
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o P_1_MCMC_06_05_11_00_37.so P_1_MCMC.o P_1_model.o -L/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/CppCode -lnimble -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-In file included from P_1_MCMC.cpp:6:
+thin = 10: muDelta.prime, sigmaDelta.prime, delta.prime, muMuDelta, muDelta, delta, sigmaDelta, muMuY, sigmaMuY, muY, muSigmaY, sigmaSigmaY, sigmaY
+clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_10_model.cpp -o P_10_model.o
+clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_10_model_nfCode.cpp -o P_10_model_nfCode.o
+clang++ -mmacosx-version-min=10.13 -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o P_10_model_06_24_09_54_57.so P_10_model.o P_10_model_nfCode.o -L/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/CppCode -lnimble -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_10_MCMC.cpp -o P_10_MCMC.o
+clang++ -mmacosx-version-min=10.13 -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o P_10_MCMC_06_24_09_59_59.so P_10_MCMC.o P_10_model.o -L/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/CppCode -lnimble -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
+In file included from P_10_MCMC.cpp:6:
 In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/nimble/EigenTypedefs.h:24:
 In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Dense:1:
 In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Core:420:
@@ -44,10 +44,10 @@ In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/lib
 /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:823:108: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR'
     EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE Derived& operator=(const DenseBase<OtherDerived>& other) { Base::operator=(other.derived()); return *this; }
                                                                                                            ^
-P_1_MCMC.cpp:470:19: note: in instantiation of function template specialization 'Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0, Eigen::Stride<0, 0>>::operator=<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>' requested here
- Eig_scaleHistory = nimCd((ConcatenateInterm_2));
+P_10_MCMC.cpp:510:19: note: in instantiation of function template specialization 'Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0, Eigen::Stride<0, 0>>::operator=<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>' requested here
+ Eig_scaleHistory = nimCd((ConcatenateInterm_22));
                   ^
-In file included from P_1_MCMC.cpp:6:
+In file included from P_10_MCMC.cpp:6:
 In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/nimble/EigenTypedefs.h:24:
 In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Dense:1:
 In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Core:420:
@@ -84,10 +84,30 @@ In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/lib
 /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:823:108: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR'
     EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE Derived& operator=(const DenseBase<OtherDerived>& other) { Base::operator=(other.derived()); return *this; }
                                                                                                            ^
-P_1_MCMC.cpp:941:33: note: in instantiation of function template specialization 'Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0, Eigen::Stride<0, 0>>::operator=<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>' requested here
+P_10_MCMC.cpp:984:33: note: in instantiation of function template specialization 'Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0, Eigen::Stride<0, 0>>::operator=<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>' requested here
  Eig_samplerExecutionOrderToUse = (eigenBlock_oPsamplerExecutionOrderFromConfPlusTwoZeros_comma_1tolengthSamplerExecutionOrderFromConf_cP).block(0, 0, (lengthSamplerExecutionOrderFromConf - 1) + 1, 1);
                                 ^
 2 warnings generated.
+warning: logProb of data node y[13, 9, 41]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 42]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 43]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 44]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 45]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 46]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 47]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 48]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 49]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 50]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 51]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 52]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 53]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 54]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 55]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 56]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 57]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 58]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 59]: logProb less than -1e12.
+warning: logProb of data node y[13, 9, 60]: logProb less than -1e12.
 |-------------|-------------|-------------|-------------|
 |-------------------------------------------------------|
 [1] "Simulation 6 complete."
