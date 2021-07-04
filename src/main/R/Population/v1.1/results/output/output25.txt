@@ -1,93 +1,859 @@
 [1] "Simulation 25"
 [1] "------------------------------------------"
 [1] "Saving simulated parameters to  ./results/data/simulatedParams25.rds"
-thin = 10: muDelta.prime, delta.prime, muMuDelta, muDelta, delta, tauDelta, muMuMuY, muMuY, muY, sigmaMuMuY, sigmaMuY, sigmaY
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_5_model.cpp -o P_5_model.o
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_5_model_nfCode.cpp -o P_5_model_nfCode.o
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o P_5_model_06_05_20_19_53.so P_5_model.o P_5_model_nfCode.o -L/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/CppCode -lnimble -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_5_MCMC.cpp -o P_5_MCMC.o
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o P_5_MCMC_06_05_20_55_14.so P_5_MCMC.o P_5_model.o -L/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/CppCode -lnimble -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-In file included from P_5_MCMC.cpp:6:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/nimble/EigenTypedefs.h:24:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Dense:1:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Core:420:
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:86:63: warning: converting the enum constant to a boolean [-Wint-in-bool-context]
-    MayLinearVectorize = bool(MightVectorize) && MayLinearize && DstHasDirectAccess
-                                                              ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:607:20: note: in instantiation of template class 'Eigen::internal::copy_using_evaluator_traits<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>, Eigen::internal::assign_op<double, double>>' requested here
-  typedef typename AssignmentTraits::PacketType PacketType;
-                   ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:739:10: note: in instantiation of template class 'Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>, Eigen::internal::assign_op<double, double>, 0>' requested here
-  Kernel kernel(dstEvaluator, srcEvaluator, func, dst.const_cast_derived());
-         ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:879:5: note: in instantiation of function template specialization 'Eigen::internal::call_dense_assignment_loop<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>>' requested here
-    call_dense_assignment_loop(dst, src, func);
-    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:836:46: note: in instantiation of member function 'Eigen::internal::Assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>, Eigen::internal::Dense2Dense, void>::run' requested here
-  Assignment<ActualDstTypeCleaned,Src,Func>::run(actualDst, src, func);
-                                             ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:804:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment_no_alias<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>>' requested here
-  call_assignment_no_alias(dst, src, func);
-  ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:782:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>>' requested here
-  call_assignment(dst, src, internal::assign_op<typename Dst::Scalar,typename Src::Scalar>());
-  ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Assign.h:66:13: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>' requested here
-  internal::call_assignment(derived(), other.derived());
-            ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Map.h:155:5: note: in instantiation of function template specialization 'Eigen::MatrixBase<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>::operator=<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>' requested here
-    EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Map)
-    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:839:53: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_OPERATORS'
-#define EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Derived) EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR(Derived)
-                                                    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:823:108: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR'
-    EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE Derived& operator=(const DenseBase<OtherDerived>& other) { Base::operator=(other.derived()); return *this; }
-                                                                                                           ^
-P_5_MCMC.cpp:470:19: note: in instantiation of function template specialization 'Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0, Eigen::Stride<0, 0>>::operator=<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>' requested here
- Eig_scaleHistory = nimCd((ConcatenateInterm_14));
-                  ^
-In file included from P_5_MCMC.cpp:6:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/nimble/EigenTypedefs.h:24:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Dense:1:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Core:420:
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:86:63: warning: converting the enum constant to a boolean [-Wint-in-bool-context]
-    MayLinearVectorize = bool(MightVectorize) && MayLinearize && DstHasDirectAccess
-                                                              ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:607:20: note: in instantiation of template class 'Eigen::internal::copy_using_evaluator_traits<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>, Eigen::internal::assign_op<double, double>>' requested here
-  typedef typename AssignmentTraits::PacketType PacketType;
-                   ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:739:10: note: in instantiation of template class 'Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>, Eigen::internal::assign_op<double, double>, 0>' requested here
-  Kernel kernel(dstEvaluator, srcEvaluator, func, dst.const_cast_derived());
-         ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:879:5: note: in instantiation of function template specialization 'Eigen::internal::call_dense_assignment_loop<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>>' requested here
-    call_dense_assignment_loop(dst, src, func);
-    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:836:46: note: in instantiation of member function 'Eigen::internal::Assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>, Eigen::internal::Dense2Dense, void>::run' requested here
-  Assignment<ActualDstTypeCleaned,Src,Func>::run(actualDst, src, func);
-                                             ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:804:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment_no_alias<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>>' requested here
-  call_assignment_no_alias(dst, src, func);
-  ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:782:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>>' requested here
-  call_assignment(dst, src, internal::assign_op<typename Dst::Scalar,typename Src::Scalar>());
-  ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Assign.h:66:13: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>' requested here
-  internal::call_assignment(derived(), other.derived());
-            ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Map.h:155:5: note: in instantiation of function template specialization 'Eigen::MatrixBase<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>::operator=<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>' requested here
-    EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Map)
-    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:839:53: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_OPERATORS'
-#define EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Derived) EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR(Derived)
-                                                    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:823:108: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR'
-    EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE Derived& operator=(const DenseBase<OtherDerived>& other) { Base::operator=(other.derived()); return *this; }
-                                                                                                           ^
-P_5_MCMC.cpp:941:33: note: in instantiation of function template specialization 'Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0, Eigen::Stride<0, 0>>::operator=<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>' requested here
- Eig_samplerExecutionOrderToUse = (eigenBlock_oPsamplerExecutionOrderFromConfPlusTwoZeros_comma_1tolengthSamplerExecutionOrderFromConf_cP).block(0, 0, (lengthSamplerExecutionOrderFromConf - 1) + 1, 1);
-                                ^
-2 warnings generated.
+===== Monitors =====
+thin = 1: muDelta.prime, sigmaDelta.prime, muMuDelta, sigmaMuDelta, sigmaDelta, muMuY, sigmaMuY, muSigmaY, sigmaSigmaY
+===== Samplers =====
+RW sampler (1911)
+  - sigmaDelta.prime
+  - sigmaMuDelta[]  (2 elements)
+  - sigmaDelta[]  (2 elements)
+  - sigmaMuY[]  (3 elements)
+  - sigmaSigmaY[]  (3 elements)
+  - delta.prime[]  (25 elements)
+  - delta[]  (750 elements)
+  - log_sigmaY[]  (1125 elements)
+conjugate sampler (1184)
+  - muDelta.prime
+  - muMuDelta[]  (2 elements)
+  - muMuY[]  (3 elements)
+  - muSigmaY[]  (3 elements)
+  - muDelta[]  (50 elements)
+  - muY[]  (1125 elements)
+thin = 10: muDelta.prime, sigmaDelta.prime, delta.prime, muMuDelta, muDelta, delta, sigmaDelta, muMuY, sigmaMuY, muY, muSigmaY, sigmaSigmaY, sigmaY
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_5_model.cpp -o P_5_model.o
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_5_model_nfCode.cpp -o P_5_model_nfCode.o
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_5_model_07_02_18_17_27.so P_5_model.o P_5_model_nfCode.o -L/usr/lib/R/site-library/nimble/CppCode -lnimble -Wl,-rpath /usr/lib/R/site-library/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_5_MCMC.cpp -o P_5_MCMC.o
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_5_MCMC_07_02_18_18_53.so P_5_MCMC.o P_5_model.o -L/usr/lib/R/site-library/nimble/CppCode -lnimble -Wl,-rpath /usr/lib/R/site-library/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+warning: logProb of data node y[2, 2, 155]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 156]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 157]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 158]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 159]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 160]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 161]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 162]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 163]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 164]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 165]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 166]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 167]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 168]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 169]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 170]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 171]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 172]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 173]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 174]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 175]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 176]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 177]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 178]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 183]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 185]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 197]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 203]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 210]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 231]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 236]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 246]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 267]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 289]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 290]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 295]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 297]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 321]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 323]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 326]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 334]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 355]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 363]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 370]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 379]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 387]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 391]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 408]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 411]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 412]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 426]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 432]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 435]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 437]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 438]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 439]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 440]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 441]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 442]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 444]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 445]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 446]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 447]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 448]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 450]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 451]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 452]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 453]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 454]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 455]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 456]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 457]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 458]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 459]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 460]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 461]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 463]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 464]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 465]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 466]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 468]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 469]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 470]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 471]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 472]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 474]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 475]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 476]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 477]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 480]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 481]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 482]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 483]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 484]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 485]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 486]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 490]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 492]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 494]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 495]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 496]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 497]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 498]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 500]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 501]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 502]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 503]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 505]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 506]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 507]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 508]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 510]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 511]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 513]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 514]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 515]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 516]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 518]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 519]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 520]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 521]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 522]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 523]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 524]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 525]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 526]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 527]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 528]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 531]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 532]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 533]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 534]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 535]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 536]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 537]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 538]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 539]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 540]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 541]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 542]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 543]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 546]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 547]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 548]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 550]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 551]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 552]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 553]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 554]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 555]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 556]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 558]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 559]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 560]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 561]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 562]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 563]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 564]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 565]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 569]: logProb less than -1e12.
+warning: logProb of data node y[2, 2, 570]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 1]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 2]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 3]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 4]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 5]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 6]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 7]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 8]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 9]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 10]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 11]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 12]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 13]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 14]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 15]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 16]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 17]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 18]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 19]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 20]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 21]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 22]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 23]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 24]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 25]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 26]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 27]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 28]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 29]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 30]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 31]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 32]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 33]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 34]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 35]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 36]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 37]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 38]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 39]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 40]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 41]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 42]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 43]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 44]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 45]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 46]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 47]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 48]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 49]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 50]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 51]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 52]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 53]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 54]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 55]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 56]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 57]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 58]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 59]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 60]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 61]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 62]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 63]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 64]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 65]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 66]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 67]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 68]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 69]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 70]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 71]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 72]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 73]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 74]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 75]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 76]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 77]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 78]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 79]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 80]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 81]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 82]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 83]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 84]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 85]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 86]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 87]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 88]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 89]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 90]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 91]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 92]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 93]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 94]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 95]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 96]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 97]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 98]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 99]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 100]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 101]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 102]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 103]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 104]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 105]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 106]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 107]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 108]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 109]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 110]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 111]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 112]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 113]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 114]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 115]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 116]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 117]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 118]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 119]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 120]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 121]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 122]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 123]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 124]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 125]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 126]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 127]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 128]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 129]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 130]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 131]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 132]: logProb less than -1e12.
+warning: logProb of data node y[8, 11, 133]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 1]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 2]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 3]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 4]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 5]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 6]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 7]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 8]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 9]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 10]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 11]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 12]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 13]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 14]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 15]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 16]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 17]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 18]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 19]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 20]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 21]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 22]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 23]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 24]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 25]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 26]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 27]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 28]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 29]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 30]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 31]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 32]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 33]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 34]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 35]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 36]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 37]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 38]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 39]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 40]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 41]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 42]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 43]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 44]: logProb less than -1e12.
+warning: logProb of data node y[14, 13, 45]: logProb less than -1e12.
+warning: logProb of data node y[15, 11, 151]: logProb less than -1e12.
+warning: logProb of data node y[15, 11, 152]: logProb less than -1e12.
+warning: logProb of data node y[15, 11, 444]: logProb less than -1e12.
+warning: logProb of data node y[15, 11, 449]: logProb less than -1e12.
+warning: logProb of data node y[15, 11, 495]: logProb less than -1e12.
+warning: logProb of data node y[15, 11, 497]: logProb less than -1e12.
+warning: logProb of data node y[15, 11, 544]: logProb less than -1e12.
+warning: logProb of data node y[15, 11, 600]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 190]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 192]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 193]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 198]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 204]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 205]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 206]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 208]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 211]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 217]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 218]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 221]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 222]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 223]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 224]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 232]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 233]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 235]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 238]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 239]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 240]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 241]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 242]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 244]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 246]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 251]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 254]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 260]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 262]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 264]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 270]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 271]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 277]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 280]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 287]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 289]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 290]: logProb less than -1e12.
+warning: logProb of data node y[17, 13, 294]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 126]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 127]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 128]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 129]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 130]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 131]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 133]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 134]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 135]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 136]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 137]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 138]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 139]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 140]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 142]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 143]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 144]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 145]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 146]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 147]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 148]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 149]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 150]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 151]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 152]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 153]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 154]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 155]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 156]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 157]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 158]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 159]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 160]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 161]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 163]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 164]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 165]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 166]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 167]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 168]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 169]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 170]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 171]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 172]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 173]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 174]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 176]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 177]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 178]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 179]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 180]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 181]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 182]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 183]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 184]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 185]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 186]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 187]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 188]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 190]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 191]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 192]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 193]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 194]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 195]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 196]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 197]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 199]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 201]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 202]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 203]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 204]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 205]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 206]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 207]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 208]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 209]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 210]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 212]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 213]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 214]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 215]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 216]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 217]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 218]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 219]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 220]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 221]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 222]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 224]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 226]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 227]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 228]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 229]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 230]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 231]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 232]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 233]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 234]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 235]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 236]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 237]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 238]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 239]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 240]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 241]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 243]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 244]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 245]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 247]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 248]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 250]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 251]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 252]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 253]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 254]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 255]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 256]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 257]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 258]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 259]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 260]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 261]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 262]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 263]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 264]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 265]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 266]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 267]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 269]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 271]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 272]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 273]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 274]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 277]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 278]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 279]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 280]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 281]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 282]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 283]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 284]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 285]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 286]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 287]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 288]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 289]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 290]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 291]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 292]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 293]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 294]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 295]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 296]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 297]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 298]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 299]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 300]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 301]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 302]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 303]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 304]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 306]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 307]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 308]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 309]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 310]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 312]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 314]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 315]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 316]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 317]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 319]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 320]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 321]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 322]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 323]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 324]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 325]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 326]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 327]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 328]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 329]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 330]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 331]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 332]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 333]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 334]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 335]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 336]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 337]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 338]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 339]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 340]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 341]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 342]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 343]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 344]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 345]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 346]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 347]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 348]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 349]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 350]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 351]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 352]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 353]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 354]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 355]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 356]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 357]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 358]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 359]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 360]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 361]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 362]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 363]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 364]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 365]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 366]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 367]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 368]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 369]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 370]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 371]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 373]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 374]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 375]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 376]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 377]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 378]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 380]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 381]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 382]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 383]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 384]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 385]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 386]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 387]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 388]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 389]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 390]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 391]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 392]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 393]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 394]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 395]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 396]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 397]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 398]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 399]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 400]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 401]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 403]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 404]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 405]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 406]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 408]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 409]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 410]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 411]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 412]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 413]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 415]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 416]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 417]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 418]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 419]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 420]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 421]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 422]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 423]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 424]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 425]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 426]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 427]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 428]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 429]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 430]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 431]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 432]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 433]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 434]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 435]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 436]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 437]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 438]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 439]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 440]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 441]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 442]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 443]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 444]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 445]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 446]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 447]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 448]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 449]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 450]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 451]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 452]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 453]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 454]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 456]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 457]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 458]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 459]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 460]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 461]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 462]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 463]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 464]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 465]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 466]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 467]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 468]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 469]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 470]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 471]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 472]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 473]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 474]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 475]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 476]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 477]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 478]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 479]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 480]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 481]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 482]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 483]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 484]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 485]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 486]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 487]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 488]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 489]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 490]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 491]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 492]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 493]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 494]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 496]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 497]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 498]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 499]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 500]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 501]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 503]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 504]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 506]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 507]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 509]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 510]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 512]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 513]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 514]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 515]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 516]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 517]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 518]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 519]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 520]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 521]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 522]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 523]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 524]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 525]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 526]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 527]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 528]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 529]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 530]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 531]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 532]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 533]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 534]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 535]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 536]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 537]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 538]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 539]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 540]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 541]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 542]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 543]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 544]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 545]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 546]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 547]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 548]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 549]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 550]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 551]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 552]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 553]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 554]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 555]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 556]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 557]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 558]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 559]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 560]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 561]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 562]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 563]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 564]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 565]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 566]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 567]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 568]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 569]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 570]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 571]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 572]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 573]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 574]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 575]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 576]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 577]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 578]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 579]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 580]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 581]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 582]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 583]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 584]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 585]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 586]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 587]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 588]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 589]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 590]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 591]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 592]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 593]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 594]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 595]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 596]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 597]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 598]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 599]: logProb less than -1e12.
+warning: logProb of data node y[23, 15, 600]: logProb less than -1e12.
 |-------------|-------------|-------------|-------------|
 |-------------------------------------------------------|
 [1] "Simulation 25 complete."

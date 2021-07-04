@@ -1,285 +1,33 @@
 [1] "Simulation 4"
 [1] "------------------------------------------"
 [1] "Saving simulated parameters to  ./results/data/simulatedParams4.rds"
+===== Monitors =====
+thin = 1: muDelta.prime, sigmaDelta.prime, muMuDelta, sigmaMuDelta, sigmaDelta, muMuY, sigmaMuY, muSigmaY, sigmaSigmaY
+===== Samplers =====
+RW sampler (1911)
+  - sigmaDelta.prime
+  - sigmaMuDelta[]  (2 elements)
+  - sigmaDelta[]  (2 elements)
+  - sigmaMuY[]  (3 elements)
+  - sigmaSigmaY[]  (3 elements)
+  - delta.prime[]  (25 elements)
+  - delta[]  (750 elements)
+  - log_sigmaY[]  (1125 elements)
+conjugate sampler (1184)
+  - muDelta.prime
+  - muMuDelta[]  (2 elements)
+  - muMuY[]  (3 elements)
+  - muSigmaY[]  (3 elements)
+  - muDelta[]  (50 elements)
+  - muY[]  (1125 elements)
 thin = 10: muDelta.prime, sigmaDelta.prime, delta.prime, muMuDelta, muDelta, delta, sigmaDelta, muMuY, sigmaMuY, muY, muSigmaY, sigmaSigmaY, sigmaY
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_10_model.cpp -o P_10_model.o
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_10_model_nfCode.cpp -o P_10_model_nfCode.o
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o P_10_model_06_24_09_54_56.so P_10_model.o P_10_model_nfCode.o -L/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/CppCode -lnimble -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations  -I/usr/local/include   -fPIC  -Wall -g -O2  -c P_10_MCMC.cpp -o P_10_MCMC.o
-clang++ -mmacosx-version-min=10.13 -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o P_10_MCMC_06_24_10_00_05.so P_10_MCMC.o P_10_model.o -L/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/CppCode -lnimble -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-In file included from P_10_MCMC.cpp:6:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/nimble/EigenTypedefs.h:24:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Dense:1:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Core:420:
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:86:63: warning: converting the enum constant to a boolean [-Wint-in-bool-context]
-    MayLinearVectorize = bool(MightVectorize) && MayLinearize && DstHasDirectAccess
-                                                              ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:607:20: note: in instantiation of template class 'Eigen::internal::copy_using_evaluator_traits<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>, Eigen::internal::assign_op<double, double>>' requested here
-  typedef typename AssignmentTraits::PacketType PacketType;
-                   ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:739:10: note: in instantiation of template class 'Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>, Eigen::internal::assign_op<double, double>, 0>' requested here
-  Kernel kernel(dstEvaluator, srcEvaluator, func, dst.const_cast_derived());
-         ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:879:5: note: in instantiation of function template specialization 'Eigen::internal::call_dense_assignment_loop<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>>' requested here
-    call_dense_assignment_loop(dst, src, func);
-    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:836:46: note: in instantiation of member function 'Eigen::internal::Assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>, Eigen::internal::Dense2Dense, void>::run' requested here
-  Assignment<ActualDstTypeCleaned,Src,Func>::run(actualDst, src, func);
-                                             ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:804:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment_no_alias<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>>' requested here
-  call_assignment_no_alias(dst, src, func);
-  ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:782:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>, Eigen::internal::assign_op<double, double>>' requested here
-  call_assignment(dst, src, internal::assign_op<typename Dst::Scalar,typename Src::Scalar>());
-  ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Assign.h:66:13: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>' requested here
-  internal::call_assignment(derived(), other.derived());
-            ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Map.h:155:5: note: in instantiation of function template specialization 'Eigen::MatrixBase<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>::operator=<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>' requested here
-    EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Map)
-    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:839:53: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_OPERATORS'
-#define EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Derived) EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR(Derived)
-                                                    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:823:108: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR'
-    EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE Derived& operator=(const DenseBase<OtherDerived>& other) { Base::operator=(other.derived()); return *this; }
-                                                                                                           ^
-P_10_MCMC.cpp:510:19: note: in instantiation of function template specialization 'Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0, Eigen::Stride<0, 0>>::operator=<Eigen::CwiseNullaryOp<concatenate1Class<long, std::__1::vector<double>>, Eigen::Matrix<double, -1, -1, 0>>>' requested here
- Eig_scaleHistory = nimCd((ConcatenateInterm_22));
-                  ^
-In file included from P_10_MCMC.cpp:6:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/nimble/EigenTypedefs.h:24:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Dense:1:
-In file included from /Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/Core:420:
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:86:63: warning: converting the enum constant to a boolean [-Wint-in-bool-context]
-    MayLinearVectorize = bool(MightVectorize) && MayLinearize && DstHasDirectAccess
-                                                              ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:607:20: note: in instantiation of template class 'Eigen::internal::copy_using_evaluator_traits<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>, Eigen::internal::assign_op<double, double>>' requested here
-  typedef typename AssignmentTraits::PacketType PacketType;
-                   ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:739:10: note: in instantiation of template class 'Eigen::internal::generic_dense_assignment_kernel<Eigen::internal::evaluator<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>, Eigen::internal::evaluator<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>, Eigen::internal::assign_op<double, double>, 0>' requested here
-  Kernel kernel(dstEvaluator, srcEvaluator, func, dst.const_cast_derived());
-         ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:879:5: note: in instantiation of function template specialization 'Eigen::internal::call_dense_assignment_loop<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>>' requested here
-    call_dense_assignment_loop(dst, src, func);
-    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:836:46: note: in instantiation of member function 'Eigen::internal::Assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>, Eigen::internal::Dense2Dense, void>::run' requested here
-  Assignment<ActualDstTypeCleaned,Src,Func>::run(actualDst, src, func);
-                                             ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:804:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment_no_alias<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>>' requested here
-  call_assignment_no_alias(dst, src, func);
-  ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/AssignEvaluator.h:782:3: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>, Eigen::internal::assign_op<double, double>>' requested here
-  call_assignment(dst, src, internal::assign_op<typename Dst::Scalar,typename Src::Scalar>());
-  ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Assign.h:66:13: note: in instantiation of function template specialization 'Eigen::internal::call_assignment<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>' requested here
-  internal::call_assignment(derived(), other.derived());
-            ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/Map.h:155:5: note: in instantiation of function template specialization 'Eigen::MatrixBase<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>>::operator=<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>' requested here
-    EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Map)
-    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:839:53: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_OPERATORS'
-#define EIGEN_INHERIT_ASSIGNMENT_OPERATORS(Derived) EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR(Derived)
-                                                    ^
-/Library/Frameworks/R.framework/Versions/4.0/Resources/library/nimble/include/Eigen/src/Core/util/Macros.h:823:108: note: expanded from macro 'EIGEN_INHERIT_ASSIGNMENT_EQUAL_OPERATOR'
-    EIGEN_DEVICE_FUNC EIGEN_STRONG_INLINE Derived& operator=(const DenseBase<OtherDerived>& other) { Base::operator=(other.derived()); return *this; }
-                                                                                                           ^
-P_10_MCMC.cpp:984:33: note: in instantiation of function template specialization 'Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0, Eigen::Stride<0, 0>>::operator=<Eigen::Block<Eigen::Map<Eigen::Matrix<double, -1, -1, 0>, 0>, -1, -1, false>>' requested here
- Eig_samplerExecutionOrderToUse = (eigenBlock_oPsamplerExecutionOrderFromConfPlusTwoZeros_comma_1tolengthSamplerExecutionOrderFromConf_cP).block(0, 0, (lengthSamplerExecutionOrderFromConf - 1) + 1, 1);
-                                ^
-2 warnings generated.
-warning: logProb of data node y[2, 5, 31]: logProb less than -1e12.
-warning: logProb of data node y[2, 5, 33]: logProb less than -1e12.
-warning: logProb of data node y[2, 5, 35]: logProb less than -1e12.
-warning: logProb of data node y[2, 9, 31]: logProb less than -1e12.
-warning: logProb of data node y[2, 9, 32]: logProb less than -1e12.
-warning: logProb of data node y[2, 9, 33]: logProb less than -1e12.
-warning: logProb of data node y[2, 9, 34]: logProb less than -1e12.
-warning: logProb of data node y[2, 9, 35]: logProb less than -1e12.
-warning: logProb of data node y[2, 9, 36]: logProb less than -1e12.
-warning: logProb of data node y[2, 9, 37]: logProb less than -1e12.
-warning: logProb of data node y[2, 9, 38]: logProb less than -1e12.
-warning: logProb of data node y[2, 9, 39]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 1]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 2]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 3]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 4]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 5]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 6]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 7]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 8]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 9]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 10]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 11]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 12]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 13]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 14]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 15]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 16]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 17]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 18]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 19]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 20]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 21]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 22]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 23]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 24]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 25]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 26]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 27]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 28]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 29]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 30]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 31]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 32]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 33]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 34]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 35]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 36]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 37]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 38]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 39]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 40]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 41]: logProb less than -1e12.
-warning: logProb of data node y[9, 1, 42]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 1]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 2]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 3]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 4]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 5]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 6]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 7]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 8]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 9]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 10]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 11]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 12]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 13]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 14]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 15]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 23]: logProb less than -1e12.
-warning: logProb of data node y[10, 4, 24]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 1]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 2]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 3]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 4]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 5]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 6]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 7]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 8]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 9]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 10]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 11]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 12]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 13]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 14]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 15]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 21]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 23]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 29]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 33]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 34]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 35]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 36]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 45]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 47]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 48]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 49]: logProb less than -1e12.
-warning: logProb of data node y[10, 12, 50]: logProb less than -1e12.
-warning: logProb of data node y[12, 9, 25]: logProb less than -1e12.
-warning: logProb of data node y[12, 9, 26]: logProb less than -1e12.
-warning: logProb of data node y[12, 9, 28]: logProb less than -1e12.
-warning: logProb of data node y[12, 9, 29]: logProb less than -1e12.
-warning: logProb of data node y[12, 9, 30]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 1]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 2]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 3]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 4]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 5]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 6]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 7]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 8]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 9]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 10]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 11]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 12]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 26]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 27]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 29]: logProb less than -1e12.
-warning: logProb of data node y[13, 5, 30]: logProb less than -1e12.
-warning: logProb of data node y[15, 14, 14]: logProb less than -1e12.
-warning: logProb of data node y[15, 14, 34]: logProb less than -1e12.
-warning: logProb of data node y[20, 4, 8]: logProb less than -1e12.
-warning: logProb of data node y[20, 4, 14]: logProb less than -1e12.
-warning: logProb of data node y[23, 9, 29]: logProb less than -1e12.
-warning: logProb of data node y[23, 9, 30]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 1]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 2]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 3]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 4]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 5]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 6]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 7]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 8]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 9]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 10]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 11]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 12]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 13]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 14]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 15]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 16]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 17]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 20]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 21]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 23]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 24]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 25]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 26]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 28]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 29]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 30]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 31]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 33]: logProb less than -1e12.
-warning: logProb of data node y[25, 1, 34]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 1]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 2]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 3]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 4]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 5]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 6]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 7]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 8]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 9]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 10]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 11]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 12]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 13]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 14]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 15]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 16]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 17]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 18]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 20]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 21]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 22]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 23]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 24]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 25]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 26]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 27]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 28]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 29]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 30]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 31]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 32]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 33]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 34]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 35]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 36]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 37]: logProb less than -1e12.
-warning: logProb of data node y[25, 2, 38]: logProb less than -1e12.
-|-------------|-------------|-------------|-------------|
-|-------------------------------------------------------|
-[1] "Simulation 4 complete."
-[1] "-------------------------------------------"
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c dynamicRegistrations_07_02_09_49_33.cpp -o dynamicRegistrations_07_02_09_49_33.o
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o dynamicRegistrations_07_02_09_49_33.so dynamicRegistrations_07_02_09_49_33.o -L/usr/lib/R/site-library/nimble/CppCode -lnimble -Wl,-rpath /usr/lib/R/site-library/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o dynamicRegistrations_07_02_09_49_33.so dynamicRegistrations_07_02_09_49_33.o -L/usr/lib/R/site-library/nimble/CppCode -lnimble -Wl,-rpath /usr/lib/R/site-library/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_1_model.cpp -o P_1_model.o
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_1_model_nfCode.cpp -o P_1_model_nfCode.o
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_1_model_nfCode.cpp -o P_1_model_nfCode.o
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_1_model_07_02_09_49_33.so P_1_model.o P_1_model_nfCode.o -L/usr/lib/R/site-library/nimble/CppCode -lnimble -Wl,-rpath /usr/lib/R/site-library/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_1_MCMC.cpp -o P_1_MCMC.o
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_1_model.cpp -o P_1_model.o
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_1_MCMC_07_02_09_51_22.so P_1_MCMC.o P_1_model.o -L/usr/lib/R/site-library/nimble/CppCode -lnimble -Wl,-rpath /usr/lib/R/site-library/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR

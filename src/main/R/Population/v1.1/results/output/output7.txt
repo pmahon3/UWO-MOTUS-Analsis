@@ -1,4 +1,32 @@
 [1] "Simulation 7"
 [1] "------------------------------------------"
 [1] "Saving simulated parameters to  ./results/data/simulatedParams7.rds"
-thin = 10: muDelta.prime, delta.prime, muMuDelta, muDelta, delta, tauDelta, muMuMuY, muMuY, muY, sigmaMuMuY, sigmaMuY, sigmaY
+===== Monitors =====
+thin = 1: muDelta.prime, sigmaDelta.prime, muMuDelta, sigmaMuDelta, sigmaDelta, muMuY, sigmaMuY, muSigmaY, sigmaSigmaY
+===== Samplers =====
+RW sampler (1911)
+  - sigmaDelta.prime
+  - sigmaMuDelta[]  (2 elements)
+  - sigmaDelta[]  (2 elements)
+  - sigmaMuY[]  (3 elements)
+  - sigmaSigmaY[]  (3 elements)
+  - delta.prime[]  (25 elements)
+  - delta[]  (750 elements)
+  - log_sigmaY[]  (1125 elements)
+conjugate sampler (1184)
+  - muDelta.prime
+  - muMuDelta[]  (2 elements)
+  - muMuY[]  (3 elements)
+  - muSigmaY[]  (3 elements)
+  - muDelta[]  (50 elements)
+  - muY[]  (1125 elements)
+thin = 10: muDelta.prime, sigmaDelta.prime, delta.prime, muMuDelta, muDelta, delta, sigmaDelta, muMuY, sigmaMuY, muY, muSigmaY, sigmaSigmaY, sigmaY
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_2_model.cpp -o P_2_model.o
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_2_model_nfCode.cpp -o P_2_model_nfCode.o
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_2_model_07_02_10_22_14.so P_2_model.o P_2_model_nfCode.o -L/usr/lib/R/site-library/nimble/CppCode -lnimble -Wl,-rpath /usr/lib/R/site-library/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+g++ -std=gnu++11 -I"/usr/share/R/include" -DNDEBUG -DR_NO_REMAP   -DEIGEN_MPL2_ONLY=1 -I"/usr/lib/R/site-library/nimble/include" -Wno-misleading-indentation -Wno-ignored-attributes -Wno-deprecated-declarations     -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-tbZjLv/r-base-4.1.0=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c P_2_MCMC.cpp -o P_2_MCMC.o
+g++ -std=gnu++11 -shared -L/usr/lib/R/lib -Wl,-Bsymbolic-functions -Wl,-z,relro -o P_2_MCMC_07_02_10_23_31.so P_2_MCMC.o P_2_model.o -L/usr/lib/R/site-library/nimble/CppCode -lnimble -Wl,-rpath /usr/lib/R/site-library/nimble/CppCode -llapack -lblas -L/usr/lib/R/lib -lR
+|-------------|-------------|-------------|-------------|
+|-------------------------------------------------------|
+[1] "Simulation 7 complete."
+[1] "-------------------------------------------"
