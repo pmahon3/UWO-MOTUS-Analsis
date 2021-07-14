@@ -1,58 +1,77 @@
 library(nimble)
 
-nBirds = 20
-nDays = 10
-nObservations = 600
+nBirds = 25
+nDays = 15
+nObservations = 60 #600
 
 trueParams = list(
+    ## Basic paramters
+  nBirds = nBirds,
   nDays = nDays,
   nObservations = nObservations,
-  muMuY = cbind(rnorm(nDays, -80, 5),
-               rnorm(nDays, -50, 5),
-               rnorm(nDays, -80, 5)),
-  sigmaMuY = c(5, 10, 5),
-  shapeSdY = c(1/2,1,1/2),
-  scaleSdY = c(1,2,1),
-  
-  muMuDelta1 = 6,
-  muMuDelta2 = 18,
-  sigmaMuDelta1 = .1,
-  sigmaMuDelta2 = .1,
-  shapeSigmaDelta = c(1/3,1/3),
-  scaleSigmaDelta = c(1,1), 
-  
-  muDelta.prime = .25,
-  sigmaDelta.prime = .05
+
+  ## Signal Strength
+  muMuY = c(-80,-50, -80), # Mean of means by period
+  sigmaMuY = c(5,10,5),       # Variation of means by period
+  muSigmaY = c(log(5),log(10),log(5)),       # Mean of log-variation by period
+  sigmaSigmaY = c(.1,.2,.1),        # Variation of log-variation by period
+
+  ## Changepoints
+  muMuDelta = c(6,18), # Overall means
+  sigmaMuDelta = c(.1,.1), # Individual variation
+  sigmaDelta = c(.2,.2),   # Daily variation 
+
+  ## Departure day effect
+  muDelta.prime = .25, # Mean
+  sigmaDelta.prime = .05 # Individual variation
 )
 
 constants = list(
+    ## Design parameters
   nBirds = nBirds,
   nDays = nDays,
-  nObservations = 600,
+  nObservations = nObservations,
 
-  window1 = c(5,7),
-  window2 = c(17,19),
+  ## Hyperparameters
 
-  muMuY = c(  one = -80, two = -50,  three = -80  ),
-  sigmaMuY = c(   one = 10,   two =  10,  three =  10  ),
+  ## 1) Changepoints
   
-  etaMuDelta = c(6, 18),
-  thetaMuDelta = c(.25, .25),
-  sigmaMuDelta = c(2,2),
+  ## Overall mean
+  etaMuMuDelta = c(6, 18),
+  thetaMuMuDelta = c(1,1),
 
-  sSigmaDelta = 1.0,
-  dfSigmaDelta = 5.0,
-  xiDelta = c(0.25, 0.25),
-  
+  ## Variation between birds
+  sSigmaMuDelta = c(1,1,1),
+  dfSigmaMuDelta = c(5,5,5),
+
+  ## Variation within birds
+  sSigmaDelta = c(1.0, 1.0, 1.0),
+  dfSigmaDelta = c(5.0, 5.0, 5.0), 
+
+  ## 2) Final day effect
+
+  ## Means
   etaMuDelta.prime = 0.25,
-  thetaMuDelta.prime = 0.5,
-  sigmaDelta.prime = 0.25,
+  thetaMuDelta.prime = 2,
 
-  etaY = c(-50,-80,-50),
-  sigmaEtaY = c(15,20,15),
-  sSigmaMuY = 1,
-  dfSigmaMuY = 5,
+  ## Variation between birds
+  sSigmaDelta.prime = 1,
+  dfSigmaDelta.prime = 5,
 
-  sSigmaY = 1.0,
-  dfSigmaY = 1.0
+  ## 3) Signal strength
+
+  ## Overall means by period
+  etaMuY = c(-80,-50,-80),
+  thetaMuMuY = c(15,20,15),
+
+  ## Variation between birds
+  sSigmaMuY = c(.1,.1,.1),
+  dfSigmaMuY = c(5,5,5),
+
+  ## Variation within birds
+  sSigmaSigmaY = c(.1,.1,.1),
+  dfSigmaSigmaY = c(5,5,5),
+
+  etaSigmaY = c(1,1,1),
+  thetaSigmaY = c(5,5,5)
 )

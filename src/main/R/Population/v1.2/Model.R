@@ -1,4 +1,3 @@
-library(nimble)
 ## Naming Conventions
 ##
 ## Indexing:
@@ -20,50 +19,79 @@ library(nimble)
 
 modelCode <- nimbleCode(
   {
+    ##### Likelihood #####
 
+      ## 1) Signal strength
+
+      ## Observed values
     for ( i in 1:nBirds ){
       for ( j in 1:nDays ){
-        for(p in 1:2){
-          delta[i,j,p] ~ dnorm( muDelta[i,p], tauDelta[i,p] )
-        }
-
         for ( k in 1:nObservations){
           ## Identify period of day
           p[i,j,k] <- step( t[i,j,k] - delta[i,j,1] ) +
-            step( t[i,j,k] - delta[i,j,2]) + 1
+              step( t[i,j,k] - delta[i,j,2]) + 1
           ## Model response
           y[i,j,k] ~ dnorm( muY[i,j,p[i,j,k]],tauY[i,j,p[i,j,k]])
         }
       }
-      
-      delta.prime[i] <- mean(delta[i,1:(nDays-1),2]) - delta[i,nDays,2]
+    }
+
+      ## Period effects
+      for(p in 1:3){
+          for (bird in 1:nBirds){
+              for (day in 1:nDays){
+                  muY[bird,day,p] ~ dnorm( muMuY[p], tauMuY[p] )
+                  log(sigmaY[bird,day,p]) ~ dnorm(muSigmaY[p], tauSigmaY[p])
+                  tauY[bird, day, p] <- 1/sigmaY[bird, day, p]^2
+              }
+          }
+      }
+
+ 
+    ## 2) Changepoints
+    # Final day effect
+    for ( bird in 1:nBirds){
+      delta.prime[bird] ~ dnorm( muDelta.prime, 1/sigmaDelta.prime^2 )
     }
     
+    # delta, muDelta, and muMuDelta priors
+      for ( bird in 1:nBirds){
+          for(p in 1:2){
+              muDelta[bird,p] ~ dnorm(muMuDelta[p], 1/sigmaMuDelta[p]^2)
+
+              for ( day in 1:(nDays-1) ){
+                  delta[bird,day,p] ~ dnorm( muDelta[bird,p], 1/sigmaDelta[p]^2)
+              }
+          }
+          delta[bird,nDays,1] ~ dnorm(muDelta[bird,1], 1/sigmaDelta[1]^2)
+          delta[bird,nDays,2] ~ dnorm(muDelta[bird,2] + delta.prime[bird], 1/sigmaDelta[2]^2)
+      }
     
+   ##### Priors #####
 
-    for(p in 1:2){
-      muMuDelta[p] ~ dnorm(etaMuDelta[p], 1/ thetaMuDelta[p]^2)
+      ## Changepoints
+      muDelta.prime ~ dnorm( etaMuDelta.prime, 1/thetaMuDelta.prime^2 )
+      sigmaDelta.prime ~ T(dt(0,sSigmaDelta.prime, dfSigmaDelta.prime), 0, Inf)
 
-      for ( i in 1:nBirds){
-        muDelta[i,p] ~ dnorm(muMuDelta[p], 1/ sigmaMuDelta[p]^2)
-        sigmaDelta[i,p] ~ T(dt(0, sSigmaDelta, dfSigmaDelta),0,Inf)
-        tauDelta[i,p] <- 1/xiDelta[p]^2
+      for(p in 1:2){
+          muMuDelta[p] ~ dnorm(etaMuMuDelta[p], 1/thetaMuMuDelta[p]^2)
+          sigmaMuDelta[p] ~ T(dt(0,sSigmaMuDelta[p], dfSigmaMuDelta[p]), 0, Inf)
+          sigmaDelta[p] ~ T(dt(0,sSigmaDelta[p], dfSigmaDelta[p]), 0, Inf)
       }
-    }
 
-    for(p in 1:3){
-      muMuY[p] ~ dnorm(etaY[p], 1 / sigmaEtaY[p]^2 )
-      sigmaMuY[p] ~ T(dt(0,sSigmaMuY, dfSigmaMuY), 0, Inf)
-      tauMuY[p] <- 1/sigmaMuY[p]^2
+      ## Signal strength
+      for(p in 1:3){
+          ## Mean model
+          muMuY[p] ~ dnorm(etaMuY[p], 1 / thetaMuMuY[p]^2 )
+          sigmaMuY[p] ~ T(dt(0,sSigmaMuY[p], dfSigmaMuY[p]), 0, Inf)
+          tauMuY[p] <- 1/sigmaMuY[p]^2
 
-      for ( i in 1:nBirds){
-        ## Bird to bird variability 
-        for(j in 1:nDays){
-          muY[i,j,p] ~ dnorm( muMuY[p], tauMuY[p] )
-          sigmaY[i,j,p] ~ T(dt(0, sSigmaY, dfSigmaY), 0, Inf)
-          tauY[i,j,p] <- 1/sigmaY[i,j,p]^2
-        }
+          ## SD model
+          muSigmaY[p] ~ dnorm(etaSigmaY[p], 1/ thetaSigmaY[p]^2)
+          sigmaSigmaY[p] ~ T(dt(0,sSigmaSigmaY[p], dfSigmaSigmaY[p]), 0, Inf)
+          tauSigmaY[p] <- 1/sigmaSigmaY[p]^2
       }
-    }
   }
 )
+
+
