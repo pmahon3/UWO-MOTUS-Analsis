@@ -129,6 +129,8 @@ for (pop in 1:NPOPS){
   
   delta_coverage[[pop]][[1]] = cbind(delta_coverage[[pop]][[1]], rowMeans(delta_coverage[[pop]][[1]]))
   delta_coverage[[pop]][[2]] = cbind(delta_coverage[[pop]][[2]], rowMeans(delta_coverage[[pop]][[2]]))
+  delta_coverage[[pop]][[1]] = rbind(delta_coverage[[pop]][[1]], colMeans(delta_coverage[[pop]][[1]]))
+  delta_coverage[[pop]][[2]] = rbind(delta_coverage[[pop]][[2]], colMeans(delta_coverage[[pop]][[2]]))
   muDeltaCoverage = muDeltaCoverage/nBirds
   
   if (save_coverage){
