@@ -6,38 +6,36 @@ library(patchwork)
 library(HDInterval)
 source("Inputs.R")
 
-prnt = TRUE
-plt = TRUE
-save_coverage = TRUE
-## Analyze coverage
+#### Simulation Parameters ####
+
 NPOPS=25
 burnin=100
 nsamples=300
 pop0 = 0
 
-## init coverage results
+#### Output Parameters #####
+prnt = FALSE
+plt = FALSE
+save_coverage = TRUE
+
+#### Coverage ####
+# containers #
 muDelta.primeCoverage = 0
 muMuDeltaCoverage = c(0,0)
-
-## low level coverage results
 delta_coverage = list()
 delta.prime_coverage = matrix(nrow=NPOPS,ncol=nBirds)
 
 for (pop in 1:NPOPS){
   
-  # read in data
+  # read data
   samples = data.frame(readRDS(paste("./results/samples/population", toString(pop + pop0), ".rds", sep = "")))
-  
-  # Coverage
-  
   simulatedParams = readRDS(paste("./results/data/simulatedParams", toString(pop + pop0), ".rds", sep = ""))
   
-  # init coverage results
+  # containers
   delta.primeCoverage = vector(mode="numeric",length=nBirds)
   muDeltaCoverage = c(0,0)
   delta_coverage[[pop]]= list(matrix(nrow=nBirds,ncol=nDays), matrix(nrow=nBirds,ncol=nDays))
   
-
   for (bird in 1:nBirds) {
     # delta.prime coverage
     delta.primeStr = paste("delta.prime.", toString(bird), ".", sep="")  
@@ -46,15 +44,15 @@ for (pop in 1:NPOPS){
     if (trueDelta.prime > delta.primeHdi[1] && trueDelta.prime < delta.primeHdi[2]){delta.prime_coverage[pop,bird] = 1}
     else{delta.prime_coverage[pop,bird]=0}
     
-    # muDelta coverage
+    # muDelta 
     for (i in 1:2) {
       muDeltaStr = paste("muDelta.", toString(bird), "..", toString(i), ".", sep="")    
       trueMuDelta = simulatedParams$muDelta[bird,i]  
       muDeltaHdi = hdi(samples[[muDeltaStr]][burnin:length(samples[[muDeltaStr]])], 0.95)
       if (trueMuDelta > muDeltaHdi[1] && trueMuDelta < muDeltaHdi[2]){muDeltaCoverage[i] = muDeltaCoverage[i] + 1}
     }
-    for (day in 1:nDays) {
-      # delta coverage    
+    # delta to final day
+    for (day in 1:(nDays-1)) {
       for (i in 1:2){ 
         deltaStr = paste("delta.", toString(bird), "..", toString(day), "..", toString(i), ".", sep="") 
         trueDelta = simulatedParams$delta[bird,day,i]
@@ -83,29 +81,42 @@ for (pop in 1:NPOPS){
         #   print(trueDelta.prime)
         #   print(delta.primeHdi)
         # }
-          # else{
-          #   print(paste('delta', toString(i), toString(day),toString(bird)))
-          #   plot(samples[[deltaStr]], type = "l", main = paste("Bird", toString(bird), "Day", toString(day), 'Change Point', toString(i)))
-          #   abline(a=trueDelta, b=0, lty = 3, col = 'red')
-          #   abline(a=deltaHdi[1], b = 0, lty = 2, col = 'blue')
-          #   text(nsamples, deltaHdi[1], labels=toString(round(deltaHdi[1],2)), cex=0.7, pos=1, offset=0.2)
-          #   text(nsamples, deltaHdi[2], labels=toString(round(deltaHdi[2],2)), cex=0.7, pos=3, offset=0.2)
-          #   mtext(side=4, at=trueDelta, text=toString(round(trueDelta,2)), cex=0.7, col='red')
-          #   abline(a=deltaHdi[2], b = 0, lty = 2, col = 'blue')
-          # }
+        # else{
+        #   print(paste('delta', toString(i), toString(day),toString(bird)))
+        #   plot(samples[[deltaStr]], type = "l", main = paste("Bird", toString(bird), "Day", toString(day), 'Change Point', toString(i)))
+        #   abline(a=trueDelta, b=0, lty = 3, col = 'red')
+        #   abline(a=deltaHdi[1], b = 0, lty = 2, col = 'blue')
+        #   text(nsamples, deltaHdi[1], labels=toString(round(deltaHdi[1],2)), cex=0.7, pos=1, offset=0.2)
+        #   text(nsamples, deltaHdi[2], labels=toString(round(deltaHdi[2],2)), cex=0.7, pos=3, offset=0.2)
+        #   mtext(side=4, at=trueDelta, text=toString(round(trueDelta,2)), cex=0.7, col='red')
+        #   abline(a=deltaHdi[2], b = 0, lty = 2, col = 'blue')
+        # }
       }
     }
+    # delta on final day
+    # delta1
+    deltaStr = paste("delta.", toString(bird), "..", toString(nDays), "..", toString(1), ".", sep="") 
+    trueDelta = simulatedParams$delta[bird,day,1]
+    deltaHdi = hdi(samples[[deltaStr]][burnin:length(samples[[deltaStr]])])
+    if (trueDelta > deltaHdi[1] && trueDelta < deltaHdi[2]){delta_coverage[[pop]][[i]][bird,nDays] = 1}
+    else{delta_coverage[[pop]][[1]][bird,nDays] = 0}
+    
+    #delta2
+    deltaStr = paste("delta.", toString(bird), "..", toString(nDays), "..", toString(2), ".", sep="") 
+    trueDelta = simulatedParams$delta[bird,nDays,2]
+    delta_minus_delta.primeHdi = hdi(samples[[deltaStr]][burnin:length(samples[[deltaStr]])] - samples[[delta.primeStr]][burnin:length(samples[[delta.primeStr]])])
+    if (trueDelta > delta_minus_delta.primeHdi[1] && trueDelta < delta_minus_delta.primeHdi[2]){delta_coverage[[pop]][[2]][bird,nDays] = 1}
+    else{delta_coverage[[pop]][[2]][bird,nDays] = 0}
   }
   
-  # muDelta.prime coverage
+  # muDelta.prime 
   trueMuDelta.prime = trueParams$muDelta.prime
   muDelta.primeHdi = hdi(samples[['muDelta.prime']][burnin:length(samples[['muDelta.prime']])])  
-  #  print("muDelta.prime:")  
   if (trueMuDelta.prime > muDelta.primeHdi[1] && trueMuDelta.prime < muDelta.primeHdi[2]){
     muDelta.primeCoverage = muDelta.primeCoverage + 1
   }
   
-  # muMuDelta coverage
+  # muMuDelta 
   tmp = c(0,0)
   for (i in 1:2) {
     muMuDeltaStr = paste("muMuDelta.", toString(i), ".", sep="")
@@ -115,7 +126,7 @@ for (pop in 1:NPOPS){
       tmp[i] = 1   
     }
   }
-
+  
   delta_coverage[[pop]][[1]] = cbind(delta_coverage[[pop]][[1]], rowMeans(delta_coverage[[pop]][[1]]))
   delta_coverage[[pop]][[2]] = cbind(delta_coverage[[pop]][[2]], rowMeans(delta_coverage[[pop]][[2]]))
   muDeltaCoverage = muDeltaCoverage/nBirds
