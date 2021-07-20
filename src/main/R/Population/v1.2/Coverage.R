@@ -8,7 +8,6 @@ library(HDInterval)
 source("Inputs.R")
 
 #### Simulation Parameters ####
-
 burnin=100
 nsamples=300
 pop0 = 0
@@ -27,11 +26,11 @@ save_coverage = TRUE
 #### Coverage ####
 # containers #
 muDelta.primeCoverage = 0
-muMuDeltaCoverage = c(0,0)
+muMuDelta_coverage = matrix(0,nrow = NPOPS, ncol = 2)
 delta_coverage = list()
 delta.prime_coverage = matrix(nrow=NPOPS,ncol=nBirds)
 
-for (pop in 1:NPOPS){
+for (pop in indices){
   
   # read data
   samples = data.frame(readRDS(paste("./results/samples/population", toString(pop + pop0), ".rds", sep = "")))
@@ -123,14 +122,11 @@ for (pop in 1:NPOPS){
   }
   
   # muMuDelta 
-  tmp = c(0,0)
   for (i in 1:2) {
     muMuDeltaStr = paste("muMuDelta.", toString(i), ".", sep="")
     muMuDeltaHdi = hdi(samples[[muMuDeltaStr]][burnin:length(samples[[muMuDeltaStr]])], 0.95)
-    if (trueParams$muMuDelta[i] > muMuDeltaHdi[1] && trueParams$muMuDelta[i] < muMuDeltaHdi[2]){
-      muMuDeltaCoverage[i] = muMuDeltaCoverage[i] + 1
-      tmp[i] = 1   
-    }
+    muMuDelta_coverage[pop, i] = min(c(trueParams$muMuDelta[i] - muMuDeltaHdi[1],
+                                       muMuDeltaHdi[2] - trueParams$muMuDelta[i]))
   }
   
   delta_coverage[[pop]][[1]] = cbind(delta_coverage[[pop]][[1]], rowMeans(delta_coverage[[pop]][[1]]))
@@ -182,7 +178,7 @@ if (save_coverage){
 
 
 # simulation run results
-muMuDeltaCoverage = muMuDeltaCoverage/NPOPS
+muMuDeltaCoverage = apply(muMuDelta_coverage > 0, 2, mean)
 
 print(paste("Overall", "Results", sep = " "))
 print("------------------------------------------")
