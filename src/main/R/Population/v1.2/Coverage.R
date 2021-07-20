@@ -1,6 +1,7 @@
 library(tibble)
 library(dplyr)
 library(tidyr)
+library(stringr)
 library(ggplot2)
 library(patchwork)
 library(HDInterval)
@@ -8,10 +9,15 @@ source("Inputs.R")
 
 #### Simulation Parameters ####
 
-NPOPS=25
 burnin=100
 nsamples=300
 pop0 = 0
+
+## Generate list of files
+dir <- file.path("results","samples")
+files <- list.files(dir)
+indices <- sort(as.integer(str_extract(files,"\\d+")))
+NPOPS <- length(indices)
 
 #### Output Parameters #####
 prnt = FALSE
