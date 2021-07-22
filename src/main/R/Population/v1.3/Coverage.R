@@ -8,14 +8,14 @@ source("Inputs.R")
 
 #### Simulation Parameters ####
 
-NPOPS=25
+NPOPS=5
 burnin=100
 nsamples=300
 pop0 = 0
 
 #### Output Parameters #####
 prnt = FALSE
-plt = FALSE
+plt = TRUE
 save_coverage = TRUE
 
 #### Coverage ####
@@ -52,7 +52,7 @@ for (pop in 1:NPOPS){
       if (trueMuDelta > muDeltaHdi[1] && trueMuDelta < muDeltaHdi[2]){muDeltaCoverage[i] = muDeltaCoverage[i] + 1}
     }
     # delta to final day
-    for (day in 1:(nDays-1)) {
+    for (day in 1:nDays) {
       for (i in 1:2){ 
         deltaStr = paste("delta.", toString(bird), "..", toString(day), "..", toString(i), ".", sep="") 
         trueDelta = simulatedParams$delta[bird,day,i]
@@ -93,20 +93,6 @@ for (pop in 1:NPOPS){
           # }
       }
     }
-    # delta on final day
-    # delta1
-    deltaStr = paste("delta.", toString(bird), "..", toString(nDays), "..", toString(1), ".", sep="") 
-    trueDelta = simulatedParams$delta[bird,day,1]
-    deltaHdi = hdi(samples[[deltaStr]][burnin:length(samples[[deltaStr]])])
-    if (trueDelta > deltaHdi[1] && trueDelta < deltaHdi[2]){delta_coverage[[pop]][[i]][bird,nDays] = 1}
-    else{delta_coverage[[pop]][[1]][bird,nDays] = 0}
-    
-    #delta2
-    deltaStr = paste("delta.", toString(bird), "..", toString(nDays), "..", toString(2), ".", sep="") 
-    trueDelta = simulatedParams$delta[bird,nDays,2]
-    delta_minus_delta.primeHdi = hdi(samples[[deltaStr]][burnin:length(samples[[deltaStr]])] - samples[[delta.primeStr]][burnin:length(samples[[delta.primeStr]])])
-    if (trueDelta > delta_minus_delta.primeHdi[1] && trueDelta < delta_minus_delta.primeHdi[2]){delta_coverage[[pop]][[2]][bird,nDays] = 1}
-    else{delta_coverage[[pop]][[1]][bird,nDays] = 0}
   }
   
   # muDelta.prime 

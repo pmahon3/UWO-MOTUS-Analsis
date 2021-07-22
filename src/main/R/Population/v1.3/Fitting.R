@@ -5,7 +5,7 @@ library(HDInterval)
 library(extraDistr)
 
 NCORES = 5
-NPOPS = 15
+NPOPS = 25
 
 ## Parallel function definition
 runMCMC <- function(x) {
@@ -61,6 +61,6 @@ source("Model.R")
 #registerDoParallel(NCORES)
 
 ## Run in parallel
-for ( i in 1:25 ) {
+for ( i in 1:NPOPS ) {
   runMCMC(i)
 }

@@ -8,14 +8,14 @@ source("Inputs.R")
 
 #### Simulation Parameters ####
 
-NPOPS=25
+NPOPS=5
 burnin=100
 nsamples=300
 pop0 = 0
 
 #### Output Parameters #####
 prnt = FALSE
-plt = FALSE
+plt = TRUE
 save_coverage = TRUE
 
 #### Coverage ####
@@ -96,9 +96,9 @@ for (pop in 1:NPOPS){
     # delta on final day
     # delta1
     deltaStr = paste("delta.", toString(bird), "..", toString(nDays), "..", toString(1), ".", sep="") 
-    trueDelta = simulatedParams$delta[bird,day,1]
+    trueDelta = simulatedParams$delta[bird,nDays,1]
     deltaHdi = hdi(samples[[deltaStr]][burnin:length(samples[[deltaStr]])])
-    if (trueDelta > deltaHdi[1] && trueDelta < deltaHdi[2]){delta_coverage[[pop]][[i]][bird,nDays] = 1}
+    if (trueDelta > deltaHdi[1] && trueDelta < deltaHdi[2]){delta_coverage[[pop]][[1]][bird,nDays] = 1}
     else{delta_coverage[[pop]][[1]][bird,nDays] = 0}
     
     #delta2
