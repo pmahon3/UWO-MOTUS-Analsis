@@ -1,18 +1,24 @@
 library(tibble)
 library(dplyr)
 library(tidyr)
+library(stringr)
 library(ggplot2)
 library(patchwork)
 library(HDInterval)
 source("Inputs.R")
-## Analyze coverage
-NPOPS=67
+
+## Generate list of files
+dir <- file.path("results","samples")
+files <- list.files(dir)
+indices <- sort(as.integer(str_extract(files,"\\d+")))
+NPOPS <- length(indices)
 
 ## init coverage results
 muDelta.primeCoverage = 0
 muMuDeltaCoverage = c(0,0)
 
-for (i in 1:NPOPS){
+
+for (i in indices){
   
   print(paste("Simulation", toString(i), "Coverage", sep = " "))
   print("------------------------------------------")
