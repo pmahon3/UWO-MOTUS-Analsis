@@ -2,17 +2,32 @@ library(mclust)
 library(plyr)
 library(tidyverse)
 library(nimble)
+library(chron)
 
 # read in data
 dat <- data.frame(readRDS("quiescence.rds"))
 
-# extract times and dates
-dat <-  dat %>% separate(ts, c('day', 'time'), sep=" ", remove=TRUE) %>% 
-  separate(time, c("hours", "minutes", "seconds"), sep=":") %>% 
-  mutate(hours = as.numeric(hours)) %>% 
-  mutate(minutes = as.numeric(minutes)) %>%
-  mutate(seconds = as.numeric(seconds)) %>%
-  mutate(t = hours*60*60 + minutes*60 + seconds)
+#### Data Selection ####
+birds <- as.matrix(unique(dat %>% select(motusTagID)))
+birds <- data.frame(cbind('mTagID' = birds, 'modelID' = seq(1,length(birds))))
+nObs = length(dat$sig)
+
+morbey_radio = data.frame(read.csv("morbey_radio.csv"))
+
+
+dat <-  dat %>% mutate(ts = as.chron(as.POSIXct(ts, format="%Y-%m-%d %H:%M:%OS"))) %>% 
+  mutate(secs = hours(ts)*3600 + minutes(ts)*60 + seconds(ts)) %>% 
+  filter( between(secs, 4*3600, 8*3600) | between(secs, 17*3600, 21*3600)) %>%  
+  mutate(last_day = (dates(as.chron(depart_night2))==dates(ts)) * 1) %>% 
+  mutate(modelID = filter(birds, mTagID == motusTagID))
+
+for (bird in birds){
+  bird_dat <- dat %>% filter(motusTagID==bird)
+  days <- unique(date(bird_dat$ts))
+}
+  
+
+#dat[sig, t, bird, day, last_day]
 
 #### Hyperparameter Fitting ####
 
@@ -24,57 +39,6 @@ GMMparams <- GMM$parameters
 # select hyperparameters from GMM parameters (note: variance from GMM is taken as the hyperparameter for stdev)
 etaMuMuY <- c(GMMparams$mean[1], GMMparams$mean[2], GMMparams$mean[1])
 thetaMuMuY <- c(GMMparams$variance$sigmasq[1], GMMparams$variance$sigmasq[2], GMMparams$variance$sigmasq[1])
-
-#### Data Selection ####
-birds <- unique(dat %>% select(motusTagID))
-birds <- birds$motusTagID
-nBirds <- length(birds)
-nDays <- list()
-nObs <- list()
-y <- list()
-t <- list()
-maxDays = 0;
-maxObs = 0;
-
-for (i in 1:nBirds) {
-  days <- unique(dat %>% filter(motusTagID == birds[i]) %>% select(day))
-  days <- days$day
-  nDays[i] <- length(days)
-  
-  if (maxDays < nDays[[i]]) maxDays = nDays[[i]]
-  
-  y[[i]] <- list()
-  t[[i]] <- list()
-  bird_nObs <- list()
-  for (j in 1:nDays[[i]]){
-    obs <- dat %>% filter(motusTagID == birds[i], day == days[j]) %>% select(sig, t)
-    bird_nObs[j] = length(obs$t)
-    
-    if (maxObs < bird_nObs[j]) maxObs = bird_nObs[[j]]
-    
-    y[[i]][[j]] <- obs$sig 
-    t[[i]][[j]] <- obs$t
-  }
-  nObs[[i]] = bird_nObs
-}
-
-y_mat = array(dim = c(nBirds,maxDays,maxObs))
-t_mat = array(dim = c(nBirds,maxDays,maxObs))
-nDays = as.vector(nDays, mode="numeric")
-nObs_mat = matrix(nrow=nBirds,ncol=maxObs)
-for (i in 1:nBirds){
-  for(j in 1:nDays[i]){
-    nObs_mat[i,j] = nObs[[i]][[j]]
-    for (k in 1:nObs[[i]][[j]]){
-      y_mat[i,j,k] = y[[i]][[j]][[k]]
-      t_mat[i,j,k] = t[[i]][[j]][[k]]
-    }
-  }
-}
-
-y = y_mat
-t = t_mat
-nObs = nObs_mat
 
 #### Hyperparameter and Constant Selection ####
 

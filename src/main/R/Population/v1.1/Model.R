@@ -34,8 +34,19 @@ modelCode <- nimbleCode(
             
           ## Model response
           y[i,j,k] ~ dnorm( muY[i,j,p[i,j,k]],tauY[i,j,p[i,j,k]])
-        }
+        s}
       }
+    }
+
+
+    for (i in 1:nObs){
+      bird <- obs[i,1]
+      day <- obs[i,2]
+      lastDay <- obs[i,3]
+      time <- dat[i,4]
+      p[nObs] <- step( t - delta[bird,day,1] ) +
+        step( t-delta[bird,day,2] - delta.prime[bird] * lastDay)
+        + 1
     }
 
       ## Period effects

@@ -24,15 +24,11 @@ modelCode <- nimbleCode(
     ## 1) Signal strength
     
     ## Observed values
-    for ( i in 1:nBirds ){
-      for ( j in 1:nDays[i] ){
-        for ( k in 1:nObservations[i,j]){
-          ## Identify period of day
-          p[i,j,k] <- step( t[i,j,k]- delta[i,j,1] ) +
-            step( t[i,j,k] - delta[i,j,2]) + 1
-          ## Model response
-          y[i,j,k] ~ dnorm( muY[i,j,p[i,j,k]],tauY[i,j,p[i,j,k]])
-        }
+    for (obs in 1:nObs){
+       bird = dat[obs,1]
+       day = dat[obs,2]
+       finalDay 
+       
       }
     }
     
