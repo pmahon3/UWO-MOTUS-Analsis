@@ -16,18 +16,34 @@ morbey_radio = data.frame(read.csv("morbey_radio.csv"))
 
 
 dat <-  dat %>% mutate(ts = as.chron(as.POSIXct(ts, format="%Y-%m-%d %H:%M:%OS"))) %>% 
+  # Extract time values
   mutate(secs = hours(ts)*3600 + minutes(ts)*60 + seconds(ts)) %>% 
+  # Set day
+  mutate(day = dates(ts)) %>%
+  # Filter out a window
   filter( between(secs, 4*3600, 8*3600) | between(secs, 17*3600, 21*3600)) %>%  
+  # Determine if it is the last day
   mutate(last_day = (dates(as.chron(depart_night2))==dates(ts)) * 1) %>% 
-  mutate(modelID = filter(birds, mTagID == motusTagID))
-
-for (bird in birds){
-  bird_dat <- dat %>% filter(motusTagID==bird)
-  days <- unique(date(bird_dat$ts))
-}
+  # Set bird index
+  group_by(motusTagID) %>%
+  arrange(motusTagID) %>%
+  mutate(modelId = 1:n()) %>%
+  ungroup() %>%
+  # Get number of days
+  group_by(modelId) %>%
+  mutate(nDay = length(unique(dates(ts)))) %>%
+  ungroup() %>%
+  # Get the first day
+  group_by(modelId) %>%
+  # Determine day number 
+  mutate(modelDay = day-min(day) + 1) %>%
+  ungroup() %>%
+  # Convert seconds to hours
+  mutate(t = secs/(60*60)) %>%
+  # Select relevant variables
+  select(motusTagID, modelId, modelDay, last_day, t, sig)
   
 
-#dat[sig, t, bird, day, last_day]
 
 #### Hyperparameter Fitting ####
 
