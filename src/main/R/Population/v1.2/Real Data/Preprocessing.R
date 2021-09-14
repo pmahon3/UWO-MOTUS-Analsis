@@ -25,10 +25,11 @@ dat <-  dat %>% mutate(ts = as.chron(as.POSIXct(ts, format="%Y-%m-%d %H:%M:%OS")
   # Determine if it is the last day
   mutate(last_day = (dates(as.chron(depart_night2))==dates(ts)) * 1) %>% 
   # Set bird index
-  group_by(motusTagID) %>%
-  arrange(motusTagID) %>%
-  mutate(modelId = 1:n()) %>%
-  ungroup() %>%
+  ## group_by(motusTagID) %>%
+  ## arrange(motusTagID) %>%
+  ## mutate(modelId = 1:n()) %>%
+  ## ungroup() %>%
+  mutate(modelId = as.integer(as.factor(motusTagID))) %>%
   # Get number of days
   group_by(modelId) %>%
   mutate(nDay = length(unique(dates(ts)))) %>%
