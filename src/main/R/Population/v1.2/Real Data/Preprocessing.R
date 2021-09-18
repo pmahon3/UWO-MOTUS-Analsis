@@ -9,11 +9,12 @@ dat <- data.frame(readRDS("quiescence.rds"))
 
 #### Data Selection ####
 birds <- as.matrix(unique(dat %>% select(motusTagID)))
-birds <- data.frame(cbind('mTagID' = birds, 'modelID' = seq(1,length(birds))))
+nBirds <- length(birds)
+nBirds <- data.frame(cbind('mTagID' = birds, 'modelID' = seq(1,length(birds))))
+
 nObs = length(dat$sig)
 
 morbey_radio = data.frame(read.csv("morbey_radio.csv"))
-
 
 dat <-  dat %>% mutate(ts = as.chron(as.POSIXct(ts, format="%Y-%m-%d %H:%M:%OS"))) %>% 
   # Extract time values
@@ -25,10 +26,6 @@ dat <-  dat %>% mutate(ts = as.chron(as.POSIXct(ts, format="%Y-%m-%d %H:%M:%OS")
   # Determine if it is the last day
   mutate(last_day = (dates(as.chron(depart_night2))==dates(ts)) * 1) %>% 
   # Set bird index
-  ## group_by(motusTagID) %>%
-  ## arrange(motusTagID) %>%
-  ## mutate(modelId = 1:n()) %>%
-  ## ungroup() %>%
   mutate(modelId = as.integer(as.factor(motusTagID))) %>%
   # Get number of days
   group_by(modelId) %>%
@@ -40,10 +37,12 @@ dat <-  dat %>% mutate(ts = as.chron(as.POSIXct(ts, format="%Y-%m-%d %H:%M:%OS")
   mutate(modelDay = day-min(day) + 1) %>%
   ungroup() %>%
   # Convert seconds to hours
-  mutate(t = secs/(60*60)) %>%
-  # Select relevant variables
-  select(motusTagID, modelId, modelDay, last_day, t, sig)
-  
+  mutate(t = secs/(60*60))
+
+days <- dat %>% select(modelId, nDay) %>% distinct() %>% arrange(modelId) %>% select(nDay)
+
+# Select relevant variables
+dat <- dat %>% select(motusTagID, modelId, modelDay, last_day, t, sig)
 
 
 #### Hyperparameter Fitting ####
@@ -61,9 +60,9 @@ thetaMuMuY <- c(GMMparams$variance$sigmasq[1], GMMparams$variance$sigmasq[2], GM
 
 constants = list(
   ## Design parameters
-  nBirds = nBirds,
-  nDays = nDays,
-  nObservations = nObs,
+  nObs = nObs,
+  nBirds = nBirds, 
+  nDays = days$nDay,
   
   ## Hyperparameters
   
@@ -91,7 +90,7 @@ constants = list(
   sSigmaDelta.prime = 1,
   dfSigmaDelta.prime = 5,
   
-  ## 3) Signal strength
+  ## 3) Signaldays strength
   
   ## Overall means by period
   etaMuMuY = etaMuMuY,
@@ -109,8 +108,7 @@ constants = list(
   thetaSigmaY = c(5,5,5)
 )
 
-
 #### Save ####
 
-saveRDS(list('y'=y,'t'=t), file='data.rds')
+saveRDS(list('y' = dat$sig,'t'= dat$t, 'id' = dat$modelId, 'day' = dat$modelDay, 'last_day' = dat$last_day), file='data.rds')
 saveRDS(constants, file='constants.rds')

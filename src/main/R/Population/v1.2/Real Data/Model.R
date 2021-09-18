@@ -25,11 +25,14 @@ modelCode <- nimbleCode(
     
     ## Observed values
     for (obs in 1:nObs){
-       bird = dat[obs,1]
-       day = dat[obs,2]
-       finalDay 
-       
-      }
+        bird <- id[obs]
+        day <- day[obs]
+        last <- last_day[obs]
+        time <- t[obs]
+        
+        period <- step(t - delta[bird, day, 1]) + step(t - delta[bird, day, 2] - delta.prime[bird] * last) +  1
+        
+        sig[obs] ~ dnorm( muY[bird, day, period], tau[bird, day, period])
     }
     
     ## Period effects
@@ -59,8 +62,9 @@ modelCode <- nimbleCode(
           delta[bird,day,p] ~ dnorm( muDelta[bird,p], 1/sigmaDelta[p]^2)
         }
       }
-      delta[bird,nDays[bird],1] ~ dnorm(muDelta[bird,1], 1/sigmaDelta[1]^2)
-      delta[bird,nDays[bird],2] ~ dnorm(muDelta[bird,2] + delta.prime[bird], 1/sigmaDelta[2]^2)
+      last <- nDays[bird]
+      delta[bird,last,1] ~ dnorm(muDelta[bird,1], 1/sigmaDelta[1]^2)
+      delta[bird,last,2] ~ dnorm(muDelta[bird,2] + delta.prime[bird], 1/sigmaDelta[2]^2)
     }
     
     ##### Priors #####
