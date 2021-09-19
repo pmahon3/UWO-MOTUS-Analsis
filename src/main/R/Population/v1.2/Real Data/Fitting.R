@@ -9,6 +9,7 @@ library(extraDistr)
 source("Model.R")
 
 data = readRDS('data.rds')
+
 constants = readRDS('constants.rds')
 
 model <- nimbleModel(code = modelCode,
@@ -16,9 +17,13 @@ model <- nimbleModel(code = modelCode,
                      constants = constants,
                      data = data,
                      calculate = FALSE)
+
 configured <- configureMCMC(model)
+
 configured$resetMonitors()
-configured$setThin(10)  
+
+configured$setThin(10)
+
 configured$addMonitors(c("muDelta.prime",
                          "sigmaDelta.prime",
                          "delta.prime",
