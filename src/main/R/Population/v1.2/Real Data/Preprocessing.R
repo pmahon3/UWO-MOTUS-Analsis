@@ -8,16 +8,11 @@ library(chron)
 dat <- data.frame(readRDS("quiescence.rds"))
 
 #### Data Selection ####
-birds <- as.matrix(unique(dat %>% select(motusTagID)))
-nBirds <- length(birds)
-nBirds <- data.frame(cbind('mTagID' = birds, 'modelID' = seq(1,length(birds))))
-
-nObs = length(dat$sig)
-
 morbey_radio = data.frame(read.csv("morbey_radio.csv"))
 
-dat <-  dat %>% mutate(ts = as.chron(as.POSIXct(ts, format="%Y-%m-%d %H:%M:%OS"))) %>% 
+dat <-  dat %>%
   # Extract time values
+  mutate(ts = as.chron(as.POSIXct(ts, format="%Y-%m-%d %H:%M:%OS"))) %>% 
   mutate(secs = hours(ts)*3600 + minutes(ts)*60 + seconds(ts)) %>% 
   # Set day
   mutate(day = dates(ts)) %>%
@@ -39,11 +34,27 @@ dat <-  dat %>% mutate(ts = as.chron(as.POSIXct(ts, format="%Y-%m-%d %H:%M:%OS")
   # Convert seconds to hours
   mutate(t = secs/(60*60))
 
-days <- dat %>% select(modelId, nDay) %>% distinct() %>% arrange(modelId) %>% select(nDay)
+## Keep individuals captured more than once
+dat <- dat %>%
+  filter(nDay > 1)
+
+## Order observations by ID, year, day, and time for convenience
+dat <- dat %>%
+  arrange(modelId,year,modelDay,t)
+
+## Count number of observed days per bird
+days <- dat %>%
+  select(modelId, nDay) %>%
+  distinct() %>%
+  arrange(modelId) #%>% select(nDay)
 
 # Select relevant variables
-dat <- dat %>% select(motusTagID, modelId, modelDay, last_day, t, sig)
+dat <- dat %>%
+  select(motusTagID, modelId, modelDay, last_day, t, sig)
 
+## Compute basic statistis
+nObs <- nrow(dat)
+nBirds <- length(unique(dat$modelId))
 
 #### Hyperparameter Fitting ####
 
