@@ -72,8 +72,7 @@ thetaMuMuY <- c(GMMparams$variance$sigmasq[1], GMMparams$variance$sigmasq[2], GM
 constants = list(
   ## Design parameters
   nObs = nObs,
-  nBirds = nBirds, 
-  nDays = days$nDay,
+  nBirds = nBirds,
   
   ## Hyperparameters
   
@@ -121,5 +120,6 @@ constants = list(
 
 #### Save ####
 
-saveRDS(list('y' = dat$sig,'t'= dat$t, 'id' = dat$modelId, 'day' = dat$modelDay, 'last_day' = dat$last_day), file='data.rds')
+saveRDS(list('y' = dat$sig,'t'= dat$t, 'id' = dat$modelId, 'day' = dat$modelDay, 'last_day' = dat$last_day,  
+             'nDays' = days$nDay), file='data.rds')
 saveRDS(constants, file='constants.rds')
