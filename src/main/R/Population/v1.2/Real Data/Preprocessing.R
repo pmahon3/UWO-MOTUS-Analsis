@@ -36,7 +36,9 @@ dat <-  dat %>%
 
 ## Keep individuals captured more than once
 dat <- dat %>%
-  filter(nDay > 1)
+    filter(nDay > 1) %>%
+    ## Take subset of data for testing
+    head(100000)
 
 ## Order observations by ID, year, day, and time for convenience
 dat <- dat %>%
@@ -73,6 +75,7 @@ constants = list(
   ## Design parameters
   nObs = nObs,
   nBirds = nBirds,
+  nDays = days$nDay,
   
   ## Hyperparameters
   
@@ -120,6 +123,5 @@ constants = list(
 
 #### Save ####
 
-saveRDS(list('y' = dat$sig,'t'= dat$t, 'id' = dat$modelId, 'day' = dat$modelDay, 'last_day' = dat$last_day,  
-             'nDays' = days$nDay), file='data.rds')
+saveRDS(list('y' = dat$sig,'t'= dat$t, 'id' = dat$modelId, 'day' = dat$modelDay, 'last_day' = dat$last_day), file='data.rds')
 saveRDS(constants, file='constants.rds')

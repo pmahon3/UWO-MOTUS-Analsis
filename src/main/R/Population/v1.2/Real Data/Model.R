@@ -30,7 +30,7 @@ modelCode <- nimbleCode(
         last <- last_day[obs]
         time <- t[obs]
         
-        period[obs] <- step(time - delta[bird, myday, 1]) + step(time - delta[bird, myday, 2] - delta.prime[bird] * last) +  1
+        period <- step(time - delta[bird, myday, 1]) + step(time - delta[bird, myday, 2] - delta.prime[bird] * last) +  1
         
         y[obs] ~ dnorm( muY[bird, myday, period], tauY[bird, myday, period])
     }
@@ -54,10 +54,10 @@ modelCode <- nimbleCode(
     }
     
     # delta, muDelta, and muMuDelta priors
-    for ( bird in 1:nBirds){
+    for ( bird in 1:nBirds){      
       for(p in 1:2){
         muDelta[bird,p] ~ dnorm(muMuDelta[p], 1/sigmaMuDelta[p]^2)
-        
+
         for ( day in 1:(nDays[bird]-1) ){
           delta[bird,day,p] ~ dnorm( muDelta[bird,p], 1/sigmaDelta[p]^2)
         }
